@@ -14,7 +14,7 @@
 
 **✨ Zero dependencias • Zero frameworks • Zero build tools ✨**
 
-[Ver Demo](#) • [Reportar Bug](https://github.com/Leonardo4516/Portafolio_Leonardo_Hernandez/issues) • [Sugerir Mejora](https://github.com/Leonardo4516/Portafolio_Leonardo_Hernandez/issues)
+[Ver Demo](#) • [Reportar Bug](https://github.com/Leonardo4516/portafolio/issues) • [Sugerir Mejora](https://github.com/Leonardo4516/portafolio/issues)
 
 </div>
 
@@ -58,10 +58,10 @@ El portafolio está construido **100% con tecnologías web vanilla** — sin Rea
 
 ```bash
 # Clona el repositorio
-git clone https://github.com/Leonardo4516/Portafolio_Leonardo_Hernandez.git
+git clone https://github.com/Leonardo4516/portafolio.git
 
 # Abre el archivo index.html en tu navegador favorito
-cd Portafolio_Leonardo_Hernandez
+cd portafolio
 open index.html   # macOS
 xdg-open index.html  # Linux
 start index.html  # Windows
@@ -85,7 +85,7 @@ start index.html  # Windows
 ## 📁 Estructura del Proyecto
 
 ```
-📦 Portafolio_Leonardo_Hernandez
+📦 portafolio
 ├── 📄 index.html              # Página principal — HTML semántico (254 líneas)
 ├── 📁 css/
 │   └── 📄 style.css           # Estilos completos — 822 líneas con design tokens
