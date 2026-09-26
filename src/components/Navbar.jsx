@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Globe } from 'lucide-react'
-import { VitruvianLogo, GithubIcon } from './Icons'
+import { BrandLogo, GithubIcon } from './Icons'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function Navbar() {
@@ -40,25 +40,17 @@ export default function Navbar() {
         : 'bg-transparent py-4'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-        {/* Brand with Vitruvian Man Logo */}
+        {/* Brand: ONLY the logo, minimalist and bold */}
         <a 
           href="#inicio" 
           onClick={() => setMobileMenuOpen(false)}
-          className="flex items-center gap-3 group focus:outline-none"
+          className="flex items-center group focus:outline-none"
+          title="Inicio // Home"
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500/30 to-purple-600/30 p-[1px] border border-cyan-400/40 shadow-[0_0_20px_rgba(0,243,255,0.2)] group-hover:shadow-[0_0_25px_rgba(0,243,255,0.4)] transition-all">
-            <div className="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center group-hover:bg-slate-900 transition-colors">
-              <VitruvianLogo className="w-7 h-7 group-hover:scale-105 transition-transform" />
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500/30 via-slate-900 to-purple-600/30 p-[1px] border border-cyan-400/40 shadow-[0_0_20px_rgba(0,243,255,0.2)] group-hover:shadow-[0_0_25px_rgba(0,243,255,0.45)] group-hover:border-cyan-300 transition-all">
+            <div className="w-full h-full bg-slate-950/90 rounded-[11px] flex items-center justify-center group-hover:bg-slate-900 transition-colors">
+              <BrandLogo className="w-6 h-6 group-hover:scale-105 transition-transform" />
             </div>
-          </div>
-          <div className="flex flex-col">
-            <span className="font-mono font-bold text-base sm:text-lg tracking-tight bg-gradient-to-r from-cyan-400 via-sky-300 to-purple-400 bg-clip-text text-transparent">
-              Leonardo DaVinci
-            </span>
-            <span className="flex items-center gap-1.5 text-[10px] text-emerald-400 font-mono">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              {t.nav.status}
-            </span>
           </div>
         </a>
 

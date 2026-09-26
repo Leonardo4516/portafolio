@@ -1,65 +1,61 @@
-// Minimalist, geometric Vitruvian Man (Leonardo da Vinci inspired) SVG Logo
-export function VitruvianLogo({ className = "w-6 h-6", strokeWidth = 1.6 }) {
+// Minimalist, high-tech architectural Monogram Logo ("L" for Leonardo)
+export function BrandLogo({ className = "w-7 h-7" }) {
   return (
     <svg 
       className={className} 
-      viewBox="0 0 48 48" 
+      viewBox="0 0 40 40" 
       fill="none" 
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        <linearGradient id="vitruvianGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="brandGradPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#00f3ff" />
-          <stop offset="50%" stopColor="#38bdf8" />
           <stop offset="100%" stopColor="#bc13fe" />
         </linearGradient>
+        <linearGradient id="brandGradSecondary" x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#38bdf8" />
+          <stop offset="100%" stopColor="#818cf8" />
+        </linearGradient>
       </defs>
-      
-      {/* Vitruvian Geometric Circle */}
-      <circle 
-        cx="24" 
-        cy="24" 
-        r="22" 
-        stroke="url(#vitruvianGradient)" 
-        strokeWidth={strokeWidth} 
-        strokeDasharray="3 3"
-        opacity="0.85"
+
+      {/* Hexagonal Outer Frame (Minimalist Cyber Shield) */}
+      <polygon 
+        points="20,2 35.6,11 35.6,29 20,38 4.4,29 4.4,11" 
+        stroke="url(#brandGradPrimary)" 
+        strokeWidth="1.8" 
+        strokeLinejoin="round"
+        className="opacity-70 group-hover:opacity-100 transition-opacity"
       />
 
-      {/* Vitruvian Geometric Square */}
-      <rect 
-        x="6" 
-        y="6" 
-        width="36" 
-        height="36" 
-        stroke="url(#vitruvianGradient)" 
-        strokeWidth={strokeWidth * 0.8} 
-        opacity="0.45"
+      {/* Inner Precision Geometry Accent */}
+      <polygon 
+        points="20,6 32,13 32,27 20,34 8,27 8,13" 
+        stroke="#ffffff" 
+        strokeWidth="0.75" 
+        strokeDasharray="2 4"
+        opacity="0.3"
       />
 
-      {/* Head */}
-      <circle cx="24" cy="11.5" r="3" stroke="#e0f2fe" strokeWidth={strokeWidth} fill="#030712" />
+      {/* Sharp Architectural "L" Monogram */}
+      <path 
+        d="M14 11V29H28" 
+        stroke="url(#brandGradPrimary)" 
+        strokeWidth="3.2" 
+        strokeLinecap="round" 
+        strokeLinejoin="round" 
+      />
 
-      {/* Torso */}
-      <line x1="24" y1="14.5" x2="24" y2="28" stroke="#e0f2fe" strokeWidth={strokeWidth} strokeLinecap="round" />
+      {/* Modern Diagonal Bevel Notch on the 'L' */}
+      <path 
+        d="M14 11L18 15" 
+        stroke="#00f3ff" 
+        strokeWidth="2" 
+        strokeLinecap="round" 
+      />
 
-      {/* Horizontal Arms (Square alignment) */}
-      <line x1="8" y1="19" x2="40" y2="19" stroke="#00f3ff" strokeWidth={strokeWidth} strokeLinecap="round" />
-
-      {/* Angled Arms (Circle alignment) */}
-      <line x1="10" y1="13" x2="24" y2="19" stroke="#38bdf8" strokeWidth={strokeWidth * 0.9} strokeLinecap="round" opacity="0.85" />
-      <line x1="38" y1="13" x2="24" y2="19" stroke="#38bdf8" strokeWidth={strokeWidth * 0.9} strokeLinecap="round" opacity="0.85" />
-
-      {/* Standing Legs (Square alignment) */}
-      <line x1="24" y1="28" x2="17" y2="42" stroke="#bc13fe" strokeWidth={strokeWidth} strokeLinecap="round" />
-      <line x1="24" y1="28" x2="31" y2="42" stroke="#bc13fe" strokeWidth={strokeWidth} strokeLinecap="round" />
-
-      {/* Spread Legs (Circle alignment) */}
-      <line x1="24" y1="28" x2="10" y2="39" stroke="#c084fc" strokeWidth={strokeWidth * 0.9} strokeLinecap="round" opacity="0.8" />
-      <line x1="24" y1="28" x2="38" y2="39" stroke="#c084fc" strokeWidth={strokeWidth * 0.9} strokeLinecap="round" opacity="0.8" />
-
-      {/* Center Harmony Node */}
-      <circle cx="24" cy="24" r="1.5" fill="#00f3ff" />
+      {/* Radiant Glowing Core Accent */}
+      <circle cx="28" cy="29" r="1.8" fill="#00f3ff" />
+      <circle cx="14" cy="11" r="1.4" fill="#bc13fe" />
     </svg>
   )
 }
