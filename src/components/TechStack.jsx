@@ -1,121 +1,247 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Server, Bot, Terminal, Code2, Database, Workflow, Cpu, Layers } from 'lucide-react'
-
-const CATEGORIES = [
-  { id: 'backend', label: 'Backend & Data', icon: Server },
-  { id: 'ai', label: 'IA & Automatización', icon: Bot },
-  { id: 'devops', label: 'DevOps & Herramientas', icon: Terminal },
-  { id: 'frontend', label: 'Frontend & UI', icon: Code2 },
-]
-
-const SKILLS = {
-  backend: [
-    { name: 'Python', level: 'Avanzado', desc: 'Desarrollo de lógica backend, scripts de gestión y automatización.', tag: 'Language' },
-    { name: 'PostgreSQL', level: 'Avanzado', desc: 'Consultas DateTime complejas, intervalos, normalización y tuning.', tag: 'Database' },
-    { name: 'MySQL', level: 'Intermedio+', desc: 'Modelado relacional, constraints, vistas y optimización de esquemas.', tag: 'Database' },
-    { name: 'Node.js', level: 'Intermedio+', desc: 'APIs RESTful, arquitectura modular y gestión asíncrona de I/O.', tag: 'Runtime' },
-    { name: 'Arquitectura REST', level: 'Avanzado', desc: 'Diseño de endpoints consistentes, códigos de estado y serialización.', tag: 'Concept' },
-    { name: 'Procesamiento de Datos', level: 'Avanzado', desc: 'Volcado, limpieza y validación de datasets estructurados.', tag: 'Data Engineering' }
-  ],
-  ai: [
-    { name: 'Prompt Engineering', level: 'Avanzado', desc: 'Diseño de zero-shot, few-shot y chain-of-thought para código robusto.', tag: 'GenAI' },
-    { name: 'n8n Workflow Automation', level: 'Avanzado', desc: 'Orquestación de bots, webhooks y automatización de procesos empresariales.', tag: 'Automation' },
-    { name: 'Promptfoo', level: 'Intermedio+', desc: 'Testeo automatizado y benchmarking de salidas de modelos de IA.', tag: 'Testing AI' },
-    { name: 'Agentic AI Workflows', level: 'Intermedio+', desc: 'Implementación de agentes que investigan, planifican y ejecutan tareas.', tag: 'Agents' },
-    { name: 'GitHub Copilot & AI IDEs', level: 'Avanzado', desc: 'Flujo de trabajo de programación acelerado y refactorización inteligente.', tag: 'Productivity' }
-  ],
-  devops: [
-    { name: 'Docker', level: 'Intermedio+', desc: 'Contenerización de bases de datos, redes locales y entornos aislados.', tag: 'Container' },
-    { name: 'Git & GitHub', level: 'Avanzado', desc: 'Flujos colaborativos, git-flow, hooks, GitHub Actions y CI/CD básico.', tag: 'VCS' },
-    { name: 'Linux / Bash', level: 'Intermedio+', desc: 'Manejo de terminal, scripts shell, permisos y administración básica.', tag: 'OS' },
-    { name: 'Gestión de Paquetes', level: 'Avanzado', desc: 'npm, pip, yarn y configuración de dependencias limpias.', tag: 'Tools' }
-  ],
-  frontend: [
-    { name: 'JavaScript ES6+', level: 'Avanzado', desc: 'Vanilla JS, manipulación avanzada de DOM, async/await y APIs nativas.', tag: 'Core' },
-    { name: 'React.js', level: 'Intermedio', desc: 'Componentes funcionales, hooks, estado y consumo de APIs.', tag: 'Framework' },
-    { name: 'HTML5 & CSS3', level: 'Avanzado', desc: 'HTML semántico, accesibilidad (a11y), CSS Grid y Flexbox responsivo.', tag: 'Web' },
-    { name: 'Tailwind CSS', level: 'Avanzado', desc: 'Estilizado atómico, diseño responsivo y efectos visuales modernos.', tag: 'Styling' }
-  ]
-}
+import { ShieldCheck, Award, Layers, Zap } from 'lucide-react'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function TechStack() {
-  const [activeTab, setActiveTab] = useState('backend')
+  const { language, t } = useLanguage()
+  const [activeLevel, setActiveLevel] = useState('all')
+
+  const skillsData = [
+    // Avanzado
+    {
+      name: 'Prompt Engineering',
+      level: 'advanced',
+      levelLabel: language === 'es' ? 'Avanzado' : 'Advanced',
+      tag: 'AI Core',
+      desc: language === 'es' 
+        ? 'Diseño riguroso de prompts estructurados (zero-shot, few-shot, chain-of-thought) con delimitadores, restricciones y formateo determinista.'
+        : 'Rigorous prompt engineering (zero-shot, few-shot, chain-of-thought) with explicit delimiters, constraints, and deterministic outputs.'
+    },
+    {
+      name: 'Agentic AI Workflows',
+      level: 'advanced',
+      levelLabel: language === 'es' ? 'Avanzado' : 'Advanced',
+      tag: 'Autonomous AI',
+      desc: language === 'es'
+        ? 'Diseño de flujos agénticos donde modelos de lenguaje analizan, planifican y ejecutan tareas de desarrollo e investigación paso a paso.'
+        : 'Designing agentic workflows where language models plan, research, and execute multi-step engineering tasks iteratively.'
+    },
+
+    // Intermedio
+    {
+      name: 'Java (Java 17+)',
+      level: 'intermediate',
+      levelLabel: language === 'es' ? 'Intermedio' : 'Intermediate',
+      tag: 'Backend Core',
+      desc: language === 'es'
+        ? 'Principios SOLID, Arquitectura Hexagonal, patrones de diseño (State, Factory, Strategy) y pruebas automatizadas con JUnit.'
+        : 'SOLID principles, Hexagonal Architecture, design patterns (State, Factory, Strategy), and automated testing with JUnit.'
+    },
+    {
+      name: 'PostgreSQL',
+      level: 'intermediate',
+      levelLabel: language === 'es' ? 'Intermedio' : 'Intermediate',
+      tag: 'Database',
+      desc: language === 'es'
+        ? 'Modelado relacional, consultas de fechas e intervalos, migraciones, normalización y entornos contenerizados con Docker.'
+        : 'Relational modeling, date/interval queries, data migrations, normalization, and containerized Docker environments.'
+    },
+    {
+      name: 'MySQL / MariaDB',
+      level: 'intermediate',
+      levelLabel: language === 'es' ? 'Intermedio' : 'Intermediate',
+      tag: 'Database',
+      desc: language === 'es'
+        ? 'Diseño de esquemas relacionales, triggers de control de inventario, procedimientos almacenados y vistas analíticas.'
+        : 'Relational schema design, inventory triggers, stored procedures, and analytical views.'
+    },
+    {
+      name: 'Python',
+      level: 'intermediate',
+      levelLabel: language === 'es' ? 'Intermedio' : 'Intermediate',
+      tag: 'Language',
+      desc: language === 'es'
+        ? 'Programación orientada a objetos, scripts de gestión de herramientas, persistencia en JSON y automatización.'
+        : 'Object-oriented programming, tool management scripts, JSON persistence, and system automation.'
+    },
+    {
+      name: 'Docker & Docker Compose',
+      level: 'intermediate',
+      levelLabel: language === 'es' ? 'Intermedio' : 'Intermediate',
+      tag: 'DevOps',
+      desc: language === 'es'
+        ? 'Contenerización de bases de datos relacionales (PostgreSQL/MySQL), volúmenes persistentes y redes aisladas para desarrollo.'
+        : 'Containerization of relational databases (PostgreSQL/MySQL), persistent volumes, and isolated local networks.'
+    },
+    {
+      name: 'GitHub Copilot & AI IDEs',
+      level: 'intermediate',
+      levelLabel: language === 'es' ? 'Intermedio' : 'Intermediate',
+      tag: 'Tooling',
+      desc: language === 'es'
+        ? 'Integración en el flujo de trabajo para acelerar la escritura de código repetitivo, refactorización y depuración guiada.'
+        : 'Integration into daily workflow for boilerplate acceleration, guided refactoring, and contextual debugging.'
+    },
+    {
+      name: 'Git & GitHub',
+      level: 'intermediate',
+      levelLabel: language === 'es' ? 'Intermedio' : 'Intermediate',
+      tag: 'VCS',
+      desc: language === 'es'
+        ? 'Control de versiones, flujo de ramas, resolución de merge conflicts, commits descriptivos y GitHub Actions básicos.'
+        : 'Version control, branch management, merge conflict resolution, descriptive commits, and basic GitHub Actions.'
+    },
+    {
+      name: 'HTML5 & CSS3',
+      level: 'intermediate',
+      levelLabel: language === 'es' ? 'Intermedio' : 'Intermediate',
+      tag: 'Web Base',
+      desc: language === 'es'
+        ? 'Estructura semántica del DOM, accesibilidad básica (a11y), maquetación con Flexbox y CSS Grid responsivo.'
+        : 'Semantic DOM structure, basic accessibility (a11y), responsive layouts using Flexbox and CSS Grid.'
+    },
+
+    // Básico
+    {
+      name: 'JavaScript (ES6+)',
+      level: 'basic',
+      levelLabel: language === 'es' ? 'Básico' : 'Basic',
+      tag: 'Language',
+      desc: language === 'es'
+        ? 'Manipulación nativa del DOM, Web Components, promesas, async/await y consumo de endpoints REST.'
+        : 'Native DOM manipulation, Web Components, promises, async/await, and REST endpoint consumption.'
+    },
+    {
+      name: 'Node.js',
+      level: 'basic',
+      levelLabel: language === 'es' ? 'Básico' : 'Basic',
+      tag: 'Runtime',
+      desc: language === 'es'
+        ? 'Ejecución de scripts, uso de módulos npm, estructuras básicas de backend y manejo asíncrono.'
+        : 'Script execution, npm module management, basic backend structures, and asynchronous flow.'
+    },
+    {
+      name: 'n8n Workflow Automation',
+      level: 'basic',
+      levelLabel: language === 'es' ? 'Básico' : 'Basic',
+      tag: 'Automation',
+      desc: language === 'es'
+        ? 'Creación de flujos sin servidor, nodos de código JS para transformación de datos y webhooks con Telegram y Google Sheets.'
+        : 'Serverless workflow creation, JS code nodes for data transformation, and webhook integrations with Telegram and Google Sheets.'
+    },
+    {
+      name: 'Promptfoo',
+      level: 'basic',
+      levelLabel: language === 'es' ? 'Básico' : 'Basic',
+      tag: 'Testing AI',
+      desc: language === 'es'
+        ? 'Configuración básica de benchmarks y casos de prueba para validar que los modelos de lenguaje devuelvan respuestas válidas.'
+        : 'Basic benchmark configuration and test cases to validate that language models output compliant responses.'
+    },
+    {
+      name: 'Linux / Bash',
+      level: 'basic',
+      levelLabel: language === 'es' ? 'Básico' : 'Basic',
+      tag: 'OS & CLI',
+      desc: language === 'es'
+        ? 'Navegación en consola, permisos de archivos, instalación de paquetes y ejecución de scripts shell básicos.'
+        : 'Command-line navigation, file permissions, package installation, and execution of basic shell scripts.'
+    }
+  ]
+
+  const levelFilters = [
+    { id: 'all', label: language === 'es' ? 'Todas' : 'All' },
+    { id: 'advanced', label: language === 'es' ? 'Avanzado' : 'Advanced', badge: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' },
+    { id: 'intermediate', label: language === 'es' ? 'Intermedio' : 'Intermediate', badge: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' },
+    { id: 'basic', label: language === 'es' ? 'Básico' : 'Basic', badge: 'bg-amber-500/20 text-amber-300 border-amber-500/30' }
+  ]
+
+  const filteredSkills = activeLevel === 'all'
+    ? skillsData
+    : skillsData.filter(s => s.level === activeLevel)
 
   return (
-    <section id="stack" className="py-24 px-6 relative z-10">
+    <section id="stack" className="py-24 px-4 sm:px-6 relative z-10">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-14">
-          <span className="text-xs font-mono uppercase tracking-widest text-purple-400 bg-purple-950/40 border border-purple-500/20 px-4 py-1.5 rounded-full">
-            03. // ARSENAL TÉCNICO
+        <div className="text-center mb-12">
+          <span className="text-xs font-mono uppercase tracking-widest text-purple-400 bg-purple-950/40 border border-purple-500/20 px-4 py-1.5 rounded-full inline-block">
+            {t.skills.tag}
           </span>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-100 mt-4 mb-4">
-            Habilidades & <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Tecnologías</span>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-100 mt-4 mb-4">
+            {t.skills.title} <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">{t.skills.titleHighlight}</span>
           </h2>
-          <p className="max-w-2xl mx-auto text-slate-400 text-sm sm:text-base font-sans">
-            Herramientas que domino para diseñar arquitecturas confiables, acelerar el ciclo de desarrollo y automatizar tareas operativas.
+          <p className="max-w-2xl mx-auto text-slate-400 text-xs sm:text-sm md:text-base font-sans leading-relaxed">
+            {t.skills.desc}
           </p>
         </div>
 
-        {/* Categories Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-12">
-          {CATEGORIES.map((cat) => {
-            const Icon = cat.icon
-            const isActive = activeTab === cat.id
+        {/* Level Filter Tabs */}
+        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-10">
+          {levelFilters.map((tab) => {
+            const isActive = activeLevel === tab.id
             return (
               <button
-                key={cat.id}
-                onClick={() => setActiveTab(cat.id)}
-                className={`flex items-center gap-2 px-5 py-3 rounded-xl font-mono text-xs sm:text-sm transition-all duration-300 ${
+                key={tab.id}
+                onClick={() => setActiveLevel(tab.id)}
+                className={`px-4 py-2 rounded-xl font-mono text-xs sm:text-sm transition-all duration-300 ${
                   isActive
-                    ? 'bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-400 text-cyan-300 shadow-[0_0_20px_rgba(0,243,255,0.2)]'
+                    ? 'bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-400 text-cyan-300 shadow-[0_0_20px_rgba(0,243,255,0.25)] font-bold'
                     : 'bg-slate-900/60 hover:bg-slate-800/60 border border-slate-800 text-slate-400 hover:text-slate-200'
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? 'text-cyan-400' : 'text-slate-400'}`} />
-                <span>{cat.label}</span>
+                {tab.label}
               </button>
             )
           })}
         </div>
 
         {/* Skills Cards Grid */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.3 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
-          >
-            {SKILLS[activeTab].map((skill, index) => (
-              <div
-                key={index}
-                className="bg-slate-900/50 backdrop-blur-xl border border-slate-800/80 hover:border-cyan-500/40 p-6 rounded-2xl transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,243,255,0.1)] group hover:-translate-y-1 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-mono font-bold text-lg text-slate-100 group-hover:text-cyan-300 transition-colors">
-                      {skill.name}
-                    </h3>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-400">
-                      {skill.tag}
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <AnimatePresence>
+            {filteredSkills.map((skill) => {
+              const badgeStyle = 
+                skill.level === 'advanced'
+                  ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+                  : skill.level === 'intermediate'
+                  ? 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30'
+                  : 'bg-amber-500/15 text-amber-300 border-amber-500/30'
+
+              return (
+                <motion.div
+                  layout
+                  key={skill.name}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.25 }}
+                  className="bg-slate-900/50 backdrop-blur-xl border border-slate-800/80 hover:border-cyan-500/40 p-5 sm:p-6 rounded-2xl transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,243,255,0.1)] group hover:-translate-y-1 flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-start justify-between gap-2 mb-3">
+                      <h3 className="font-mono font-bold text-base sm:text-lg text-slate-100 group-hover:text-cyan-300 transition-colors">
+                        {skill.name}
+                      </h3>
+                      <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-400 shrink-0">
+                        {skill.tag}
+                      </span>
+                    </div>
+                    <p className="text-slate-400 text-xs sm:text-sm leading-relaxed mb-4 font-sans">
+                      {skill.desc}
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-slate-800/60 flex items-center justify-between text-xs font-mono">
+                    <span className="text-slate-500">{t.skills.levelLabel}</span>
+                    <span className={`px-2.5 py-0.5 rounded-full border text-[11px] font-semibold ${badgeStyle}`}>
+                      {skill.levelLabel}
                     </span>
                   </div>
-                  <p className="text-slate-400 text-xs sm:text-sm leading-relaxed mb-4 font-sans">
-                    {skill.desc}
-                  </p>
-                </div>
-
-                <div className="pt-3 border-t border-slate-800/60 flex items-center justify-between text-xs font-mono">
-                  <span className="text-slate-500">Nivel de dominio:</span>
-                  <span className="text-cyan-400 font-semibold">{skill.level}</span>
-                </div>
-              </div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
+                </motion.div>
+              )
+            })}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   )

@@ -1,121 +1,135 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Bot, Database, Server, Cpu, Globe } from 'lucide-react'
+import { ExternalLink, ShieldCheck, Database, Server, Cpu, Bot, Globe } from 'lucide-react'
 import { GithubIcon } from './Icons'
-
-const PROJECTS = [
-  {
-    id: 'chatbot-gestor-pedidos',
-    title: 'CafExpress // Bot & Automatización n8n',
-    category: 'ai',
-    subtitle: 'Bot de Telegram con sincronización bidireccional en Google Sheets',
-    desc: 'Sistema automatizado en n8n para digitalizar el ciclo completo de pedidos institucionales vía Telegram Bot. Enrutamiento condicional con nodos de código JavaScript, persistencia en Google Sheets y motor de puntos de lealtad.',
-    tags: ['n8n', 'Telegram Bot API', 'Google Sheets API', 'JavaScript', 'Webhooks'],
-    github: 'https://github.com/Leonardo4516/chatbot-gestor-pedidos',
-    demo: 'https://github.com/Leonardo4516/chatbot-gestor-pedidos/tree/main/Evidencias/Funcionamiento',
-    icon: Bot,
-    featured: true,
-  },
-  {
-    id: 'volcado-datos-postgresql',
-    title: 'ETL, Normalización & Calidad de Datos',
-    category: 'backend',
-    subtitle: 'Pipeline contenerizado en PostgreSQL 16 con Docker',
-    desc: 'Pipeline integral de migración y normalización de datasets geográficos masivos (world_db). Resuelve dependencias circulares complejas de FK y restaura más de 700 registros con corrupción de codificación UTF-8.',
-    tags: ['PostgreSQL 16', 'Docker Compose', 'pgAdmin 4', 'SQL Tuning', 'Data Quality'],
-    github: 'https://github.com/Leonardo4516/volcado-datos-postgresql',
-    demo: null,
-    icon: Database,
-    featured: true,
-  },
-  {
-    id: 'f1-project',
-    title: 'Simulador de F1 & Telemetría en Vivo',
-    category: 'fullstack',
-    subtitle: 'Java 17 con Arquitectura Hexagonal y APIs de Clima',
-    desc: 'Simulador de carreras multi-auto y mini-juego arcade en Java 17. Conexión en tiempo real con API meteorológica (wttr.in), motor matemático de degradación de neumáticos y telemetría, con UI reactiva Swing/FlatLaf.',
-    tags: ['Java 17', 'Arquitectura Hexagonal', 'REST API', 'Swing / FlatLaf', 'JUnit 5'],
-    github: 'https://github.com/Leonardo4516/f1-project',
-    demo: null,
-    icon: Cpu,
-    featured: true,
-  },
-  {
-    id: 'acme-bank',
-    title: 'Acme Bank // Portal Transaccional',
-    category: 'fullstack',
-    subtitle: 'Web transaccional en JS Vanilla & Web Components',
-    desc: 'Plataforma bancaria de autogestión desarrollada en JavaScript Vanilla (ES6+) con Web Components nativos y 0 dependencias. Módulo de autenticación, validaciones en tiempo real y persistencia con Storage APIs.',
-    tags: ['JavaScript ES6+', 'Web Components', 'HTML5', 'CSS3 Responsive', 'Storage API'],
-    github: 'https://github.com/Leonardo4516/acme-bank',
-    demo: 'https://auto-gestion-bancaria-acme.netlify.app',
-    icon: Globe,
-    featured: false,
-  },
-  {
-    id: 'task-admin',
-    title: 'Administrador de Tareas Kanban',
-    category: 'backend',
-    subtitle: 'Java 17, JDBC/MySQL y metodología Spec-Driven Development',
-    desc: 'Sistema de productividad orientado a Product Owners. Arquitectura Hexagonal desacoplada por puertos y adaptadores, persistencia JDBC sobre MySQL/MariaDB y máquina de estados para el ciclo de vida de tareas.',
-    tags: ['Java 17', 'MySQL', 'JDBC', 'Arquitectura Hexagonal', 'Kanban'],
-    github: 'https://github.com/Leonardo4516/task-admin',
-    demo: null,
-    icon: Server,
-    featured: false,
-  },
-  {
-    id: 'pizzeria-piccolo',
-    title: 'Don Piccolo // Base de Datos & Logística',
-    category: 'backend',
-    subtitle: 'Modelado relacional en MySQL con Triggers y Vistas',
-    desc: 'Diseño relacional en MySQL para trazabilidad punta a punta de pedidos y domicilios. Triggers para descuento automático y reversión de stock, procedimientos almacenados y vistas analíticas de desempeño por zonas.',
-    tags: ['MySQL', 'Triggers', 'Stored Procedures', 'Vistas Analíticas', 'Normalización 3NF'],
-    github: 'https://github.com/Leonardo4516/pizzeria-piccolo',
-    demo: null,
-    icon: Database,
-    featured: false,
-  },
-]
-
-const CATEGORY_FILTERS = [
-  { id: 'all', label: 'Todos los Proyectos' },
-  { id: 'backend', label: 'Backend & Bases de Datos' },
-  { id: 'ai', label: 'IA & Automatización (n8n)' },
-  { id: 'fullstack', label: 'Full Stack & Software' },
-]
+import { useLanguage } from '../context/LanguageContext'
 
 export default function Projects() {
+  const { language, t } = useLanguage()
   const [filter, setFilter] = useState('all')
 
-  const filtered = filter === 'all' 
-    ? PROJECTS 
-    : PROJECTS.filter((p) => p.category === filter)
+  const projectsData = [
+    {
+      id: 'sica-project',
+      category: 'java',
+      featured: true,
+      icon: ShieldCheck,
+      title: language === 'es' ? 'SICA // Sistema de Control de Acceso' : 'SICA // Access Control System',
+      subtitle: language === 'es' ? 'Java 17, PostgreSQL, Docker Compose, RBAC y Patrones de Diseño' : 'Java 17, PostgreSQL, Docker Compose, RBAC & Design Patterns',
+      desc: language === 'es'
+        ? 'Sistema integral de seguridad y control de acceso vehicular y peatonal. Implementa arquitectura en capas, control de acceso basado en roles (RBAC), encriptación BCrypt, patrones de diseño (State, Factory, Strategy) y suites de pruebas automatizadas con JUnit.'
+        : 'Enterprise access and security control system for personnel and vehicles. Features layered architecture, Role-Based Access Control (RBAC), BCrypt hashing, design patterns (State, Factory, Strategy), and automated JUnit test suites.',
+      tags: ['Java 17', 'PostgreSQL 15', 'Docker Compose', 'JavaFX', 'BCrypt', 'JUnit 5', 'RBAC'],
+      github: 'https://github.com/Leonardo4516/Sica_project',
+      demo: null,
+    },
+    {
+      id: 'f1-project',
+      category: 'java',
+      featured: true,
+      icon: Cpu,
+      title: language === 'es' ? 'Simulador F1 & Motor de Telemetría' : 'F1 Simulator & Telemetry Engine',
+      subtitle: language === 'es' ? 'Java 17 bajo Arquitectura Hexagonal y APIs de Clima' : 'Java 17 with Hexagonal Architecture and Live Weather API',
+      desc: language === 'es'
+        ? 'Simulador de carreras multi-vehículo y mini-juego arcade en Java 17. Consume datos en tiempo real de la API meteorológica (wttr.in), calcula telemetría matemática (desgaste de neumáticos, degradación, incidentes) y renderiza interfaz reactiva con Swing y FlatLaf Dark.'
+        : 'Multi-vehicle racing simulator and arcade engine in Java 17. Integrates live external weather API (wttr.in), calculates physics telemetry (tire wear, pit stops, degradation), and renders responsive UI with Swing and FlatLaf.',
+      tags: ['Java 17', 'Arquitectura Hexagonal', 'REST API', 'Swing / FlatLaf', 'JUnit 5', 'Maven'],
+      github: 'https://github.com/Leonardo4516/f1-project',
+      demo: null,
+    },
+    {
+      id: 'volcado-datos-postgresql',
+      category: 'data',
+      featured: true,
+      icon: Database,
+      title: language === 'es' ? 'ETL, Normalización & Calidad de Datos' : 'ETL, Normalization & Data Quality',
+      subtitle: language === 'es' ? 'Pipeline contenerizado en PostgreSQL 16 con Docker' : 'Containerized Pipeline in PostgreSQL 16 with Docker',
+      desc: language === 'es'
+        ? 'Pipeline de migración, normalización 3NF y saneamiento de datasets masivos (world_db). Resuelve dependencias circulares complejas entre claves foráneas y restaura más de 700 registros con corrupción de codificación UTF-8.'
+        : 'Database migration, 3NF normalization, and data sanitization pipeline for massive geographic datasets. Resolves circular foreign key dependencies and recovers 700+ records corrupted by UTF-8 encoding.',
+      tags: ['PostgreSQL 16', 'Docker Compose', 'SQL DDL/DML', 'Data Quality', 'pgAdmin 4'],
+      github: 'https://github.com/Leonardo4516/volcado-datos-postgresql',
+      demo: null,
+    },
+    {
+      id: 'task-admin',
+      category: 'java',
+      featured: false,
+      icon: Server,
+      title: language === 'es' ? 'Gestor de Tareas Kanban (SDD)' : 'Kanban Task Manager (SDD)',
+      subtitle: language === 'es' ? 'Java 17, JDBC/MySQL y Arquitectura Hexagonal' : 'Java 17, JDBC/MySQL and Hexagonal Architecture',
+      desc: language === 'es'
+        ? 'Sistema de productividad orientado al rol de Product Owner bajo metodología Spec-Driven Development (SDD). Persistencia relacional directa con JDBC sobre MySQL/MariaDB, máquina de estados para el ciclo de vida de tareas y tablero Kanban.'
+        : 'Productivity management system modeled for Product Owners under Spec-Driven Development (SDD). Direct relational persistence via JDBC on MySQL/MariaDB, state machine for task lifecycles, and interactive Kanban board.',
+      tags: ['Java 17', 'MySQL', 'JDBC', 'Arquitectura Hexagonal', 'UML / SDD', 'FlatLaf'],
+      github: 'https://github.com/Leonardo4516/task-admin',
+      demo: null,
+    },
+    {
+      id: 'chatbot-gestor-pedidos',
+      category: 'automation',
+      featured: false,
+      icon: Bot,
+      title: language === 'es' ? 'CafExpress // Bot & Automatización n8n' : 'CafExpress // Bot & n8n Automation',
+      subtitle: language === 'es' ? 'Telegram Bot con sincronización en Google Sheets' : 'Telegram Bot with Google Sheets Synchronization',
+      desc: language === 'es'
+        ? 'Automatización sin servidor en n8n para digitalizar el ciclo completo de pedidos institucionales. Manejo de estados de sesión, nodos de código en JavaScript y persistencia en Google Sheets API con cálculo de puntos de fidelización.'
+        : 'Serverless workflow in n8n automating orders via Telegram Bot. Session state management, JavaScript code nodes, and bi-directional Google Sheets API synchronization with customer loyalty points calculation.',
+      tags: ['n8n', 'Telegram Bot API', 'Google Sheets API', 'JavaScript', 'Webhooks'],
+      github: 'https://github.com/Leonardo4516/chatbot-gestor-pedidos',
+      demo: 'https://github.com/Leonardo4516/chatbot-gestor-pedidos/tree/main/Evidencias/Funcionamiento',
+    },
+    {
+      id: 'acme-bank',
+      category: 'fullstack',
+      featured: false,
+      icon: Globe,
+      title: language === 'es' ? 'Acme Bank // Portal Transaccional' : 'Acme Bank // Transactional Portal',
+      subtitle: language === 'es' ? 'JavaScript Vanilla (ES6+) con Web Components' : 'Vanilla JavaScript (ES6+) with Web Components',
+      desc: language === 'es'
+        ? 'Plataforma web de autogestión bancaria desarrollada con 0 dependencias externas. Módulos de autenticación, control de sesiones, validaciones instantáneas para retiros/consignaciones y persistencia con Web Storage API.'
+        : 'Transactional self-service banking web application built with zero external dependencies. Features authentication modules, session handling, real-time balance validation, and Web Storage API persistence.',
+      tags: ['JavaScript ES6+', 'Web Components', 'HTML5', 'CSS3', 'Web Storage API'],
+      github: 'https://github.com/Leonardo4516/acme-bank',
+      demo: 'https://auto-gestion-bancaria-acme.netlify.app',
+    }
+  ]
+
+  const categoryFilters = [
+    { id: 'all', label: t.projects.filters.all },
+    { id: 'java', label: t.projects.filters.java },
+    { id: 'data', label: t.projects.filters.data },
+    { id: 'automation', label: t.projects.filters.automation },
+  ]
+
+  const filteredProjects = filter === 'all'
+    ? projectsData
+    : projectsData.filter(p => p.category === filter)
 
   return (
-    <section id="proyectos" className="py-24 px-6 relative z-10">
+    <section id="proyectos" className="py-24 px-4 sm:px-6 relative z-10">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-14">
-          <span className="text-xs font-mono uppercase tracking-widest text-cyan-400 bg-cyan-950/40 border border-cyan-500/20 px-4 py-1.5 rounded-full">
-            04. // CASOS DE ESTUDIO & REPOSITORIOS
+        <div className="text-center mb-12">
+          <span className="text-xs font-mono uppercase tracking-widest text-cyan-400 bg-cyan-950/40 border border-cyan-500/20 px-4 py-1.5 rounded-full inline-block">
+            {t.projects.tag}
           </span>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-100 mt-4 mb-4">
-            Proyectos de <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-purple-500 bg-clip-text text-transparent">Alto Impacto</span>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-100 mt-4 mb-4">
+            {t.projects.title} <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-purple-400 bg-clip-text text-transparent">{t.projects.titleHighlight}</span>
           </h2>
-          <p className="max-w-2xl mx-auto text-slate-400 text-sm sm:text-base font-sans">
-            Desarrollos reales con arquitecturas limpias, persistencia de datos robusta y pipelines automatizados.
+          <p className="max-w-2xl mx-auto text-slate-400 text-xs sm:text-sm md:text-base font-sans leading-relaxed">
+            {t.projects.desc}
           </p>
         </div>
 
-        {/* Filters */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-12">
-          {CATEGORY_FILTERS.map((cat) => (
+        {/* Filter Buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-10">
+          {categoryFilters.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setFilter(cat.id)}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all duration-300 ${
                 filter === cat.id
-                  ? 'bg-cyan-500 text-slate-950 font-bold shadow-[0_0_20px_rgba(0,243,255,0.4)]'
+                  ? 'bg-cyan-500 text-slate-950 font-bold shadow-[0_0_20px_rgba(0,243,255,0.35)]'
                   : 'bg-slate-900/60 hover:bg-slate-800/60 border border-slate-800 text-slate-400 hover:text-slate-200'
               }`}
             >
@@ -127,7 +141,7 @@ export default function Projects() {
         {/* Projects Grid */}
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <AnimatePresence>
-            {filtered.map((item) => {
+            {filteredProjects.map((item) => {
               const Icon = item.icon
               return (
                 <motion.div
@@ -136,8 +150,8 @@ export default function Projects() {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
-                  className="bg-slate-900/50 backdrop-blur-xl border border-slate-800/90 hover:border-cyan-500/50 rounded-2xl p-7 flex flex-col justify-between group hover:shadow-[0_10px_40px_rgba(0,243,255,0.08)] transition-all duration-300 hover:-translate-y-1.5"
+                  transition={{ duration: 0.25 }}
+                  className="bg-slate-900/50 backdrop-blur-xl border border-slate-800/90 hover:border-cyan-500/50 rounded-2xl p-6 sm:p-7 flex flex-col justify-between group hover:shadow-[0_10px_40px_rgba(0,243,255,0.08)] transition-all duration-300 hover:-translate-y-1.5"
                 >
                   <div>
                     <div className="flex items-start justify-between mb-4">
@@ -146,16 +160,16 @@ export default function Projects() {
                       </div>
                       {item.featured && (
                         <span className="px-3 py-1 rounded-full text-[10px] font-mono tracking-wider bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                          ★ DESTACADO
+                          {t.projects.badgeFeatured}
                         </span>
                       )}
                     </div>
 
-                    <h3 className="font-mono font-bold text-xl text-slate-100 mb-1 group-hover:text-cyan-300 transition-colors">
+                    <h3 className="font-mono font-bold text-lg sm:text-xl text-slate-100 mb-1 group-hover:text-cyan-300 transition-colors">
                       {item.title}
                     </h3>
                     <p className="text-xs font-mono text-cyan-400/80 mb-3">{item.subtitle}</p>
-                    <p className="text-slate-300/80 text-sm leading-relaxed mb-6 font-sans">
+                    <p className="text-slate-300/80 text-xs sm:text-sm leading-relaxed mb-6 font-sans">
                       {item.desc}
                     </p>
                   </div>
@@ -180,7 +194,7 @@ export default function Projects() {
                         className="flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-lg bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 transition-all font-semibold"
                       >
                         <GithubIcon className="w-4 h-4" />
-                        <span>Ver Código</span>
+                        <span>{t.projects.btnCode}</span>
                       </a>
 
                       {item.demo && (
@@ -191,7 +205,7 @@ export default function Projects() {
                           className="flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg text-cyan-400 hover:text-cyan-300 hover:bg-cyan-950/40 border border-cyan-500/20 transition-all"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
-                          <span>Demo en Vivo</span>
+                          <span>{t.projects.btnDemo}</span>
                         </a>
                       )}
                     </div>

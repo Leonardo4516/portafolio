@@ -1,16 +1,26 @@
 import { useState, useRef, useEffect } from 'react'
-import { Terminal, CornerDownLeft, Sparkles, Check, Copy } from 'lucide-react'
-
-const INITIAL_HISTORY = [
-  { type: 'system', content: 'Leonardo.AI Core Terminal v2.4.0 [x86_64-linux-gnu]' },
-  { type: 'system', content: 'Escribe "help" para ver la lista de comandos disponibles, o pulsa un botón rápido.' },
-]
+import { Terminal, CornerDownLeft } from 'lucide-react'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function TerminalView() {
-  const [history, setHistory] = useState(INITIAL_HISTORY)
+  const { language, t } = useLanguage()
+
+  const initialHistory = [
+    { type: 'system', content: t.terminal.initialMsg1 },
+    { type: 'system', content: t.terminal.initialMsg2 },
+  ]
+
+  const [history, setHistory] = useState(initialHistory)
   const [input, setInput] = useState('')
-  const [copied, setCopied] = useState(false)
   const bottomRef = useRef(null)
+
+  // Reset when language changes
+  useEffect(() => {
+    setHistory([
+      { type: 'system', content: t.terminal.initialMsg1 },
+      { type: 'system', content: t.terminal.initialMsg2 },
+    ])
+  }, [language, t])
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -26,64 +36,75 @@ export default function TerminalView() {
       case 'help':
         newHistory.push({
           type: 'output',
-          content: `Comandos disponibles:
-  • about     : Resumen profesional y enfoque de ingeniería
-  • skills    : Tecnologías primarias y secundarias
-  • projects  : Lista de proyectos destacados en producción
-  • ai        : Flujo de trabajo asistido por IA y automatización
-  • contact   : Canales directos de comunicación
-  • clear     : Limpiar la pantalla de la terminal`
+          content: language === 'es' ? `Comandos disponibles:
+  • about     : Perfil profesional y formación técnica
+  • skills    : Matriz de competencias según nivel (Básico/Intermedio/Avanzado)
+  • projects  : Proyectos destacados (SICA, F1, Kanban, PostgreSQL, n8n)
+  • contact   : Enlaces directos de contacto
+  • clear     : Limpiar consola`
+          : `Available commands:
+  • about     : Professional background & technical education
+  • skills    : Competency matrix by level (Basic/Intermediate/Advanced)
+  • projects  : Featured projects (SICA, F1, Kanban, PostgreSQL, n8n)
+  • contact   : Direct contact links
+  • clear     : Clear console screen`
         })
         break
 
       case 'about':
         newHistory.push({
           type: 'output',
-          content: `LEONARDO HERNÁNDEZ // BACKEND & AI DEVELOPER
---------------------------------------------------
-Desarrollador apasionado por el modelado de datos resiliente, arquitecturas
-escalables y el uso estratégico de Inteligencia Artificial para acelerar
-entregas y validar calidad de código a nivel enterprise.`
+          content: language === 'es' ? `LEONARDO HERNÁNDEZ // DESARROLLADOR DE SOFTWARE JUNIOR
+------------------------------------------------------
+• Formación : Técnico en Desarrollo de Software
+• Enfoque   : Backend con Java, bases de datos SQL y lógica estructurada
+• Valor     : Buenas prácticas, persistencia relacional y uso ágil de IA como copiloto.`
+          : `LEONARDO HERNÁNDEZ // JUNIOR SOFTWARE DEVELOPER
+------------------------------------------------------
+• Education : Associate Degree / Technician in Software Development
+• Focus     : Java Backend, SQL databases, and structured object-oriented logic
+• Value     : Solid fundamentals, clean persistence, and agile AI-assisted workflow.`
         })
         break
 
       case 'skills':
         newHistory.push({
           type: 'output',
-          content: `STACK DE ESPECIALIDAD:
-  [Backend]     Python, Node.js, PostgreSQL (Docker), MySQL, REST APIs
-  [AI / Auto]   n8n, Prompt Engineering, Promptfoo, Agentic AI
-  [DevOps]      Docker, Git/GitHub, Linux/Bash
-  [Frontend]    JavaScript ES6+, React, Tailwind CSS`
+          content: language === 'es' ? `MATRIZ DE HABILIDADES TÉCNICAS:
+  [Avanzado]    Prompt Engineering, Agentic AI Workflows
+  [Intermedio]  Java (17+), PostgreSQL, MySQL, Python, Docker, Git/GitHub, HTML/CSS, Copilot
+  [Básico]      JavaScript, Node.js, n8n Automation, Promptfoo, Linux/Bash`
+          : `TECHNICAL COMPETENCY MATRIX:
+  [Advanced]    Prompt Engineering, Agentic AI Workflows
+  [Intermediate] Java (17+), PostgreSQL, MySQL, Python, Docker, Git/GitHub, HTML/CSS, Copilot
+  [Basic]       JavaScript, Node.js, n8n Automation, Promptfoo, Linux/Bash`
         })
         break
 
       case 'projects':
         newHistory.push({
           type: 'output',
-          content: `PROYECTOS DESTACADOS:
-  1. volcado-datos-postgresql : Pipeline de normalización de datos geográficos con Docker.
-  2. chatbot-gestor-pedidos   : Bot automatizado con n8n, Telegram y persistencia.
-  3. f1-project               : Analítica y procesamiento de datos de Fórmula 1.
-  4. acme-bank                : Simulación de transacciones y arquitectura bancaria.
-  5. task-admin               : Sistema de gestión operativa con buenas prácticas.`
-        })
-        break
-
-      case 'ai':
-        newHistory.push({
-          type: 'output',
-          content: `FILOSOFÍA DE IA (AI-FIRST ENGINEERING):
-  • Uso de LLMs como copiloto de arquitectura y generador de tests rigurosos.
-  • Evaluación continua de prompts y respuestas mediante benchmarking.
-  • Automatización de flujos repetitivos con n8n reduciendo tiempos en un 70%.`
+          content: language === 'es' ? `PROYECTOS DESTACADOS:
+  1. SICA (Sistema de Control de Acceso) : Java 17, JavaFX, PostgreSQL 15, Docker, RBAC, JUnit.
+  2. Simulador F1 & Telemetría           : Java 17, Arquitectura Hexagonal, API wttr.in.
+  3. Gestor de Tareas Kanban             : Java 17, JDBC/MySQL, SDD, puertos y adaptadores.
+  4. ETL & Normalización PostgreSQL       : PostgreSQL 16, Docker Compose, 3NF, data cleaning.
+  5. CafExpress (Bot n8n)                : Telegram Bot API, n8n, Google Sheets, JavaScript.
+  6. Acme Bank                           : JavaScript Vanilla, Web Components, Netlify.`
+          : `FEATURED PROJECTS:
+  1. SICA (Access Control System)        : Java 17, JavaFX, PostgreSQL 15, Docker, RBAC, JUnit.
+  2. F1 Simulator & Telemetry            : Java 17, Hexagonal Architecture, live weather API.
+  3. Kanban Task Manager (SDD)           : Java 17, JDBC/MySQL, ports & adapters.
+  4. ETL & Data Quality Pipeline         : PostgreSQL 16, Docker Compose, 3NF, UTF-8 recovery.
+  5. CafExpress (n8n Order Bot)          : Telegram Bot API, n8n, Google Sheets, JavaScript.
+  6. Acme Bank                           : Vanilla JavaScript, Web Components, Netlify.`
         })
         break
 
       case 'contact':
         newHistory.push({
           type: 'output',
-          content: `CANALES DE CONTACTO:
+          content: `CONTACT CHANNELS:
   • Email     : lehernan.07@gmail.com
   • GitHub    : https://github.com/Leonardo4516
   • LinkedIn  : https://www.linkedin.com/in/leonardo-hernández-2a6a66389`
@@ -91,14 +112,16 @@ entregas y validar calidad de código a nivel enterprise.`
         break
 
       case 'clear':
-        setHistory(INITIAL_HISTORY)
+        setHistory(initialHistory)
         setInput('')
         return
 
       default:
         newHistory.push({
           type: 'error',
-          content: `Comando no reconocido: "${cleanCmd}". Escribe "help" para ver opciones válidas.`
+          content: language === 'es' 
+            ? `Comando no reconocido: "${cleanCmd}". Escribe "help" para ver las opciones.`
+            : `Command not found: "${cleanCmd}". Type "help" to see available options.`
         })
         break
     }
@@ -112,24 +135,18 @@ entregas y validar calidad de código a nivel enterprise.`
     executeCommand(input)
   }
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText('lehernan.07@gmail.com')
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
-
   return (
-    <section id="terminal" className="py-24 px-6 relative z-10">
+    <section id="terminal" className="py-24 px-4 sm:px-6 relative z-10">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-4 py-1.5 rounded-full">
-            05. // TERMINAL INTERACTIVA
+          <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-4 py-1.5 rounded-full inline-block">
+            {t.terminal.tag}
           </span>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-100 mt-4 mb-3 font-mono">
-            Explora mi perfil vía <span className="text-emerald-400">CLI</span>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-100 mt-4 mb-3 font-mono">
+            {t.terminal.title} <span className="text-emerald-400">{t.terminal.titleHighlight}</span>
           </h2>
-          <p className="text-slate-400 text-sm font-sans max-w-xl mx-auto">
-            Para reclutadores y desarrolladores técnicos: interactúa con mi perfil en tiempo real ejecutando comandos en esta consola simulada.
+          <p className="text-slate-400 text-xs sm:text-sm font-sans max-w-xl mx-auto leading-relaxed">
+            {t.terminal.desc}
           </p>
         </div>
 
@@ -143,31 +160,24 @@ entregas y validar calidad de código a nivel enterprise.`
               <div className="w-3 h-3 rounded-full bg-emerald-500/80"></div>
               <span className="text-slate-400 text-xs ml-2 font-mono flex items-center gap-1.5">
                 <Terminal className="w-3.5 h-3.5 text-cyan-400" />
-                leonardo@portfolio-core:~
+                {t.terminal.headerText}
               </span>
             </div>
-
-            <button
-              onClick={handleCopyEmail}
-              className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-cyan-300 transition-colors"
-            >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-              <span>{copied ? '¡Copiado!' : 'Copiar email'}</span>
-            </button>
+            <span className="text-[11px] text-slate-500 font-mono">bash 5.2</span>
           </div>
 
           {/* Console Body */}
-          <div className="p-6 max-h-[380px] min-h-[260px] overflow-y-auto space-y-3 font-mono text-xs sm:text-sm">
+          <div className="p-5 sm:p-6 max-h-[380px] min-h-[260px] overflow-y-auto space-y-3 font-mono text-xs sm:text-sm">
             {history.map((item, index) => (
               <div key={index}>
                 {item.type === 'system' && (
-                  <p className="text-cyan-400/80">{item.content}</p>
+                  <p className="text-cyan-400/85">{item.content}</p>
                 )}
                 {item.type === 'user' && (
                   <p className="text-purple-300 font-semibold">{item.content}</p>
                 )}
                 {item.type === 'output' && (
-                  <pre className="text-slate-300 whitespace-pre-wrap leading-relaxed">{item.content}</pre>
+                  <pre className="text-slate-300 whitespace-pre-wrap leading-relaxed font-mono">{item.content}</pre>
                 )}
                 {item.type === 'error' && (
                   <p className="text-rose-400">{item.content}</p>
@@ -177,10 +187,10 @@ entregas y validar calidad de código a nivel enterprise.`
             <div ref={bottomRef} />
           </div>
 
-          {/* Quick command pills */}
-          <div className="px-6 py-2.5 bg-slate-900/40 border-t border-slate-800/60 flex flex-wrap items-center gap-2 text-xs">
-            <span className="text-slate-500 mr-1 text-[11px]">Accesos rápidos:</span>
-            {['about', 'skills', 'projects', 'ai', 'contact', 'clear'].map((cmd) => (
+          {/* Quick command buttons */}
+          <div className="px-4 sm:px-6 py-2.5 bg-slate-900/40 border-t border-slate-800/60 flex flex-wrap items-center gap-2 text-xs">
+            <span className="text-slate-500 mr-1 text-[11px]">{t.terminal.quickAccessLabel}</span>
+            {['about', 'skills', 'projects', 'contact', 'clear'].map((cmd) => (
               <button
                 key={cmd}
                 onClick={() => executeCommand(cmd)}
@@ -192,19 +202,19 @@ entregas y validar calidad de código a nivel enterprise.`
           </div>
 
           {/* Command Prompt Input */}
-          <form onSubmit={handleSubmit} className="p-4 bg-slate-900/80 border-t border-slate-800 flex items-center gap-3">
+          <form onSubmit={handleSubmit} className="p-3 sm:p-4 bg-slate-900/80 border-t border-slate-800 flex items-center gap-3">
             <span className="text-emerald-400 font-bold text-base">&gt;</span>
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Escribe un comando (ej: help, projects)..."
-              className="flex-1 bg-transparent text-slate-100 placeholder-slate-500 focus:outline-none font-mono text-sm"
+              placeholder={t.terminal.inputPlaceholder}
+              className="flex-1 bg-transparent text-slate-100 placeholder-slate-500 focus:outline-none font-mono text-xs sm:text-sm"
             />
             <button
               type="submit"
               className="p-1.5 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 transition-colors"
-              title="Ejecutar"
+              title="Execute"
             >
               <CornerDownLeft className="w-4 h-4" />
             </button>

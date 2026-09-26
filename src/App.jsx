@@ -1,4 +1,5 @@
 import { Canvas } from '@react-three/fiber'
+import { LanguageProvider } from './context/LanguageContext'
 import Scene3D from './components/Scene3D'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -9,7 +10,7 @@ import TerminalView from './components/TerminalView'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 
-function App() {
+function PortfolioContent() {
   return (
     <div className="relative min-h-screen bg-slate-950 text-slate-100 selection:bg-cyan-500 selection:text-slate-950 overflow-x-hidden font-sans">
       {/* Fixed 3D Canvas in background */}
@@ -45,6 +46,14 @@ function App() {
         <Footer />
       </div>
     </div>
+  )
+}
+
+function App() {
+  return (
+    <LanguageProvider>
+      <PortfolioContent />
+    </LanguageProvider>
   )
 }
 
