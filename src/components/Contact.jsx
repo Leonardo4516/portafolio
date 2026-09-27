@@ -1,32 +1,61 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Mail, Send, CheckCircle2, Clock, MapPin, Briefcase, ExternalLink } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Mail, Send, CheckCircle2, Clock, MapPin, Briefcase, ExternalLink, Copy, Check } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from './Icons'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function Contact() {
-  const { t } = useLanguage()
+  const { language, t } = useLanguage()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: ''
   })
-  const [sentSuccess, setSentSuccess] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const [copied, setCopied] = useState(false)
+
+  // Construct formatted subject & body
+  const getEncodedData = () => {
+    const defaultSub = language === 'es' 
+      ? `Contacto desde Portafolio - ${formData.name || 'Interesado'}`
+      : `Portfolio Inquiry - ${formData.name || 'Visitor'}`
+
+    const subject = encodeURIComponent(formData.subject || defaultSub)
+    const rawBody = language === 'es'
+      ? `Hola Leonardo,\n\nMi nombre es: ${formData.name}\nMi correo de contacto es: ${formData.email}\n\nMensaje:\n${formData.message}\n`
+      : `Hello Leonardo,\n\nMy name is: ${formData.name}\nMy contact email is: ${formData.email}\n\nMessage:\n${formData.message}\n`
+
+    const body = encodeURIComponent(rawBody)
+    return { subject, body, rawBody }
+  }
+
+  // Gmail Web Compose URL (Opens directly in Chrome/Firefox/Brave/Edge without local email app)
+  const getGmailWebUrl = () => {
+    const { subject, body } = getEncodedData()
+    return `https://mail.google.com/mail/?view=cm&fs=1&to=lehernan.07@gmail.com&su=${subject}&body=${body}`
+  }
+
+  // Standard mailto fallback
+  const getMailtoUrl = () => {
+    const { subject, body } = getEncodedData()
+    return `mailto:lehernan.07@gmail.com?subject=${subject}&body=${body}`
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!formData.name || !formData.email || !formData.message) return
 
-    // Prepare well-formatted mailto link
-    const subject = encodeURIComponent(formData.subject || `Contacto desde Portafolio - ${formData.name}`)
-    const body = encodeURIComponent(
-      `Hola Leonardo,\n\nMi nombre es: ${formData.name}\nCorreo de contacto: ${formData.email}\n\nMensaje:\n${formData.message}\n`
-    )
-    window.location.href = `mailto:lehernan.07@gmail.com?subject=${subject}&body=${body}`
+    // Open Gmail web compose in a new tab by default
+    window.open(getGmailWebUrl(), '_blank', 'noopener,noreferrer')
+    setSubmitted(true)
+  }
 
-    setSentSuccess(true)
-    setTimeout(() => setSentSuccess(false), 5000)
+  const handleCopyMessage = () => {
+    const { rawBody } = getEncodedData()
+    navigator.clipboard.writeText(rawBody)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2500)
   }
 
   return (
@@ -47,14 +76,21 @@ export default function Contact() {
 
         {/* 2-Column Responsive Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Column 1: Interactive Message Box (7 cols) */}
+          {/* Column 1: Interactive Message Composer */}
           <div className="lg:col-span-7 bg-slate-900/60 backdrop-blur-2xl border border-slate-800/90 rounded-3xl p-6 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-            <h3 className="font-mono font-bold text-lg text-slate-100 mb-2 flex items-center gap-2">
-              <Mail className="w-5 h-5 text-cyan-400" />
-              <span>{t.contact.form.submitBtn}</span>
-            </h3>
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="font-mono font-bold text-lg text-slate-100 flex items-center gap-2">
+                <Mail className="w-5 h-5 text-cyan-400" />
+                <span>{language === 'es' ? 'Redactar Mensaje Directo' : 'Compose Direct Message'}</span>
+              </h3>
+              <span className="text-[11px] font-mono px-2.5 py-1 rounded-md bg-cyan-950/50 text-cyan-300 border border-cyan-500/20">
+                {language === 'es' ? 'Gmail Web Directo' : 'Direct Gmail Web'}
+              </span>
+            </div>
             <p className="text-xs text-slate-400 mb-6 font-sans">
-              {t.contact.cards.directEmailSub}
+              {language === 'es'
+                ? 'Escribe tu mensaje y se abrirá directamente en Gmail en tu navegador, con el asunto y contenido listos para enviar en un clic.'
+                : 'Type your message and it will open directly in Gmail on your web browser, pre-filled and ready to send with one click.'}
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4 font-mono text-xs sm:text-sm">
@@ -114,25 +150,110 @@ export default function Contact() {
                 ></textarea>
               </div>
 
-              {sentSuccess && (
-                <div className="flex items-center gap-2 p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-sans">
-                  <CheckCircle2 className="w-4 h-4 shrink-0" />
-                  <span>Se ha generado el correo en tu aplicación predeterminada. ¡Gracias por escribir!</span>
-                </div>
-              )}
-
+              {/* Submit Button (Opens Gmail Web) */}
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold font-mono text-xs sm:text-sm tracking-wide shadow-[0_0_25px_rgba(0,243,255,0.25)] hover:shadow-[0_0_35px_rgba(0,243,255,0.45)] transition-all transform hover:-translate-y-0.5"
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 via-sky-400 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold font-mono text-xs sm:text-sm tracking-wide shadow-[0_0_25px_rgba(0,243,255,0.25)] hover:shadow-[0_0_35px_rgba(0,243,255,0.45)] transition-all transform hover:-translate-y-0.5"
               >
-                <Send className="w-4 h-4" />
-                <span>{t.contact.form.submitBtn}</span>
+                <ExternalLink className="w-4 h-4" />
+                <span>
+                  {language === 'es' ? 'Abrir y Enviar en Gmail Web' : 'Open & Send via Gmail Web'}
+                </span>
               </button>
+
+              {/* Success / Fallback Action Box */}
+              <AnimatePresence>
+                {submitted && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="p-4 rounded-2xl bg-slate-950/90 border border-cyan-500/30 text-xs space-y-3 font-sans"
+                  >
+                    <div className="flex items-center gap-2 text-emerald-400 font-semibold font-mono">
+                      <CheckCircle2 className="w-4 h-4 shrink-0" />
+                      <span>
+                        {language === 'es' 
+                          ? '¡Pestaña de Gmail generada con éxito!' 
+                          : 'Gmail tab generated successfully!'}
+                      </span>
+                    </div>
+                    <p className="text-slate-300 text-xs">
+                      {language === 'es'
+                        ? 'Si tu navegador bloqueó la ventana emergente o prefieres otra opción:'
+                        : 'If your browser blocked the pop-up or you prefer another method:'}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2 pt-1 font-mono text-xs">
+                      {/* Direct Gmail Link */}
+                      <a
+                        href={getGmailWebUrl()}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="px-3 py-1.5 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-300 flex items-center gap-1.5 transition-colors"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" />
+                        <span>Gmail Web</span>
+                      </a>
+
+                      {/* Mailto alternative */}
+                      <a
+                        href={getMailtoUrl()}
+                        className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 flex items-center gap-1.5 transition-colors"
+                      >
+                        <Mail className="w-3.5 h-3.5 text-purple-400" />
+                        <span>{language === 'es' ? 'App de Correo' : 'Mail App'}</span>
+                      </a>
+
+                      {/* Copy Formatted Text */}
+                      <button
+                        type="button"
+                        onClick={handleCopyMessage}
+                        className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 flex items-center gap-1.5 transition-colors"
+                      >
+                        {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-slate-400" />}
+                        <span>{copied ? (language === 'es' ? '¡Copiado!' : 'Copied!') : (language === 'es' ? 'Copiar Texto' : 'Copy Text')}</span>
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </form>
           </div>
 
-          {/* Column 2: Status, Availability & Direct Channels (5 cols) */}
+          {/* Column 2: Status, Availability & Quick Direct Channels */}
           <div className="lg:col-span-5 space-y-5">
+            {/* Direct Gmail Web Quick Card */}
+            <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-800/90 hover:border-cyan-500/40 rounded-3xl p-6 transition-all group">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-mono text-cyan-400">
+                  {language === 'es' ? 'Gmail Directo en Navegador' : 'Direct Web Gmail'}
+                </span>
+                <a
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=lehernan.07@gmail.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-xs font-mono text-cyan-300 hover:text-white flex items-center gap-1 transition-colors"
+                >
+                  <span>{language === 'es' ? 'Abrir Gmail' : 'Open Gmail'}</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+              <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=lehernan.07@gmail.com"
+                target="_blank"
+                rel="noreferrer"
+                className="font-mono font-bold text-base sm:text-lg text-slate-100 group-hover:text-cyan-300 transition-colors block truncate"
+              >
+                lehernan.07@gmail.com
+              </a>
+              <p className="text-[11px] text-slate-400 mt-2 font-sans">
+                {language === 'es' 
+                  ? 'Haz clic para redactar un correo directamente en la web de Gmail, sin necesidad de clientes instalados en Linux ni Windows.'
+                  : 'Click to compose directly on Gmail Web, with no local desktop mail client required.'}
+              </p>
+            </div>
+
             {/* Status & Availability Card */}
             <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-800/90 rounded-3xl p-6 relative overflow-hidden">
               <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 mb-3">
@@ -159,26 +280,6 @@ export default function Contact() {
                   <span className="text-slate-200">Colombia (GMT-5) / Remoto Global</span>
                 </div>
               </div>
-            </div>
-
-            {/* Direct Email Quick Card */}
-            <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-800/90 hover:border-cyan-500/40 rounded-3xl p-6 transition-all group">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-mono text-cyan-400">{t.contact.cards.directEmailTitle}</span>
-                <a
-                  href={`mailto:${t.contact.directEmail}`}
-                  className="text-xs font-mono text-slate-400 group-hover:text-cyan-300 flex items-center gap-1 transition-colors"
-                >
-                  <span>{t.contact.cards.directEmailAction}</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              </div>
-              <a
-                href={`mailto:${t.contact.directEmail}`}
-                className="font-mono font-bold text-base sm:text-lg text-slate-100 group-hover:text-cyan-300 transition-colors block truncate"
-              >
-                {t.contact.directEmail}
-              </a>
             </div>
 
             {/* Professional Networks */}
