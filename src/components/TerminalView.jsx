@@ -14,7 +14,6 @@ export default function TerminalView() {
   const [input, setInput] = useState('')
   const bottomRef = useRef(null)
 
-  // Reset when language changes
   useEffect(() => {
     setHistory([
       { type: 'system', content: t.terminal.initialMsg1 },
@@ -139,31 +138,31 @@ export default function TerminalView() {
     <section id="terminal" className="py-24 px-4 sm:px-6 relative z-10">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-4 py-1.5 rounded-full inline-block">
+          <span className="text-xs font-mono uppercase tracking-widest text-red-400 bg-red-950/40 border border-red-500/30 px-4 py-1.5 rounded-full inline-block">
             {t.terminal.tag}
           </span>
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-100 mt-4 mb-3 font-mono">
-            {t.terminal.title} <span className="text-emerald-400">{t.terminal.titleHighlight}</span>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-neutral-100 mt-4 mb-3 font-mono">
+            {t.terminal.title} <span className="text-red-500">{t.terminal.titleHighlight}</span>
           </h2>
-          <p className="text-slate-400 text-xs sm:text-sm font-sans max-w-xl mx-auto leading-relaxed">
+          <p className="text-neutral-400 text-xs sm:text-sm font-sans max-w-xl mx-auto leading-relaxed">
             {t.terminal.desc}
           </p>
         </div>
 
         {/* Terminal Window */}
-        <div className="rounded-2xl border border-slate-700/80 bg-slate-950/90 shadow-[0_0_50px_rgba(0,0,0,0.8)] backdrop-blur-2xl overflow-hidden font-mono text-sm">
+        <div className="rounded-2xl border border-neutral-800 bg-black/90 shadow-[0_0_50px_rgba(239,68,68,0.15)] backdrop-blur-2xl overflow-hidden font-mono text-sm">
           {/* Title Bar */}
-          <div className="bg-slate-900/90 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+          <div className="bg-neutral-950 px-4 py-3 border-b border-neutral-800 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-rose-500/80"></div>
-              <div className="w-3 h-3 rounded-full bg-amber-500/80"></div>
-              <div className="w-3 h-3 rounded-full bg-emerald-500/80"></div>
-              <span className="text-slate-400 text-xs ml-2 font-mono flex items-center gap-1.5">
-                <Terminal className="w-3.5 h-3.5 text-cyan-400" />
+              <div className="w-3 h-3 rounded-full bg-red-600/80"></div>
+              <div className="w-3 h-3 rounded-full bg-rose-600/80"></div>
+              <div className="w-3 h-3 rounded-full bg-neutral-700"></div>
+              <span className="text-neutral-400 text-xs ml-2 font-mono flex items-center gap-1.5">
+                <Terminal className="w-3.5 h-3.5 text-red-400" />
                 {t.terminal.headerText}
               </span>
             </div>
-            <span className="text-[11px] text-slate-500 font-mono">bash 5.2</span>
+            <span className="text-[11px] text-neutral-500 font-mono">bash 5.2</span>
           </div>
 
           {/* Console Body */}
@@ -171,16 +170,16 @@ export default function TerminalView() {
             {history.map((item, index) => (
               <div key={index}>
                 {item.type === 'system' && (
-                  <p className="text-cyan-400/85">{item.content}</p>
+                  <p className="text-red-400/90">{item.content}</p>
                 )}
                 {item.type === 'user' && (
-                  <p className="text-purple-300 font-semibold">{item.content}</p>
+                  <p className="text-rose-300 font-semibold">{item.content}</p>
                 )}
                 {item.type === 'output' && (
-                  <pre className="text-slate-300 whitespace-pre-wrap leading-relaxed font-mono">{item.content}</pre>
+                  <pre className="text-neutral-300 whitespace-pre-wrap leading-relaxed font-mono">{item.content}</pre>
                 )}
                 {item.type === 'error' && (
-                  <p className="text-rose-400">{item.content}</p>
+                  <p className="text-red-400 font-bold">{item.content}</p>
                 )}
               </div>
             ))}
@@ -188,13 +187,13 @@ export default function TerminalView() {
           </div>
 
           {/* Quick command buttons */}
-          <div className="px-4 sm:px-6 py-2.5 bg-slate-900/40 border-t border-slate-800/60 flex flex-wrap items-center gap-2 text-xs">
-            <span className="text-slate-500 mr-1 text-[11px]">{t.terminal.quickAccessLabel}</span>
+          <div className="px-4 sm:px-6 py-2.5 bg-neutral-950/60 border-t border-neutral-800/80 flex flex-wrap items-center gap-2 text-xs">
+            <span className="text-neutral-500 mr-1 text-[11px]">{t.terminal.quickAccessLabel}</span>
             {['about', 'skills', 'projects', 'contact', 'clear'].map((cmd) => (
               <button
                 key={cmd}
                 onClick={() => executeCommand(cmd)}
-                className="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-cyan-300 hover:text-white border border-slate-700 transition-colors"
+                className="px-2.5 py-1 rounded-md bg-neutral-900 hover:bg-red-600 text-neutral-300 hover:text-white border border-neutral-800 transition-colors"
               >
                 {cmd}
               </button>
@@ -202,18 +201,18 @@ export default function TerminalView() {
           </div>
 
           {/* Command Prompt Input */}
-          <form onSubmit={handleSubmit} className="p-3 sm:p-4 bg-slate-900/80 border-t border-slate-800 flex items-center gap-3">
-            <span className="text-emerald-400 font-bold text-base">&gt;</span>
+          <form onSubmit={handleSubmit} className="p-3 sm:p-4 bg-neutral-950 border-t border-neutral-800 flex items-center gap-3">
+            <span className="text-red-500 font-bold text-base">&gt;</span>
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder={t.terminal.inputPlaceholder}
-              className="flex-1 bg-transparent text-slate-100 placeholder-slate-500 focus:outline-none font-mono text-xs sm:text-sm"
+              className="flex-1 bg-transparent text-neutral-100 placeholder-neutral-600 focus:outline-none font-mono text-xs sm:text-sm"
             />
             <button
               type="submit"
-              className="p-1.5 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 transition-colors"
+              className="p-1.5 rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-300 transition-colors"
               title="Execute"
             >
               <CornerDownLeft className="w-4 h-4" />

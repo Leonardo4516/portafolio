@@ -1,4 +1,4 @@
-// Refined, high-detail geometric Vitruvian Man (Leonardo da Vinci inspired) SVG
+// Refined, high-detail geometric Vitruvian Man (Leonardo da Vinci inspired) SVG in Crimson Red
 export function BrandLogo({ className = "w-7 h-7" }) {
   return (
     <svg 
@@ -8,14 +8,14 @@ export function BrandLogo({ className = "w-7 h-7" }) {
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        <linearGradient id="vitruviusGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#00f3ff" />
-          <stop offset="50%" stopColor="#38bdf8" />
-          <stop offset="100%" stopColor="#bc13fe" />
+        <linearGradient id="vitruviusRedGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#ff1a40" />
+          <stop offset="50%" stopColor="#ef4444" />
+          <stop offset="100%" stopColor="#991b1b" />
         </linearGradient>
-        <linearGradient id="glowGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#bc13fe" />
-          <stop offset="100%" stopColor="#00f3ff" />
+        <linearGradient id="glowRedGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#7f1d1d" />
+          <stop offset="100%" stopColor="#ff1a40" />
         </linearGradient>
       </defs>
 
@@ -25,10 +25,10 @@ export function BrandLogo({ className = "w-7 h-7" }) {
         cx="50" 
         cy="50" 
         r="46" 
-        stroke="url(#vitruviusGrad)" 
+        stroke="url(#vitruviusRedGrad)" 
         strokeWidth="1.2" 
         strokeDasharray="4 2"
-        opacity="0.75"
+        opacity="0.8"
       />
       
       {/* Precision Square */}
@@ -37,119 +37,111 @@ export function BrandLogo({ className = "w-7 h-7" }) {
         y="15" 
         width="70" 
         height="70" 
-        stroke="url(#vitruviusGrad)" 
+        stroke="url(#vitruviusRedGrad)" 
         strokeWidth="1" 
-        opacity="0.45"
+        opacity="0.5"
       />
 
       {/* Subtle Axis Grid Lines */}
-      <line x1="50" y1="4" x2="50" y2="96" stroke="#00f3ff" strokeWidth="0.5" strokeDasharray="2 3" opacity="0.3" />
-      <line x1="4" y1="50" x2="96" y2="50" stroke="#00f3ff" strokeWidth="0.5" strokeDasharray="2 3" opacity="0.3" />
+      <line x1="50" y1="4" x2="50" y2="96" stroke="#ef4444" strokeWidth="0.5" strokeDasharray="2 3" opacity="0.3" />
+      <line x1="4" y1="50" x2="96" y2="50" stroke="#ef4444" strokeWidth="0.5" strokeDasharray="2 3" opacity="0.3" />
 
       {/* --- Anatomical / Contoured Body Silhouette --- */}
       
       {/* Head with classical chin and hair contour */}
-      <ellipse cx="50" cy="22" rx="4.5" ry="5.8" stroke="url(#vitruviusGrad)" strokeWidth="1.3" fill="#030712" />
-      <path d="M47 18.5C48 17.5 52 17.5 53 18.5" stroke="#38bdf8" strokeWidth="1" strokeLinecap="round" />
+      <ellipse cx="50" cy="22" rx="4.5" ry="5.8" stroke="url(#vitruviusRedGrad)" strokeWidth="1.3" fill="#050507" />
+      <path d="M47 18.5C48 17.5 52 17.5 53 18.5" stroke="#fca5a5" strokeWidth="1" strokeLinecap="round" />
       
       {/* Neck & Trapezius */}
-      <path d="M46.5 27.5L44 31M53.5 27.5L56 31" stroke="url(#vitruviusGrad)" strokeWidth="1.2" strokeLinecap="round" />
+      <path d="M46.5 27.5L44 31M53.5 27.5L56 31" stroke="url(#vitruviusRedGrad)" strokeWidth="1.2" strokeLinecap="round" />
 
       {/* Torso: Pectorals & Ribcage definition */}
       <path 
         d="M44 31C44 34 46.5 37 50 37C53.5 37 56 34 56 31" 
-        stroke="url(#vitruviusGrad)" 
+        stroke="url(#vitruviusRedGrad)" 
         strokeWidth="1.3" 
         strokeLinecap="round"
       />
-      <line x1="50" y1="28" x2="50" y2="48" stroke="url(#vitruviusGrad)" strokeWidth="1" opacity="0.7" />
+      <line x1="50" y1="28" x2="50" y2="48" stroke="url(#vitruviusRedGrad)" strokeWidth="1" opacity="0.7" />
       
       {/* Abdomen / Waist curvature */}
       <path 
         d="M44 34C43 40 45 46 45 50L50 52L55 50C55 46 57 40 56 34" 
-        stroke="url(#vitruviusGrad)" 
+        stroke="url(#vitruviusRedGrad)" 
         strokeWidth="1.2" 
         strokeLinejoin="round"
       />
 
       {/* --- Arms: Set 1 (Horizontal - touching the Square) --- */}
-      {/* Left horizontal arm with shoulder, bicep, forearm, hand */}
       <path 
         d="M44 31L32 31.5C27 31.5 21 32 15 32" 
-        stroke="url(#vitruviusGrad)" 
+        stroke="url(#vitruviusRedGrad)" 
         strokeWidth="1.5" 
         strokeLinecap="round"
       />
-      {/* Right horizontal arm */}
       <path 
         d="M56 31L68 31.5C73 31.5 79 32 85 32" 
-        stroke="url(#vitruviusGrad)" 
+        stroke="url(#vitruviusRedGrad)" 
         strokeWidth="1.5" 
         strokeLinecap="round"
       />
 
       {/* --- Arms: Set 2 (Angled / Raised - touching the Circle) --- */}
-      {/* Left raised arm */}
       <path 
         d="M44 30L33 24C26 20 21 16 18 14" 
-        stroke="url(#glowGrad)" 
+        stroke="url(#glowRedGrad)" 
         strokeWidth="1.4" 
         strokeLinecap="round"
       />
-      {/* Right raised arm */}
       <path 
         d="M56 30L67 24C74 20 79 16 82 14" 
-        stroke="url(#glowGrad)" 
+        stroke="url(#glowRedGrad)" 
         strokeWidth="1.4" 
         strokeLinecap="round"
       />
 
-      {/* Hand points */}
-      <circle cx="15" cy="32" r="1.2" fill="#00f3ff" />
-      <circle cx="85" cy="32" r="1.2" fill="#00f3ff" />
-      <circle cx="18" cy="14" r="1.2" fill="#bc13fe" />
-      <circle cx="82" cy="14" r="1.2" fill="#bc13fe" />
+      {/* Hand nodes */}
+      <circle cx="15" cy="32" r="1.2" fill="#ff1a40" />
+      <circle cx="85" cy="32" r="1.2" fill="#ff1a40" />
+      <circle cx="18" cy="14" r="1.2" fill="#ef4444" />
+      <circle cx="82" cy="14" r="1.2" fill="#ef4444" />
 
       {/* --- Legs: Set 1 (Straight / Standing - touching base of Square) --- */}
-      {/* Left standing leg with thigh, knee, calf, foot */}
       <path 
         d="M46 51C45 60 45 70 44 85" 
-        stroke="url(#vitruviusGrad)" 
+        stroke="url(#vitruviusRedGrad)" 
         strokeWidth="1.6" 
         strokeLinecap="round"
       />
-      {/* Right standing leg */}
       <path 
         d="M54 51C55 60 55 70 56 85" 
-        stroke="url(#vitruviusGrad)" 
+        stroke="url(#vitruviusRedGrad)" 
         strokeWidth="1.6" 
         strokeLinecap="round"
       />
 
       {/* --- Legs: Set 2 (Spread / Angled - touching the Circle) --- */}
-      {/* Left spread leg */}
       <path 
         d="M46 51C41 62 34 72 26 84" 
-        stroke="url(#glowGrad)" 
+        stroke="url(#glowRedGrad)" 
         strokeWidth="1.5" 
         strokeLinecap="round"
       />
-      {/* Right spread leg */}
       <path 
         d="M54 51C59 62 66 72 74 84" 
-        stroke="url(#glowGrad)" 
+        stroke="url(#glowRedGrad)" 
         strokeWidth="1.5" 
         strokeLinecap="round"
       />
 
-      {/* Feet points */}
-      <circle cx="44" cy="85" r="1.2" fill="#00f3ff" />
-      <circle cx="56" cy="85" r="1.2" fill="#00f3ff" />
-      <circle cx="26" cy="84" r="1.2" fill="#bc13fe" />
-      <circle cx="74" cy="84" r="1.2" fill="#bc13fe" />
+      {/* Feet nodes */}
+      <circle cx="44" cy="85" r="1.2" fill="#ff1a40" />
+      <circle cx="56" cy="85" r="1.2" fill="#ff1a40" />
+      <circle cx="26" cy="84" r="1.2" fill="#ef4444" />
+      <circle cx="74" cy="84" r="1.2" fill="#ef4444" />
 
-      {/* Core Center Navel Node (Golden Ratio Reference) */}
-      <circle cx="50" cy="50" r="1.8" fill="#00f3ff" />
+      {/* Core Center Navel Node */}
+      <circle cx="50" cy="50" r="1.8" fill="#ff1a40" />
     </svg>
   )
 }

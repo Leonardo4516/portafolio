@@ -8,8 +8,8 @@ export default {
     extend: {
       colors: {
         neon: {
-          blue: '#00f3ff',
-          purple: '#bc13fe',
+          red: '#ff1a40',
+          darkRed: '#800a1b',
         }
       }
     },

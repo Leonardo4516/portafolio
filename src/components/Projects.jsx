@@ -110,13 +110,13 @@ export default function Projects() {
     <section id="proyectos" className="py-24 px-4 sm:px-6 relative z-10">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <span className="text-xs font-mono uppercase tracking-widest text-cyan-400 bg-cyan-950/40 border border-cyan-500/20 px-4 py-1.5 rounded-full inline-block">
+          <span className="text-xs font-mono uppercase tracking-widest text-red-400 bg-red-950/40 border border-red-500/30 px-4 py-1.5 rounded-full inline-block">
             {t.projects.tag}
           </span>
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-100 mt-4 mb-4">
-            {t.projects.title} <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-purple-400 bg-clip-text text-transparent">{t.projects.titleHighlight}</span>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-neutral-100 mt-4 mb-4">
+            {t.projects.title} <span className="bg-gradient-to-r from-red-500 via-rose-400 to-red-600 bg-clip-text text-transparent">{t.projects.titleHighlight}</span>
           </h2>
-          <p className="max-w-2xl mx-auto text-slate-400 text-xs sm:text-sm md:text-base font-sans leading-relaxed">
+          <p className="max-w-2xl mx-auto text-neutral-400 text-xs sm:text-sm md:text-base font-sans leading-relaxed">
             {t.projects.desc}
           </p>
         </div>
@@ -129,8 +129,8 @@ export default function Projects() {
               onClick={() => setFilter(cat.id)}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all duration-300 ${
                 filter === cat.id
-                  ? 'bg-cyan-500 text-slate-950 font-bold shadow-[0_0_20px_rgba(0,243,255,0.35)]'
-                  : 'bg-slate-900/60 hover:bg-slate-800/60 border border-slate-800 text-slate-400 hover:text-slate-200'
+                  ? 'bg-red-600 text-white font-bold shadow-[0_0_20px_rgba(239,68,68,0.4)]'
+                  : 'bg-neutral-950/60 hover:bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-neutral-200'
               }`}
             >
               {cat.label}
@@ -151,25 +151,25 @@ export default function Projects() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.25 }}
-                  className="bg-slate-900/50 backdrop-blur-xl border border-slate-800/90 hover:border-cyan-500/50 rounded-2xl p-6 sm:p-7 flex flex-col justify-between group hover:shadow-[0_10px_40px_rgba(0,243,255,0.08)] transition-all duration-300 hover:-translate-y-1.5"
+                  className="bg-neutral-950/60 backdrop-blur-xl border border-neutral-800/90 hover:border-red-500/50 rounded-2xl p-6 sm:p-7 flex flex-col justify-between group hover:shadow-[0_10px_40px_rgba(239,68,68,0.12)] transition-all duration-300 hover:-translate-y-1.5"
                 >
                   <div>
                     <div className="flex items-start justify-between mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-center group-hover:border-cyan-400/50 group-hover:scale-105 transition-all">
-                        <Icon className="w-6 h-6 text-cyan-400" />
+                      <div className="w-12 h-12 rounded-xl bg-neutral-900/90 border border-neutral-800 flex items-center justify-center group-hover:border-red-500/50 group-hover:scale-105 transition-all">
+                        <Icon className="w-6 h-6 text-red-400" />
                       </div>
                       {item.featured && (
-                        <span className="px-3 py-1 rounded-full text-[10px] font-mono tracking-wider bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                        <span className="px-3 py-1 rounded-full text-[10px] font-mono tracking-wider bg-red-500/20 text-red-300 border border-red-500/30">
                           {t.projects.badgeFeatured}
                         </span>
                       )}
                     </div>
 
-                    <h3 className="font-mono font-bold text-lg sm:text-xl text-slate-100 mb-1 group-hover:text-cyan-300 transition-colors">
+                    <h3 className="font-mono font-bold text-lg sm:text-xl text-neutral-100 mb-1 group-hover:text-red-400 transition-colors">
                       {item.title}
                     </h3>
-                    <p className="text-xs font-mono text-cyan-400/80 mb-3">{item.subtitle}</p>
-                    <p className="text-slate-300/80 text-xs sm:text-sm leading-relaxed mb-6 font-sans">
+                    <p className="text-xs font-mono text-red-400/90 mb-3">{item.subtitle}</p>
+                    <p className="text-neutral-300/80 text-xs sm:text-sm leading-relaxed mb-6 font-sans">
                       {item.desc}
                     </p>
                   </div>
@@ -179,19 +179,19 @@ export default function Projects() {
                       {item.tags.map((tag, idx) => (
                         <span
                           key={idx}
-                          className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300"
+                          className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-neutral-300"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
 
-                    <div className="flex items-center gap-3 pt-4 border-t border-slate-800/80">
+                    <div className="flex items-center gap-3 pt-4 border-t border-neutral-800/80">
                       <a
                         href={item.github}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-lg bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 transition-all font-semibold"
+                        className="flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-lg bg-neutral-900 hover:bg-red-600 hover:text-white text-neutral-300 transition-all font-semibold"
                       >
                         <GithubIcon className="w-4 h-4" />
                         <span>{t.projects.btnCode}</span>
@@ -202,7 +202,7 @@ export default function Projects() {
                           href={item.demo}
                           target="_blank"
                           rel="noreferrer"
-                          className="flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg text-cyan-400 hover:text-cyan-300 hover:bg-cyan-950/40 border border-cyan-500/20 transition-all"
+                          className="flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-950/40 border border-red-500/30 transition-all"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
                           <span>{t.projects.btnDemo}</span>

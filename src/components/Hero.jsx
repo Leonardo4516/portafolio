@@ -10,7 +10,6 @@ export default function Hero() {
   const [displayText, setDisplayText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
 
-  // Reset or adjust index if language switches
   useEffect(() => {
     setRoleIndex(0)
     setDisplayText('')
@@ -46,42 +45,42 @@ export default function Hero() {
           className="text-center flex flex-col items-center"
         >
           {/* Top pill badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/85 border border-cyan-500/30 text-[11px] sm:text-xs font-mono text-cyan-300 mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(0,243,255,0.15)]">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-spin" style={{ animationDuration: '9s' }} />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-950/90 border border-red-500/40 text-[11px] sm:text-xs font-mono text-red-300 mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(239,68,68,0.2)]">
+            <Sparkles className="w-3.5 h-3.5 text-red-400 animate-spin" style={{ animationDuration: '9s' }} />
             <span>{t.hero.badge}</span>
           </div>
 
           {/* Main Title */}
           <h1 className="text-3xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-3">
-            <span className="block text-slate-200 text-2xl sm:text-4xl md:text-5xl font-light mb-1">
+            <span className="block text-neutral-200 text-2xl sm:text-4xl md:text-5xl font-light mb-1">
               {t.hero.greeting}
             </span>
-            <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-purple-500 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(0,243,255,0.25)]">
+            <span className="bg-gradient-to-r from-red-500 via-rose-400 to-red-600 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(239,68,68,0.4)]">
               {t.hero.name}
             </span>
           </h1>
 
           {/* Role + Education Subtitle */}
-          <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm font-mono text-purple-300 mb-6">
-            <span className="px-2.5 py-1 rounded-md bg-purple-500/10 border border-purple-500/30 text-purple-300 font-semibold">
+          <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm font-mono text-red-300 mb-6">
+            <span className="px-2.5 py-1 rounded-md bg-red-500/10 border border-red-500/30 text-red-300 font-semibold">
               {t.hero.role}
             </span>
-            <span className="text-slate-500">•</span>
-            <span className="flex items-center gap-1 text-slate-300">
-              <GraduationCap className="w-3.5 h-3.5 text-cyan-400" />
+            <span className="text-neutral-600">•</span>
+            <span className="flex items-center gap-1 text-neutral-300">
+              <GraduationCap className="w-3.5 h-3.5 text-red-400" />
               {t.hero.education}
             </span>
           </div>
 
           {/* Typewriter role */}
-          <div className="h-10 sm:h-12 flex items-center justify-center font-mono text-base sm:text-xl md:text-2xl text-cyan-300/90 mb-8 max-w-full px-2 text-center">
-            <span className="text-purple-400 mr-2">&gt;</span>
+          <div className="h-10 sm:h-12 flex items-center justify-center font-mono text-base sm:text-xl md:text-2xl text-red-300/90 mb-8 max-w-full px-2 text-center">
+            <span className="text-rose-500 mr-2">&gt;</span>
             <span className="truncate">{displayText}</span>
-            <span className="w-2.5 h-5 sm:h-6 bg-cyan-400 ml-1 inline-block animate-pulse"></span>
+            <span className="w-2.5 h-5 sm:h-6 bg-red-500 ml-1 inline-block animate-pulse"></span>
           </div>
 
-          {/* Grounded & Realistic Description */}
-          <p className="max-w-2xl text-slate-300/85 text-sm sm:text-base leading-relaxed mb-9 font-sans px-2">
+          {/* Description */}
+          <p className="max-w-2xl text-neutral-300/85 text-sm sm:text-base leading-relaxed mb-9 font-sans px-2">
             {t.hero.description}
           </p>
 
@@ -89,7 +88,7 @@ export default function Hero() {
           <div className="flex flex-wrap items-center justify-center gap-3.5">
             <a
               href="#proyectos"
-              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-semibold font-mono text-xs sm:text-sm tracking-wide shadow-[0_0_25px_rgba(0,243,255,0.3)] hover:shadow-[0_0_35px_rgba(0,243,255,0.5)] transition-all transform hover:-translate-y-0.5"
+              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-500 text-white font-semibold font-mono text-xs sm:text-sm tracking-wide shadow-[0_0_25px_rgba(239,68,68,0.4)] hover:shadow-[0_0_35px_rgba(239,68,68,0.6)] transition-all transform hover:-translate-y-0.5"
             >
               <span>{t.hero.btnProjects}</span>
               <ArrowRight className="w-4 h-4" />
@@ -97,34 +96,34 @@ export default function Hero() {
 
             <a
               href="#terminal"
-              className="flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900/80 hover:bg-slate-800/80 border border-slate-700/80 hover:border-purple-500/50 text-slate-200 font-mono text-xs sm:text-sm tracking-wide backdrop-blur-md transition-all shadow-[0_0_15px_rgba(188,19,254,0.1)] hover:shadow-[0_0_20px_rgba(188,19,254,0.25)]"
+              className="flex items-center gap-2 px-5 py-3 rounded-xl bg-neutral-950/80 hover:bg-neutral-900 border border-neutral-800 hover:border-red-500/50 text-neutral-200 font-mono text-xs sm:text-sm tracking-wide backdrop-blur-md transition-all shadow-[0_0_15px_rgba(239,68,68,0.1)] hover:shadow-[0_0_20px_rgba(239,68,68,0.25)]"
             >
-              <Terminal className="w-4 h-4 text-purple-400" />
+              <Terminal className="w-4 h-4 text-red-400" />
               <span>{t.hero.btnTerminal}</span>
             </a>
           </div>
 
           {/* Micro stats banner */}
           <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full max-w-3xl px-2">
-            <div className="bg-slate-900/50 backdrop-blur-md border border-slate-800/80 rounded-xl p-3 sm:p-4 text-center">
-              <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 mx-auto mb-1.5" />
-              <div className="text-base sm:text-lg font-bold font-mono text-slate-100">{t.hero.stats[0].value}</div>
-              <div className="text-[10px] sm:text-xs font-mono text-slate-400">{t.hero.stats[0].label}</div>
+            <div className="bg-neutral-950/70 backdrop-blur-md border border-neutral-800/80 hover:border-red-500/30 rounded-xl p-3 sm:p-4 text-center transition-colors">
+              <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 text-red-400 mx-auto mb-1.5" />
+              <div className="text-base sm:text-lg font-bold font-mono text-white">{t.hero.stats[0].value}</div>
+              <div className="text-[10px] sm:text-xs font-mono text-neutral-400">{t.hero.stats[0].label}</div>
             </div>
-            <div className="bg-slate-900/50 backdrop-blur-md border border-slate-800/80 rounded-xl p-3 sm:p-4 text-center">
-              <Database className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 mx-auto mb-1.5" />
-              <div className="text-base sm:text-lg font-bold font-mono text-slate-100">{t.hero.stats[1].value}</div>
-              <div className="text-[10px] sm:text-xs font-mono text-slate-400">{t.hero.stats[1].label}</div>
+            <div className="bg-neutral-950/70 backdrop-blur-md border border-neutral-800/80 hover:border-red-500/30 rounded-xl p-3 sm:p-4 text-center transition-colors">
+              <Database className="w-4 h-4 sm:w-5 sm:h-5 text-rose-500 mx-auto mb-1.5" />
+              <div className="text-base sm:text-lg font-bold font-mono text-white">{t.hero.stats[1].value}</div>
+              <div className="text-[10px] sm:text-xs font-mono text-neutral-400">{t.hero.stats[1].label}</div>
             </div>
-            <div className="bg-slate-900/50 backdrop-blur-md border border-slate-800/80 rounded-xl p-3 sm:p-4 text-center">
-              <Cpu className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 mx-auto mb-1.5" />
-              <div className="text-base sm:text-lg font-bold font-mono text-slate-100">{t.hero.stats[2].value}</div>
-              <div className="text-[10px] sm:text-xs font-mono text-slate-400">{t.hero.stats[2].label}</div>
+            <div className="bg-neutral-950/70 backdrop-blur-md border border-neutral-800/80 hover:border-red-500/30 rounded-xl p-3 sm:p-4 text-center transition-colors">
+              <Cpu className="w-4 h-4 sm:w-5 sm:h-5 text-red-400 mx-auto mb-1.5" />
+              <div className="text-base sm:text-lg font-bold font-mono text-white">{t.hero.stats[2].value}</div>
+              <div className="text-[10px] sm:text-xs font-mono text-neutral-400">{t.hero.stats[2].label}</div>
             </div>
-            <div className="bg-slate-900/50 backdrop-blur-md border border-slate-800/80 rounded-xl p-3 sm:p-4 text-center">
-              <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 mx-auto mb-1.5" />
-              <div className="text-base sm:text-lg font-bold font-mono text-slate-100">{t.hero.stats[3].value}</div>
-              <div className="text-[10px] sm:text-xs font-mono text-slate-400">{t.hero.stats[3].label}</div>
+            <div className="bg-neutral-950/70 backdrop-blur-md border border-neutral-800/80 hover:border-red-500/30 rounded-xl p-3 sm:p-4 text-center transition-colors">
+              <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-rose-400 mx-auto mb-1.5" />
+              <div className="text-base sm:text-lg font-bold font-mono text-white">{t.hero.stats[3].value}</div>
+              <div className="text-[10px] sm:text-xs font-mono text-neutral-400">{t.hero.stats[3].label}</div>
             </div>
           </div>
         </motion.div>
