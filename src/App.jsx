@@ -6,7 +6,7 @@ import Hero from './components/Hero'
 import About from './components/About'
 import TechStack from './components/TechStack'
 import Projects from './components/Projects'
-import TerminalView from './components/TerminalView'
+import WorkflowView from './components/WorkflowView'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 
@@ -40,7 +40,7 @@ function PortfolioContent() {
           <About />
           <TechStack />
           <Projects />
-          <TerminalView />
+          <WorkflowView />
           <Contact />
         </main>
         <Footer />

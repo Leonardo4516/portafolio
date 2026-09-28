@@ -29,9 +29,28 @@ export default function Navbar() {
     { href: '#sobre-mi', label: t.nav.about },
     { href: '#stack', label: t.nav.skills },
     { href: '#proyectos', label: t.nav.projects },
-    { href: '#terminal', label: t.nav.terminal },
+    { href: '#metodologia', label: t.nav.workflow },
     { href: '#contacto', label: t.nav.contact },
   ]
+
+  const handleNavClick = (e, targetId) => {
+    e.preventDefault()
+    setMobileMenuOpen(false)
+    const element = document.querySelector(targetId)
+    if (element) {
+      const navHeight = 70
+      const elementPosition = element.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - navHeight
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+      if (window.history.pushState) {
+        window.history.pushState(null, null, targetId)
+      }
+    }
+  }
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -43,7 +62,7 @@ export default function Navbar() {
         {/* Brand: ONLY the Vitruvian logo in Crimson */}
         <a 
           href="#inicio" 
-          onClick={() => setMobileMenuOpen(false)}
+          onClick={(e) => handleNavClick(e, '#inicio')}
           className="flex items-center group focus:outline-none"
           title="Inicio // Home"
         >
@@ -60,7 +79,8 @@ export default function Navbar() {
             <a 
               key={link.href} 
               href={link.href} 
-              className="hover:text-red-400 transition-colors py-1"
+              onClick={(e) => handleNavClick(e, link.href)}
+              className="hover:text-red-400 transition-colors py-1 cursor-pointer"
             >
               {link.label}
             </a>
@@ -128,8 +148,8 @@ export default function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="py-2 px-3 rounded-lg hover:bg-red-500/10 hover:text-red-400 border-l-2 border-transparent hover:border-red-500 transition-all"
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="py-2 px-3 rounded-lg hover:bg-red-500/10 hover:text-red-400 border-l-2 border-transparent hover:border-red-500 transition-all cursor-pointer"
                 >
                   {link.label}
                 </a>

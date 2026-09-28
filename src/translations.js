@@ -5,7 +5,7 @@ export const translations = {
       about: "02. // trayectoria",
       skills: "03. // habilidades",
       projects: "04. // proyectos",
-      terminal: "05. // consola",
+      workflow: "05. // metodología",
       contact: "06. // contacto",
       status: "Disponible para trabajar",
     },
@@ -24,7 +24,7 @@ export const translations = {
       ],
       description: "Desarrollador junior con bases sólidas en lógica, arquitectura de software orientada a objetos y persistencia relacional. Utilizo herramientas de Inteligencia Artificial de forma práctica como copiloto para acelerar entregas, auditar código y optimizar flujos.",
       btnProjects: "Explorar Proyectos",
-      btnTerminal: "Abrir Consola Interactiva",
+      btnWorkflow: "Ver Metodología de Trabajo",
       stats: [
         { value: "Técnico", label: "Formación en Software" },
         { value: "Java & SQL", label: "Enfoque Backend" },
@@ -51,7 +51,16 @@ export const translations = {
           desc: "Ingeniería de prompts estructurada y flujos agénticos para verificación de sintaxis, análisis de casos de prueba y automatizaciones con n8n."
         }
       ],
-      codeSnippetTitle: "perfil_profesional.py"
+      standardsBadge: "ESTÁNDARES DE INGENIERÍA",
+      standardsTitle: "Principios de Desarrollo & Calidad de Código",
+      standardsDesc: "Criterios técnicos aplicados consistentemente en cada proyecto de software:",
+      standards: [
+        { label: "Spec-Driven Development (SDD)", desc: "Especificación formal de requisitos, casos de uso y contratos de datos antes de programar." },
+        { label: "Diseño Relacional & 3NF", desc: "Modelado relacional estricto con PostgreSQL/MySQL garantizando integridad referencial y consistencia." },
+        { label: "Arquitectura Modular en Capas", desc: "Separación limpia de responsabilidades (controladores, servicios, repositorios) y patrones de diseño." },
+        { label: "Contenedores Docker & Git Flow", desc: "Entornos de desarrollo aislados con Docker Compose y control de versiones semántico." },
+        { label: "Auditoría Asistida con IA", desc: "Uso de herramientas de IA para revisión estricta de sintaxis, casos de prueba y documentación técnica." }
+      ]
     },
     skills: {
       tag: "03. // COMPETENCIAS TÉCNICAS",
@@ -85,16 +94,53 @@ export const translations = {
       btnCode: "Ver Código",
       btnDemo: "Demo en Vivo"
     },
-    terminal: {
-      tag: "05. // TERMINAL INTERACTIVA",
-      title: "Explora mi perfil vía",
-      titleHighlight: "CLI",
-      desc: "Interactúa con mi perfil en tiempo real ejecutando comandos en esta consola simulada.",
-      headerText: "leonardo@junior-dev:~",
-      quickAccessLabel: "Comandos rápidos:",
-      inputPlaceholder: "Escribe un comando (ej: help, projects)...",
-      initialMsg1: "Leonardo CLI v2.5.0 [Perfil de Desarrollador Junior]",
-      initialMsg2: 'Escribe "help" para ver la lista de comandos disponibles, o pulsa un botón rápido.'
+    workflow: {
+      tag: "05. // METODOLOGÍA & FLUJO DE TRABAJO",
+      title: "Cómo Construyo",
+      titleHighlight: "Software de Principio a Fin",
+      desc: "Un enfoque estructurado que combina fundamentos de ingeniería, modelado riguroso de bases de datos y automatización pragmática.",
+      phases: [
+        {
+          step: "01",
+          phase: "Requisitos & Modelo de Datos",
+          title: "Análisis & Diseño Relacional",
+          desc: "Definición de entidades, relaciones (1:N, N:M), restricciones de integridad y normalización en 3ra Forma Normal (3NF) para evitar redundancias.",
+          tools: ["PostgreSQL", "MySQL", "Diagramas E-R", "Docker"],
+          caseStudyLabel: "Aplicado en:",
+          caseStudyProject: "ETL & Normalización PostgreSQL",
+          deliverable: "Esquema DDL validado y scripts reproducibles en contenedores."
+        },
+        {
+          step: "02",
+          phase: "Lógica Backend & Patrones",
+          title: "Construcción Robusta con Java 17+",
+          desc: "Implementación orientada a objetos con separación de capas (Data Access, Service, Controller/UI) y aplicación de patrones como Factory, State o Strategy.",
+          tools: ["Java 17", "JDBC", "POO & SOLID", "Seguridad BCrypt"],
+          caseStudyLabel: "Aplicado en:",
+          caseStudyProject: "SICA (Control de Acceso) & Simulador F1",
+          deliverable: "Código tipado, modular y protegido contra accesos indebidos (RBAC)."
+        },
+        {
+          step: "03",
+          phase: "Automatización & Conexiones",
+          title: "Orquestación de Flujos & Webhooks",
+          desc: "Integración de servicios externos mediante webhooks, flujos en n8n para reducir trabajo manual y scripts auxiliares en Python y Bash.",
+          tools: ["n8n", "Telegram Bot API", "Python", "Google Sheets API"],
+          caseStudyLabel: "Aplicado en:",
+          caseStudyProject: "CafExpress (Bot & Flujos n8n)",
+          deliverable: "Procesos automatizados de captura y notificación en tiempo real."
+        },
+        {
+          step: "04",
+          phase: "Contenedores, QA & Despliegue",
+          title: "Reproducibilidad & Control de Versiones",
+          desc: "Aislamiento de servicios y bases de datos con Docker Compose, pruebas unitarias automatizadas con JUnit y control de versiones semántico en Git.",
+          tools: ["Docker Compose", "JUnit 5", "Git & GitHub", "Linux/Bash"],
+          caseStudyLabel: "Aplicado en:",
+          caseStudyProject: "Entornos Dockerizados & Suite de Pruebas",
+          deliverable: "Un solo comando para levantar todo el entorno de trabajo ('docker compose up')."
+        }
+      ]
     },
     contact: {
       tag: "06. // CONTACTO Y CONEXIÓN",
@@ -140,7 +186,7 @@ export const translations = {
       about: "02. // background",
       skills: "03. // skills",
       projects: "04. // projects",
-      terminal: "05. // console",
+      workflow: "05. // methodology",
       contact: "06. // contact",
       status: "Available for opportunities",
     },
@@ -159,7 +205,7 @@ export const translations = {
       ],
       description: "Junior software developer with a technical degree and solid fundamentals in object-oriented software architecture, relational database modeling, and practical AI tools to streamline delivery and code quality.",
       btnProjects: "Explore Projects",
-      btnTerminal: "Open Interactive Console",
+      btnWorkflow: "Explore Workflow & Methodology",
       stats: [
         { value: "Degree", label: "Software Technician" },
         { value: "Java & SQL", label: "Backend Core" },
@@ -186,7 +232,16 @@ export const translations = {
           desc: "Structured prompt engineering and agentic workflows for syntax review, test-case planning, and process automations with n8n."
         }
       ],
-      codeSnippetTitle: "professional_profile.py"
+      standardsBadge: "ENGINEERING STANDARDS",
+      standardsTitle: "Development Principles & Code Quality",
+      standardsDesc: "Technical criteria consistently applied across software projects:",
+      standards: [
+        { label: "Spec-Driven Development (SDD)", desc: "Formal specification of requirements, use cases, and data contracts before writing production code." },
+        { label: "Relational Design & 3NF", desc: "Rigorous relational schema design in PostgreSQL/MySQL ensuring referential integrity and zero anomalies." },
+        { label: "Modular Layered Architecture", desc: "Clean separation of concerns (controllers, services, repositories) and classic design patterns." },
+        { label: "Docker Containers & Git Flow", desc: "Isolated and reproducible development environments via Docker Compose with semantic versioning." },
+        { label: "AI-Assisted Code Audits", desc: "Targeted AI workflows for strict syntax auditing, test edge cases, and technical documentation." }
+      ]
     },
     skills: {
       tag: "03. // TECHNICAL SKILLS",
@@ -220,16 +275,53 @@ export const translations = {
       btnCode: "View Code",
       btnDemo: "Live Demo"
     },
-    terminal: {
-      tag: "05. // INTERACTIVE TERMINAL",
-      title: "Explore my profile via",
-      titleHighlight: "CLI",
-      desc: "Interact with my professional background in real time through this simulated command-line interface.",
-      headerText: "leonardo@junior-dev:~",
-      quickAccessLabel: "Quick commands:",
-      inputPlaceholder: "Type a command (e.g., help, projects)...",
-      initialMsg1: "Leonardo CLI v2.5.0 [Junior Developer Profile]",
-      initialMsg2: 'Type "help" to see available commands, or click a quick-action button.'
+    workflow: {
+      tag: "05. // METHODOLOGY & WORKFLOW",
+      title: "How I Build",
+      titleHighlight: "Software End-to-End",
+      desc: "A structured engineering approach combining foundational principles, relational database design, and pragmatic automation.",
+      phases: [
+        {
+          step: "01",
+          phase: "Requirements & Data Modeling",
+          title: "Relational Analysis & Design",
+          desc: "Defining entities, relationships (1:N, N:M), integrity constraints, and 3rd Normal Form (3NF) to eliminate data redundancy.",
+          tools: ["PostgreSQL", "MySQL", "E-R Diagrams", "Docker"],
+          caseStudyLabel: "Applied in:",
+          caseStudyProject: "ETL & Normalization PostgreSQL",
+          deliverable: "Validated DDL schemas and reproducible containerized scripts."
+        },
+        {
+          step: "02",
+          phase: "Backend Logic & Patterns",
+          title: "Robust Construction with Java 17+",
+          desc: "Object-oriented implementation with clean layer separation (Data Access, Service, Controller/UI) and design patterns like Factory, State, or Strategy.",
+          tools: ["Java 17", "JDBC", "OOP & SOLID", "BCrypt Security"],
+          caseStudyLabel: "Applied in:",
+          caseStudyProject: "SICA (Access Control) & F1 Simulator",
+          deliverable: "Strongly-typed, modular code with Role-Based Access Control (RBAC)."
+        },
+        {
+          step: "03",
+          phase: "Automation & Connectors",
+          title: "Workflow Orchestration & Webhooks",
+          desc: "Integrating external services via webhooks, n8n automation pipelines to eliminate manual overhead, and auxiliary Python/Bash scripts.",
+          tools: ["n8n", "Telegram Bot API", "Python", "Google Sheets API"],
+          caseStudyLabel: "Applied in:",
+          caseStudyProject: "CafExpress (Telegram Bot & n8n)",
+          deliverable: "Automated real-time capture and dispatch workflows."
+        },
+        {
+          step: "04",
+          phase: "Containers, QA & Deployment",
+          title: "Reproducibility & Version Control",
+          desc: "Service and database isolation using Docker Compose, automated unit tests with JUnit 5, and semantic Git workflows.",
+          tools: ["Docker Compose", "JUnit 5", "Git & GitHub", "Linux/Bash"],
+          caseStudyLabel: "Applied in:",
+          caseStudyProject: "Containerized Stacks & Test Suites",
+          deliverable: "One single command to spin up the entire dev environment ('docker compose up')."
+        }
+      ]
     },
     contact: {
       tag: "06. // CONTACT & CONNECT",

@@ -161,7 +161,7 @@ export default function TechStack() {
     : skillsData.filter(s => s.level === activeLevel)
 
   return (
-    <section id="stack" className="py-24 px-4 sm:px-6 relative z-10">
+    <section id="stack" className="py-24 px-4 sm:px-6 relative z-10 scroll-mt-24">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <span className="text-xs font-mono uppercase tracking-widest text-red-400 bg-red-950/40 border border-red-500/30 px-4 py-1.5 rounded-full inline-block">

@@ -13,7 +13,7 @@ export default function About() {
   ]
 
   return (
-    <section id="sobre-mi" className="py-24 px-4 sm:px-6 relative z-10">
+    <section id="sobre-mi" className="py-24 px-4 sm:px-6 relative z-10 scroll-mt-24">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -29,7 +29,7 @@ export default function About() {
         </div>
 
         {/* 3 Pillars Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {t.about.pillars.map((item, idx) => {
             const Icon = pillarIcons[idx]
             const color = pillarColors[idx]
@@ -56,25 +56,46 @@ export default function About() {
           })}
         </div>
 
-        {/* Code snippet reflecting realistic developer profile */}
-        <div className="bg-black/90 border border-neutral-800 hover:border-red-500/30 transition-colors rounded-2xl p-5 sm:p-7 font-mono text-xs sm:text-sm text-neutral-300 backdrop-blur-md shadow-2xl overflow-x-auto">
-          <div className="flex items-center gap-2 mb-4 border-b border-neutral-800/80 pb-3">
-            <div className="w-3 h-3 rounded-full bg-red-600/80"></div>
-            <div className="w-3 h-3 rounded-full bg-rose-600/80"></div>
-            <div className="w-3 h-3 rounded-full bg-neutral-600/80"></div>
-            <span className="text-neutral-500 text-xs ml-2 font-mono">{t.about.codeSnippetTitle}</span>
+        {/* Engineering Standards & Quality Principles */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-neutral-950/80 border border-neutral-800 hover:border-red-500/40 transition-all rounded-2xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl"
+        >
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-5 border-b border-neutral-800/80">
+            <div>
+              <span className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-red-400 bg-red-950/50 border border-red-500/30 px-3 py-1 rounded-md inline-block mb-2">
+                {t.about.standardsBadge}
+              </span>
+              <h3 className="text-lg sm:text-xl font-bold font-mono text-white">
+                {t.about.standardsTitle}
+              </h3>
+            </div>
+            <p className="text-neutral-400 text-xs sm:text-sm max-w-md font-sans">
+              {t.about.standardsDesc}
+            </p>
           </div>
-          <div className="space-y-1 text-neutral-400 font-mono">
-            <p><span className="text-red-400">class</span> <span className="text-rose-300">JuniorSoftwareDeveloper</span>:</p>
-            <p className="pl-4"><span className="text-red-400">def</span> <span className="text-red-300">__init__</span>(self):</p>
-            <p className="pl-8 text-neutral-300">self.name = <span className="text-rose-400">"Leonardo Hernández"</span></p>
-            <p className="pl-8 text-neutral-300">self.education = <span className="text-rose-400">"Técnico en Desarrollo de Software"</span></p>
-            <p className="pl-8 text-neutral-300">self.focus = [<span className="text-red-400">"Java"</span>, <span className="text-red-400">"PostgreSQL"</span>, <span className="text-red-400">"MySQL"</span>, <span className="text-red-400">"Docker"</span>]</p>
-            <p className="pl-8 text-neutral-300">self.ai_skills = [<span className="text-red-400">"Prompt Engineering"</span>, <span className="text-red-400">"Agentic Workflows"</span>, <span className="text-red-400">"n8n"</span>]</p>
-            <p className="pl-4"><span className="text-red-400">def</span> <span className="text-red-300">solve_problem</span>(self, task):</p>
-            <p className="pl-8 text-red-400">return <span className="text-neutral-300">self.apply_clean_code(task, assisted_by_ai=<span className="text-rose-400">True</span>)</span></p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {t.about.standards.map((standard, idx) => (
+              <div 
+                key={idx}
+                className="p-4 rounded-xl bg-black/60 border border-neutral-800/70 hover:border-red-500/40 hover:bg-neutral-900/50 transition-all group"
+              >
+                <div className="flex items-center gap-2.5 mb-2">
+                  <div className="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)] group-hover:scale-125 transition-transform" />
+                  <h4 className="text-xs sm:text-sm font-semibold font-mono text-neutral-200 group-hover:text-red-300 transition-colors">
+                    {standard.label}
+                  </h4>
+                </div>
+                <p className="text-xs text-neutral-400 leading-relaxed pl-4 font-sans">
+                  {standard.desc}
+                </p>
+              </div>
+            ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

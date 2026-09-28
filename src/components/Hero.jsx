@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Sparkles, ArrowRight, Terminal, GraduationCap, Cpu, Database, ShieldCheck } from 'lucide-react'
+import { Sparkles, ArrowRight, Workflow, GraduationCap, Cpu, Database, ShieldCheck } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function Hero() {
@@ -9,6 +9,24 @@ export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0)
   const [displayText, setDisplayText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
+
+  const handleScrollTo = (e, targetId) => {
+    e.preventDefault()
+    const element = document.querySelector(targetId)
+    if (element) {
+      const navHeight = 70
+      const elementPosition = element.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - navHeight
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+      if (window.history.pushState) {
+        window.history.pushState(null, null, targetId)
+      }
+    }
+  }
 
   useEffect(() => {
     setRoleIndex(0)
@@ -36,7 +54,7 @@ export default function Hero() {
   }, [displayText, isDeleting, roleIndex, roles])
 
   return (
-    <section id="inicio" className="min-h-screen relative flex items-center justify-center pt-28 pb-16 px-4 sm:px-6">
+    <section id="inicio" className="min-h-screen relative flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 scroll-mt-24">
       <div className="max-w-5xl mx-auto w-full z-10">
         <motion.div
           initial={{ opacity: 0, y: 25 }}
@@ -88,18 +106,20 @@ export default function Hero() {
           <div className="flex flex-wrap items-center justify-center gap-3.5">
             <a
               href="#proyectos"
-              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-500 text-white font-semibold font-mono text-xs sm:text-sm tracking-wide shadow-[0_0_25px_rgba(239,68,68,0.4)] hover:shadow-[0_0_35px_rgba(239,68,68,0.6)] transition-all transform hover:-translate-y-0.5"
+              onClick={(e) => handleScrollTo(e, '#proyectos')}
+              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-500 text-white font-semibold font-mono text-xs sm:text-sm tracking-wide shadow-[0_0_25px_rgba(239,68,68,0.4)] hover:shadow-[0_0_35px_rgba(239,68,68,0.6)] transition-all transform hover:-translate-y-0.5 cursor-pointer"
             >
               <span>{t.hero.btnProjects}</span>
               <ArrowRight className="w-4 h-4" />
             </a>
 
             <a
-              href="#terminal"
-              className="flex items-center gap-2 px-5 py-3 rounded-xl bg-neutral-950/80 hover:bg-neutral-900 border border-neutral-800 hover:border-red-500/50 text-neutral-200 font-mono text-xs sm:text-sm tracking-wide backdrop-blur-md transition-all shadow-[0_0_15px_rgba(239,68,68,0.1)] hover:shadow-[0_0_20px_rgba(239,68,68,0.25)]"
+              href="#metodologia"
+              onClick={(e) => handleScrollTo(e, '#metodologia')}
+              className="flex items-center gap-2 px-5 py-3 rounded-xl bg-neutral-950/80 hover:bg-neutral-900 border border-neutral-800 hover:border-red-500/50 text-neutral-200 font-mono text-xs sm:text-sm tracking-wide backdrop-blur-md transition-all shadow-[0_0_15px_rgba(239,68,68,0.1)] hover:shadow-[0_0_20px_rgba(239,68,68,0.25)] cursor-pointer"
             >
-              <Terminal className="w-4 h-4 text-red-400" />
-              <span>{t.hero.btnTerminal}</span>
+              <Workflow className="w-4 h-4 text-red-400" />
+              <span>{t.hero.btnWorkflow}</span>
             </a>
           </div>
 
