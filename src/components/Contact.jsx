@@ -8,7 +8,6 @@ export default function Contact() {
   const { language, t } = useLanguage()
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     subject: '',
     message: ''
   })
@@ -22,8 +21,8 @@ export default function Contact() {
 
     const subject = encodeURIComponent(formData.subject || defaultSub)
     const rawBody = language === 'es'
-      ? `Hola Leonardo,\n\nMi nombre es: ${formData.name}\nMi correo de contacto es: ${formData.email}\n\nMensaje:\n${formData.message}\n`
-      : `Hello Leonardo,\n\nMy name is: ${formData.name}\nMy contact email is: ${formData.email}\n\nMessage:\n${formData.message}\n`
+      ? `Hola Leonardo, mi nombre es ${formData.name || 'un visitante de tu portafolio'}.\n\n${formData.message}\n`
+      : `Hello Leonardo, my name is ${formData.name || 'a visitor to your portfolio'}.\n\n${formData.message}\n`
 
     const body = encodeURIComponent(rawBody)
     return { subject, body, rawBody }
@@ -41,7 +40,7 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (!formData.name || !formData.email || !formData.message) return
+    if (!formData.name || !formData.message) return
 
     window.open(getGmailWebUrl(), '_blank', 'noopener,noreferrer')
     setSubmitted(true)
@@ -104,32 +103,19 @@ export default function Contact() {
                     className="w-full bg-black/80 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2.5 text-neutral-100 placeholder-neutral-600 focus:outline-none transition-colors"
                   />
                 </div>
+
                 <div>
                   <label className="block text-neutral-300 text-xs mb-1.5 font-medium">
-                    {t.contact.form.emailLabel} *
+                    {t.contact.form.subjectLabel}
                   </label>
                   <input
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder={t.contact.form.emailPlaceholder}
+                    type="text"
+                    value={formData.subject}
+                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                    placeholder={t.contact.form.subjectPlaceholder}
                     className="w-full bg-black/80 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2.5 text-neutral-100 placeholder-neutral-600 focus:outline-none transition-colors"
                   />
                 </div>
-              </div>
-
-              <div>
-                <label className="block text-neutral-300 text-xs mb-1.5 font-medium">
-                  {t.contact.form.subjectLabel}
-                </label>
-                <input
-                  type="text"
-                  value={formData.subject}
-                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  placeholder={t.contact.form.subjectPlaceholder}
-                  className="w-full bg-black/80 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2.5 text-neutral-100 placeholder-neutral-600 focus:outline-none transition-colors"
-                />
               </div>
 
               <div>
