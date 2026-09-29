@@ -50,7 +50,7 @@ function PortfolioContent() {
       {/* Fixed 3D Canvas in background with DPR capping for low-end/mobile performance */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <Canvas 
-          dpr={[1, 1.5]}
+          dpr={typeof window !== 'undefined' && window.innerWidth < 768 ? 1 : [1, 1.3]}
           gl={{ 
             powerPreference: 'high-performance', 
             antialias: false, 
