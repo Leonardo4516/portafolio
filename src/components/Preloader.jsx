@@ -3,34 +3,59 @@ import { motion } from 'framer-motion'
 import { BrandLogo } from './Icons'
 import { useLanguage } from '../context/LanguageContext'
 
+const PROGRESS_KEYFRAMES = [
+  { t: 0.00, val: 0,   tangent: 105 }, // Swift initial burst
+  { t: 0.28, val: 38,  tangent: 14 },  // Gentle deceleration into checkpoint 1
+  { t: 0.44, val: 46,  tangent: 28 },  // Smooth progressive re-acceleration
+  { t: 0.68, val: 76,  tangent: 16 },  // Gentle deceleration into checkpoint 2
+  { t: 0.82, val: 84,  tangent: 32 },  // Smooth acceleration toward completion
+  { t: 0.98, val: 100, tangent: 8 },   // Soft aerodynamic arrival at 100%
+  { t: 1.00, val: 100, tangent: 0 }
+]
+
+function calculateHermiteProgress(u) {
+  if (u <= 0) return 0
+  if (u >= 1) return 100
+  let i = 0
+  while (i < PROGRESS_KEYFRAMES.length - 1 && PROGRESS_KEYFRAMES[i + 1].t < u) {
+    i++
+  }
+  const k0 = PROGRESS_KEYFRAMES[i]
+  const k1 = PROGRESS_KEYFRAMES[i + 1]
+  const dt = k1.t - k0.t
+  const s = (u - k0.t) / dt
+  const s2 = s * s
+  const s3 = s2 * s
+  const h00 = 2 * s3 - 3 * s2 + 1
+  const h10 = s3 - 2 * s2 + s
+  const h01 = -2 * s3 + 3 * s2
+  const h11 = s3 - s2
+  const val = h00 * k0.val + h10 * dt * k0.tangent + h01 * k1.val + h11 * dt * k1.tangent
+  return Math.min(Math.max(val, 0), 100)
+}
+
 export default function Preloader({ onComplete }) {
   const { language } = useLanguage()
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
     const startTime = performance.now()
-    const targetDuration = 2700 // ~2.7s for comfortable, cinematic appreciation of the logo and diagnostics
+    const targetDuration = 3100 // ~3.1s for silky-smooth deceleration and cinematic pace
 
     let animationFrameId
     const updateProgress = (currentTime) => {
       const elapsed = currentTime - startTime
-      const rawProgress = Math.min((elapsed / targetDuration) * 100, 100)
+      const rawU = Math.min(elapsed / targetDuration, 1)
+      const smoothedVal = calculateHermiteProgress(rawU)
       
-      // Eased progress curve for organic tech ramp-up
-      const eased = Math.round(
-        rawProgress < 50
-          ? 2 * Math.pow(rawProgress / 100, 1.6) * 100
-          : (1 - Math.pow(-2 * (rawProgress / 100) + 2, 2) / 2) * 100
-      )
-      
-      setProgress(Math.min(eased, 100))
+      setProgress(smoothedVal)
 
-      if (rawProgress < 100) {
+      if (rawU < 1) {
         animationFrameId = requestAnimationFrame(updateProgress)
       } else {
         setTimeout(() => {
           if (onComplete) onComplete()
-        }, 280)
+        }, 320)
       }
     }
 
@@ -39,7 +64,7 @@ export default function Preloader({ onComplete }) {
     // Fail-safe timeout to ensure preloader never hangs
     const fallbackTimer = setTimeout(() => {
       if (onComplete) onComplete()
-    }, 3800)
+    }, 4200)
 
     return () => {
       cancelAnimationFrame(animationFrameId)
@@ -181,9 +206,9 @@ export default function Preloader({ onComplete }) {
 
             {/* Filled Progress Bar with Continuous Traveling Energy Shimmer */}
             <div 
-              className="h-full rounded-full relative overflow-hidden transition-all duration-75 ease-out"
+              className="h-full rounded-full relative overflow-hidden"
               style={{ 
-                width: `${progress}%`,
+                width: `${progress.toFixed(2)}%`,
                 background: 'linear-gradient(90deg, #991b1b 0%, #ef4444 60%, #ff2a4d 100%)',
                 boxShadow: '0 0 14px rgba(255, 26, 64, 0.75)'
               }}
