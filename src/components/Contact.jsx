@@ -91,51 +91,54 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="space-y-4 font-mono text-xs sm:text-sm">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-neutral-300 text-xs mb-1.5 font-medium">
+                  <label htmlFor="contact-name" className="block text-neutral-300 text-xs mb-1.5 font-medium">
                     {t.contact.form.nameLabel} *
                   </label>
                   <input
+                    id="contact-name"
                     type="text"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder={t.contact.form.namePlaceholder}
-                    className="w-full bg-black/80 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2.5 text-neutral-100 placeholder-neutral-600 focus:outline-none transition-colors"
+                    className="w-full bg-black/80 border border-neutral-800 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 rounded-xl px-3.5 py-2.5 text-neutral-100 placeholder-neutral-600 focus:outline-none transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-neutral-300 text-xs mb-1.5 font-medium">
+                  <label htmlFor="contact-subject" className="block text-neutral-300 text-xs mb-1.5 font-medium">
                     {t.contact.form.subjectLabel}
                   </label>
                   <input
+                    id="contact-subject"
                     type="text"
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     placeholder={t.contact.form.subjectPlaceholder}
-                    className="w-full bg-black/80 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2.5 text-neutral-100 placeholder-neutral-600 focus:outline-none transition-colors"
+                    className="w-full bg-black/80 border border-neutral-800 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 rounded-xl px-3.5 py-2.5 text-neutral-100 placeholder-neutral-600 focus:outline-none transition-all"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-neutral-300 text-xs mb-1.5 font-medium">
+                <label htmlFor="contact-message" className="block text-neutral-300 text-xs mb-1.5 font-medium">
                   {t.contact.form.messageLabel} *
                 </label>
                 <textarea
+                  id="contact-message"
                   rows="4"
                   required
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder={t.contact.form.messagePlaceholder}
-                  className="w-full bg-black/80 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2.5 text-neutral-100 placeholder-neutral-600 focus:outline-none transition-colors resize-none font-sans"
+                  className="w-full bg-black/80 border border-neutral-800 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 rounded-xl px-3.5 py-2.5 text-neutral-100 placeholder-neutral-600 focus:outline-none transition-all resize-none font-sans"
                 ></textarea>
               </div>
 
               {/* Submit Button (Opens Gmail Web) */}
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-500 text-white font-bold font-mono text-xs sm:text-sm tracking-wide shadow-[0_0_25px_rgba(239,68,68,0.35)] hover:shadow-[0_0_35px_rgba(239,68,68,0.55)] transition-all transform hover:-translate-y-0.5"
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-500 text-white font-bold font-mono text-xs sm:text-sm tracking-wide shadow-[0_0_25px_rgba(239,68,68,0.35)] hover:shadow-[0_0_35px_rgba(239,68,68,0.55)] transition-all transform hover:-translate-y-0.5 cursor-pointer"
               >
                 <ExternalLink className="w-4 h-4" />
                 <span>

@@ -31,6 +31,24 @@ export default function WorkflowView() {
     setActiveStep((prev) => (prev - 1 + t.workflow.phases.length) % t.workflow.phases.length)
   }
 
+  const handleScrollToProjects = (e) => {
+    e.preventDefault()
+    const element = document.querySelector('#proyectos')
+    if (element) {
+      const navHeight = 70
+      const elementPosition = element.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - navHeight
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+      if (window.history.pushState) {
+        window.history.pushState(null, null, '#proyectos')
+      }
+    }
+  }
+
   return (
     <section id="metodologia" className="py-24 px-4 sm:px-6 relative z-10 scroll-mt-24">
       <div className="max-w-6xl mx-auto">
@@ -180,7 +198,8 @@ export default function WorkflowView() {
 
                   <a
                     href="#proyectos"
-                    className="inline-flex items-center gap-1.5 text-xs font-mono text-red-400 hover:text-red-300 transition-colors group"
+                    onClick={handleScrollToProjects}
+                    className="inline-flex items-center gap-1.5 text-xs font-mono text-red-400 hover:text-red-300 transition-colors group cursor-pointer"
                   >
                     <span>{language === 'es' ? 'Ver en proyectos destacados' : 'View in featured projects'}</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />

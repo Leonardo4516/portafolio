@@ -60,6 +60,50 @@ export const translations = {
         { label: "Arquitectura Modular en Capas", desc: "Separación limpia de responsabilidades (controladores, servicios, repositorios) y patrones de diseño." },
         { label: "Contenedores Docker & Git Flow", desc: "Entornos de desarrollo aislados con Docker Compose y control de versiones semántico." },
         { label: "Auditoría Asistida con IA", desc: "Uso de herramientas de IA para revisión estricta de sintaxis, casos de prueba y documentación técnica." }
+      ],
+      softSkillsBadge: "DINÁMICA DE TRABAJO & COLABORACIÓN",
+      softSkillsTitle: "Habilidades Blandas con",
+      softSkillsHighlight: "Evidencia en Código",
+      softSkillsDesc: "Competencias interpersonales y de ingeniería respaldadas por decisiones técnicas y desafíos reales superados en mis proyectos:",
+      evidenceLabel: "Evidencia verificable en:",
+      viewProjectAction: "Ver en Proyectos",
+      softSkills: [
+        {
+          id: "sdd-communication",
+          title: "Comunicación Técnica & SDD",
+          subtitle: "Claridad y consenso antes de codificar",
+          desc: "Priorizo consensuar especificaciones formales, casos de uso y modelos de datos para evitar retrabajos y coordinar con fluidez con el equipo.",
+          evidenceProject: "Gestor de Tareas Kanban (SDD)",
+          evidenceDetails: "Arquitectura definida bajo la metodología formal Spec-Driven Development previo a la implementación en Java y JDBC.",
+          projectId: "kanban"
+        },
+        {
+          id: "analytical-problem-solving",
+          title: "Resolución Analítica & Atención al Detalle",
+          subtitle: "Diagnóstico profundo de causas raíz",
+          desc: "Ante fallos o inconsistencias complejas, no aplico parches rápidos; analizo la integridad referencial y la consistencia de los datos.",
+          evidenceProject: "ETL & Normalización PostgreSQL",
+          evidenceDetails: "Diagnóstico y recuperación de corrupción UTF-8, normalización estricta a 3NF y entorno reproducible con Docker Compose.",
+          projectId: "etl"
+        },
+        {
+          id: "adaptability-learning",
+          title: "Adaptabilidad & Aprendizaje Autodidacta",
+          subtitle: "Asimilación rápida de nuevos paradigmas",
+          desc: "Capacidad probada para investigar, adoptar arquitecturas y herramientas modernas de forma autónoma mediante documentación oficial.",
+          evidenceProject: "Simulador F1 & Telemetría",
+          evidenceDetails: "Implementación autónoma de Arquitectura Hexagonal (Puertos y Adaptadores) para desacoplar el core de APIs meteorológicas externas.",
+          projectId: "f1"
+        },
+        {
+          id: "solution-oriented",
+          title: "Orientación al Usuario & Automatización",
+          subtitle: "Pragmatismo para eliminar cuellos de botella",
+          desc: "Identifico procesos manuales repetitivos para diseñar automatizaciones fiables que ahorren tiempo y reduzcan el error humano.",
+          evidenceProject: "CafExpress (Bot Telegram + n8n)",
+          evidenceDetails: "Reemplazo de toma manual de pedidos mediante un bot conversacional conectado a webhooks en n8n y Google Sheets API.",
+          projectId: "cafexpress"
+        }
       ]
     },
     skills: {
@@ -239,6 +283,50 @@ export const translations = {
         { label: "Modular Layered Architecture", desc: "Clean separation of concerns (controllers, services, repositories) and classic design patterns." },
         { label: "Docker Containers & Git Flow", desc: "Isolated and reproducible development environments via Docker Compose with semantic versioning." },
         { label: "AI-Assisted Code Audits", desc: "Targeted AI workflows for strict syntax auditing, test edge cases, and technical documentation." }
+      ],
+      softSkillsBadge: "WORK DYNAMICS & COLLABORATION",
+      softSkillsTitle: "Professional Soft Skills with",
+      softSkillsHighlight: "Code Evidence",
+      softSkillsDesc: "Interpersonal and engineering competencies backed by real architectural decisions and challenges solved across my projects:",
+      evidenceLabel: "Verifiable evidence in:",
+      viewProjectAction: "View in Projects",
+      softSkills: [
+        {
+          id: "sdd-communication",
+          title: "Technical Communication & SDD",
+          subtitle: "Clarity and consensus prior to coding",
+          desc: "I prioritize aligning on formal specifications, use cases, and data contracts to prevent rework and collaborate smoothly with team members.",
+          evidenceProject: "Kanban Task Manager (SDD)",
+          evidenceDetails: "Architecture established under formal Spec-Driven Development methodology prior to writing Java and JDBC code.",
+          projectId: "kanban"
+        },
+        {
+          id: "analytical-problem-solving",
+          title: "Analytical Problem Solving & Detail Rigor",
+          subtitle: "Deep root-cause diagnostics",
+          desc: "When facing complex bugs or inconsistencies, I avoid superficial patches and address data integrity and architectural consistency.",
+          evidenceProject: "PostgreSQL ETL & Normalization",
+          evidenceDetails: "Diagnosed and resolved UTF-8 character encoding corruption, normalized to 3NF, and built reproducible Docker stacks.",
+          projectId: "etl"
+        },
+        {
+          id: "adaptability-learning",
+          title: "Adaptability & Self-Directed Learning",
+          subtitle: "Rapid assimilation of new paradigms",
+          desc: "Proven track record of researching and adopting modern architectural patterns and external APIs directly from official documentation.",
+          evidenceProject: "F1 Telemetry & Race Engine",
+          evidenceDetails: "Autonomous adoption of Hexagonal Architecture (Ports and Adapters) decoupling domain logic from live meteorological APIs.",
+          projectId: "f1"
+        },
+        {
+          id: "solution-oriented",
+          title: "User-Centric Pragmatism & Automation",
+          subtitle: "Eliminating operational bottlenecks",
+          desc: "I spot repetitive manual workflows and design resilient automated pipelines that save engineering time and mitigate human errors.",
+          evidenceProject: "CafExpress (Telegram Bot & n8n)",
+          evidenceDetails: "Replaced manual order intake with an automated conversational bot via webhooks, n8n orchestration, and Google Sheets API.",
+          projectId: "cafexpress"
+        }
       ]
     },
     skills: {

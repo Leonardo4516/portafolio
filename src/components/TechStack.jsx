@@ -176,16 +176,16 @@ export default function TechStack() {
         </div>
 
         {/* Level Filter Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-10">
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
           {levelFilters.map((tab) => {
             const isActive = activeLevel === tab.id
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveLevel(tab.id)}
-                className={`px-4 py-2 rounded-xl font-mono text-xs sm:text-sm transition-all duration-300 ${
+                className={`px-4 py-2 rounded-xl font-mono text-xs sm:text-sm transition-all duration-300 cursor-pointer ${
                   isActive
-                    ? 'bg-gradient-to-r from-red-600/30 to-rose-950/40 border border-red-500 text-red-300 shadow-[0_0_20px_rgba(239,68,68,0.3)] font-bold'
+                    ? 'bg-neutral-900 border border-red-500 text-red-300 shadow-[0_0_20px_rgba(239,68,68,0.3)] font-bold'
                     : 'bg-neutral-950/60 hover:bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-neutral-200'
                 }`}
               >
@@ -205,6 +205,8 @@ export default function TechStack() {
                   : skill.level === 'intermediate'
                   ? 'bg-rose-500/15 text-rose-300 border-rose-500/30'
                   : 'bg-neutral-900 text-neutral-300 border-neutral-800'
+
+              const levelCount = skill.level === 'advanced' ? 3 : skill.level === 'intermediate' ? 2 : 1
 
               return (
                 <motion.div
@@ -231,7 +233,26 @@ export default function TechStack() {
                   </div>
 
                   <div className="pt-3 border-t border-neutral-800/80 flex items-center justify-between text-xs font-mono">
-                    <span className="text-neutral-500">{t.skills.levelLabel}</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-neutral-500 mr-1">{t.skills.levelLabel}</span>
+                      <div className="flex items-center gap-1">
+                        {[1, 2, 3].map((step) => (
+                          <div
+                            key={step}
+                            className={`w-2.5 h-1.5 rounded-sm transition-all ${
+                              step <= levelCount
+                                ? skill.level === 'advanced'
+                                  ? 'bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.8)]'
+                                  : skill.level === 'intermediate'
+                                  ? 'bg-rose-500'
+                                  : 'bg-neutral-400'
+                                : 'bg-neutral-800'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
                     <span className={`px-2.5 py-0.5 rounded-full border text-[11px] font-semibold ${badgeStyle}`}>
                       {skill.levelLabel}
                     </span>

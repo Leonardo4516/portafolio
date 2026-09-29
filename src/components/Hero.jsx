@@ -146,6 +146,23 @@ export default function Hero() {
               <div className="text-[10px] sm:text-xs font-mono text-neutral-400">{t.hero.stats[3].label}</div>
             </div>
           </div>
+
+          {/* Interactive Scroll Cue */}
+          <div 
+            onClick={(e) => handleScrollTo(e, '#sobre-mi')}
+            className="mt-12 flex flex-col items-center gap-2 opacity-50 hover:opacity-100 transition-opacity cursor-pointer group"
+          >
+            <span className="text-[10px] font-mono tracking-widest uppercase text-neutral-400 group-hover:text-red-400 transition-colors">
+              Explorar
+            </span>
+            <div className="w-5 h-8 rounded-full border border-neutral-700 group-hover:border-red-500/60 p-1 flex justify-center transition-colors">
+              <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+                className="w-1.5 h-1.5 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"
+              />
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>
