@@ -17,8 +17,16 @@ function PortfolioContent() {
   const [showBackToTop, setShowBackToTop] = useState(false)
 
   useEffect(() => {
+    let ticking = false
     const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 400)
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const shouldShow = window.scrollY > 400
+          setShowBackToTop((prev) => (prev !== shouldShow ? shouldShow : prev))
+          ticking = false
+        })
+        ticking = true
+      }
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
@@ -30,9 +38,18 @@ function PortfolioContent() {
 
   return (
     <div className="relative min-h-screen bg-black text-neutral-100 selection:bg-red-600 selection:text-white overflow-x-hidden font-sans">
-      {/* Fixed 3D Canvas in background */}
+      {/* Fixed 3D Canvas in background with DPR capping for low-end/mobile performance */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+        <Canvas 
+          dpr={[1, 1.5]}
+          gl={{ 
+            powerPreference: 'high-performance', 
+            antialias: false, 
+            stencil: false, 
+            depth: true 
+          }}
+          camera={{ position: [0, 0, 5], fov: 45 }}
+        >
           <Scene3D />
         </Canvas>
       </div>
@@ -46,8 +63,13 @@ function PortfolioContent() {
         }}
       />
 
-      {/* Radial ambient crimson glow */}
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[550px] bg-gradient-to-b from-red-600/15 via-rose-950/10 to-transparent rounded-full blur-3xl pointer-events-none z-0" />
+      {/* Optimized Radial ambient crimson glow (pure CSS gradient without GPU blur-3xl filter) */}
+      <div 
+        className="fixed top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] pointer-events-none z-0"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(239, 68, 68, 0.12) 0%, rgba(153, 27, 27, 0.04) 50%, transparent 75%)'
+        }}
+      />
 
       {/* Foreground Content */}
       <div className="relative z-10 flex flex-col">

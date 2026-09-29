@@ -9,6 +9,7 @@ export default function Scene3D() {
   const ringRef2 = useRef()
   const targetMouse = useRef({ x: 0, y: 0 })
   const currentMouse = useRef({ x: 0, y: 0 })
+  const isVisible = useRef(true)
 
   // Listen to window-level mouse movement so hovering over DOM elements doesn't stop 3D physics
   useEffect(() => {
@@ -17,11 +18,30 @@ export default function Scene3D() {
       targetMouse.current.y = -(e.clientY / window.innerHeight) * 2 + 1
     }
 
+    // Pause 3D rendering updates when scrolled down into content to save 100% GPU on mobile
+    let ticking = false
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          isVisible.current = window.scrollY < window.innerHeight * 1.4
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+
     window.addEventListener('pointermove', handlePointerMove, { passive: true })
-    return () => window.removeEventListener('pointermove', handlePointerMove)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove)
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
   useFrame(({ clock }) => {
+    if (!isVisible.current) return
+
     const time = clock.getElapsedTime()
 
     // Smooth LERP damping (0.05 factor)
@@ -57,48 +77,47 @@ export default function Scene3D() {
 
   return (
     <>
-      <ambientLight intensity={0.3} />
-      {/* Crimson & Red Point Lights */}
-      <pointLight position={[5, 5, 5]} intensity={3.5} color="#ff1a40" />
-      <pointLight position={[-5, -5, -3]} intensity={2.8} color="#991b1b" />
-      <pointLight position={[0, -4, 2]} intensity={2.0} color="#ef4444" />
+      <ambientLight intensity={0.4} />
+      {/* Optimized Crimson Point Lights */}
+      <pointLight position={[4, 4, 4]} intensity={3.0} color="#ff1a40" />
+      <pointLight position={[-4, -4, -2]} intensity={2.2} color="#991b1b" />
 
-      {/* Crimson Sparkles / Ember Field */}
+      {/* Lightweight Crimson Sparkles Field */}
       <Sparkles 
-        count={85} 
+        count={45} 
         scale={10} 
-        size={2.8} 
+        size={2.5} 
         speed={0.4} 
-        opacity={0.65} 
+        opacity={0.6} 
         color="#ff1a40" 
       />
       <Sparkles 
-        count={45} 
+        count={25} 
         scale={8} 
-        size={3.2} 
-        speed={0.6} 
-        opacity={0.45} 
+        size={2.8} 
+        speed={0.5} 
+        opacity={0.4} 
         color="#ef4444" 
       />
 
-      <Float speed={2} rotationIntensity={0.5} floatIntensity={0.8}>
+      <Float speed={1.8} rotationIntensity={0.4} floatIntensity={0.6}>
         <group>
-          {/* Obsidian Black Neural Core with Crimson Emissive Glow */}
-          <Sphere ref={coreRef} args={[1, 64, 64]}>
+          {/* Obsidian Black Neural Core with Optimized Geometry */}
+          <Sphere ref={coreRef} args={[1, 32, 32]}>
             <MeshDistortMaterial
               color="#070709"
               emissive="#450a0a"
               emissiveIntensity={0.8}
-              distort={0.45}
-              speed={2.2}
-              roughness={0.1}
-              metalness={0.95}
+              distort={0.4}
+              speed={2.0}
+              roughness={0.15}
+              metalness={0.9}
             />
           </Sphere>
 
-          {/* Glowing Red Torus Ring 1 */}
+          {/* Glowing Red Torus Ring 1 (Optimized Segments) */}
           <mesh ref={ringRef1}>
-            <torusGeometry args={[1.5, 0.02, 16, 100]} />
+            <torusGeometry args={[1.5, 0.02, 12, 48]} />
             <meshStandardMaterial 
               color="#ff1a40" 
               emissive="#ff1a40" 

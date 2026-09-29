@@ -12,23 +12,33 @@ export default function Navbar() {
   const { language, toggleLanguage, t } = useLanguage()
 
   useEffect(() => {
+    let ticking = false
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30)
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentY = window.scrollY
+          setScrolled(currentY > 30)
 
-      const totalScroll = document.documentElement.scrollHeight - window.innerHeight
-      if (totalScroll > 0) {
-        setScrollProgress((window.scrollY / totalScroll) * 100)
-      }
+          const totalScroll = document.documentElement.scrollHeight - window.innerHeight
+          if (totalScroll > 0) {
+            setScrollProgress((currentY / totalScroll) * 100)
+          }
 
-      const sections = ['#inicio', '#sobre-mi', '#stack', '#proyectos', '#metodologia', '#contacto']
-      const scrollPos = window.scrollY + 140
+          const sections = ['#inicio', '#sobre-mi', '#stack', '#proyectos', '#metodologia', '#contacto']
+          const scrollPos = currentY + 140
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.querySelector(sections[i])
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(sections[i])
-          break
-        }
+          for (let i = sections.length - 1; i >= 0; i--) {
+            const el = document.querySelector(sections[i])
+            if (el && el.offsetTop <= scrollPos) {
+              setActiveSection((prev) => (prev !== sections[i] ? sections[i] : prev))
+              break
+            }
+          }
+
+          ticking = false
+        })
+        ticking = true
       }
     }
 
