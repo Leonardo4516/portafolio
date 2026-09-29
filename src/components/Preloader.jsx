@@ -191,7 +191,7 @@ export default function Preloader({ onComplete }) {
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping inline-block" />
               SYSTEM LOAD
             </span>
-            <span className="text-red-400 font-bold font-mono tracking-wider tabular-nums">{progress}%</span>
+            <span className="text-red-400 font-bold font-mono tracking-wider tabular-nums">{Math.round(progress)}%</span>
           </div>
 
           {/* High-tech Crimson Loading Bar with Active Fluid Motion */}

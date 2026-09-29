@@ -9,25 +9,18 @@ export default function Scene3D() {
   const ringRef2 = useRef()
   const targetMouse = useRef({ x: 0, y: 0 })
   const currentMouse = useRef({ x: 0, y: 0 })
-  const isVisible = useRef(true)
+  const targetScroll = useRef(0)
+  const currentScroll = useRef(0)
 
-  // Listen to window-level mouse movement so hovering over DOM elements doesn't stop 3D physics
+  // Listen to window-level mouse movement and scroll for smooth continuous 3D physics
   useEffect(() => {
     const handlePointerMove = (e) => {
       targetMouse.current.x = (e.clientX / window.innerWidth) * 2 - 1
       targetMouse.current.y = -(e.clientY / window.innerHeight) * 2 + 1
     }
 
-    // Pause 3D rendering updates when scrolled down into content to save 100% GPU on mobile
-    let ticking = false
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          isVisible.current = window.scrollY < window.innerHeight * 1.4
-          ticking = false
-        })
-        ticking = true
-      }
+      targetScroll.current = window.scrollY
     }
 
     window.addEventListener('pointermove', handlePointerMove, { passive: true })
@@ -40,37 +33,44 @@ export default function Scene3D() {
   }, [])
 
   useFrame(({ clock }) => {
-    if (!isVisible.current) return
-
     const time = clock.getElapsedTime()
 
-    // Smooth LERP damping (0.05 factor)
+    // Smooth LERP damping (0.05 factor) for mouse and scroll
     currentMouse.current.x = THREE.MathUtils.lerp(currentMouse.current.x, targetMouse.current.x, 0.05)
     currentMouse.current.y = THREE.MathUtils.lerp(currentMouse.current.y, targetMouse.current.y, 0.05)
+    currentScroll.current = THREE.MathUtils.lerp(currentScroll.current, targetScroll.current, 0.05)
 
-    const mx = currentMouse.current.x
-    const my = currentMouse.current.y
+    // Smooth scroll influence: keeps continuous rotation 100% active throughout the page
+    const scrollProgress = Math.min(currentScroll.current / 800, 1)
+    const mouseInfluence = THREE.MathUtils.lerp(1.0, 0.3, scrollProgress)
+    const scrollRot = currentScroll.current * 0.0008
 
+    const mx = currentMouse.current.x * mouseInfluence
+    const my = currentMouse.current.y * mouseInfluence
+
+    // 1. Central Core: continuous rotation and floating across all sections
     if (coreRef.current) {
       coreRef.current.position.x = mx * 1.2
       coreRef.current.position.y = my * 0.8 + Math.sin(time * 1.5) * 0.15
-      coreRef.current.rotation.x = time * 0.15 + my * 0.4
-      coreRef.current.rotation.y = time * 0.25 + mx * 0.6
+      coreRef.current.rotation.x = time * 0.15 + my * 0.4 + scrollRot * 0.4
+      coreRef.current.rotation.y = time * 0.25 + mx * 0.6 + scrollRot * 0.8
     }
 
+    // 2. Glowing Torus Ring 1: continuous orbital rotation
     if (ringRef1.current) {
       ringRef1.current.position.x = mx * 0.8
       ringRef1.current.position.y = my * 0.6 + Math.cos(time * 1.2) * 0.1
-      ringRef1.current.rotation.x = time * 0.4
+      ringRef1.current.rotation.x = time * 0.4 + scrollRot * 0.6
       ringRef1.current.rotation.y = time * 0.3
-      ringRef1.current.rotation.z = time * 0.2
+      ringRef1.current.rotation.z = time * 0.2 + scrollRot * 0.3
     }
 
+    // 3. Dark Crimson Icosahedron Ring 2: continuous counter-rotation
     if (ringRef2.current) {
       ringRef2.current.position.x = mx * 0.5
       ringRef2.current.position.y = my * 0.4 - Math.sin(time * 1.0) * 0.1
-      ringRef2.current.rotation.x = -time * 0.2
-      ringRef2.current.rotation.y = time * 0.5
+      ringRef2.current.rotation.x = -time * 0.2 - scrollRot * 0.4
+      ringRef2.current.rotation.y = time * 0.5 + scrollRot * 0.5
       ringRef2.current.rotation.z = -time * 0.3
     }
   })
