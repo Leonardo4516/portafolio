@@ -9,17 +9,17 @@ export default function Preloader({ onComplete }) {
 
   useEffect(() => {
     const startTime = performance.now()
-    const targetDuration = 1350 // ~1.35 seconds for crisp, snappy cyber entrance
+    const targetDuration = 2700 // ~2.7s for comfortable, cinematic appreciation of the logo and diagnostics
 
     let animationFrameId
     const updateProgress = (currentTime) => {
       const elapsed = currentTime - startTime
       const rawProgress = Math.min((elapsed / targetDuration) * 100, 100)
       
-      // Eased progress curve for natural tech acceleration
+      // Eased progress curve for organic tech ramp-up
       const eased = Math.round(
         rawProgress < 50
-          ? 2 * Math.pow(rawProgress / 100, 1.8) * 100
+          ? 2 * Math.pow(rawProgress / 100, 1.6) * 100
           : (1 - Math.pow(-2 * (rawProgress / 100) + 2, 2) / 2) * 100
       )
       
@@ -30,16 +30,16 @@ export default function Preloader({ onComplete }) {
       } else {
         setTimeout(() => {
           if (onComplete) onComplete()
-        }, 180)
+        }, 280)
       }
     }
 
     animationFrameId = requestAnimationFrame(updateProgress)
 
-    // Fail-safe timeout to ensure preloader never hangs under any device circumstance
+    // Fail-safe timeout to ensure preloader never hangs
     const fallbackTimer = setTimeout(() => {
       if (onComplete) onComplete()
-    }, 2200)
+    }, 3800)
 
     return () => {
       cancelAnimationFrame(animationFrameId)
@@ -160,23 +160,48 @@ export default function Preloader({ onComplete }) {
         </motion.div>
 
         {/* Progress Bar Container */}
-        <div className="w-56 sm:w-64 space-y-2.5">
+        <div className="w-64 sm:w-72 space-y-3">
           <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400">
-            <span className="text-neutral-500 text-[10px]">PROGRESS</span>
-            <span className="text-red-400 font-bold tracking-wider">{progress}%</span>
+            <span className="text-neutral-500 text-[10px] tracking-widest flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping inline-block" />
+              SYSTEM LOAD
+            </span>
+            <span className="text-red-400 font-bold font-mono tracking-wider tabular-nums">{progress}%</span>
           </div>
 
-          {/* High-tech Crimson Loading Bar */}
-          <div className="relative h-[3px] w-full bg-neutral-900 rounded-full overflow-hidden border border-red-950/60 p-[0.5px]">
+          {/* High-tech Crimson Loading Bar with Active Fluid Motion */}
+          <div className="relative h-2 w-full bg-neutral-950 rounded-full overflow-hidden border border-red-500/35 p-[1px] shadow-[inset_0_1px_4px_rgba(0,0,0,0.9),0_0_15px_rgba(239,68,68,0.15)]">
+            
+            {/* Ambient Background Track Pulse */}
             <motion.div 
-              className="h-full bg-gradient-to-r from-red-700 via-red-500 to-rose-400 rounded-full shadow-[0_0_12px_rgba(239,68,68,0.8)]"
-              style={{ width: `${progress}%` }}
-              transition={{ ease: 'linear' }}
+              animate={{ x: ['-100%', '200%'] }}
+              transition={{ repeat: Infinity, duration: 1.8, ease: 'linear' }}
+              className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-red-600/20 to-transparent pointer-events-none"
             />
+
+            {/* Filled Progress Bar with Continuous Traveling Energy Shimmer */}
+            <div 
+              className="h-full rounded-full relative overflow-hidden transition-all duration-75 ease-out"
+              style={{ 
+                width: `${progress}%`,
+                background: 'linear-gradient(90deg, #991b1b 0%, #ef4444 60%, #ff2a4d 100%)',
+                boxShadow: '0 0 14px rgba(255, 26, 64, 0.75)'
+              }}
+            >
+              {/* Continuous Waveform / Energy Stream Sweeping Forward */}
+              <motion.div 
+                animate={{ x: ['-100%', '150%'] }}
+                transition={{ repeat: Infinity, duration: 0.9, ease: 'linear' }}
+                className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/45 to-transparent pointer-events-none"
+              />
+
+              {/* Glowing Leading-Edge Laser Head */}
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-white shadow-[0_0_8px_#ffffff,0_0_16px_#ff1a40] pointer-events-none" />
+            </div>
           </div>
 
-          {/* Dynamic Diagnostic Status */}
-          <p className="text-[9px] font-mono text-neutral-500 tracking-wider truncate h-4">
+          {/* Dynamic Diagnostic Status with Subtle Cyber Pulse */}
+          <p className="text-[10px] font-mono text-neutral-400 tracking-wider truncate h-4">
             {getStatusText()}
           </p>
         </div>
