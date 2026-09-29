@@ -12,8 +12,10 @@ import Projects from './components/Projects'
 import WorkflowView from './components/WorkflowView'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import Preloader from './components/Preloader'
 
 function PortfolioContent() {
+  const [isLoading, setIsLoading] = useState(true)
   const [showBackToTop, setShowBackToTop] = useState(false)
 
   useEffect(() => {
@@ -37,7 +39,14 @@ function PortfolioContent() {
   }
 
   return (
-    <div className="relative min-h-screen bg-black text-neutral-100 selection:bg-red-600 selection:text-white overflow-x-hidden font-sans">
+    <>
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <Preloader key="portfolio-preloader" onComplete={() => setIsLoading(false)} />
+        )}
+      </AnimatePresence>
+
+      <div className="relative min-h-screen bg-black text-neutral-100 selection:bg-red-600 selection:text-white overflow-x-hidden font-sans">
       {/* Fixed 3D Canvas in background with DPR capping for low-end/mobile performance */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <Canvas 
@@ -102,6 +111,7 @@ function PortfolioContent() {
         )}
       </AnimatePresence>
     </div>
+    </>
   )
 }
 
