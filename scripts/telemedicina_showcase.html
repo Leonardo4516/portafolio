@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Telemedicina & Triaje Clínico IA Showcase</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #090a0f;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #e2e8f0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 26, 64, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 26, 64, 0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+    .ambient-glow {
+      position: absolute;
+      top: -120px;
+      right: -100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 26, 64, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(13, 15, 22, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 10;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      background: #ff1a40;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 900;
+      font-size: 16px;
+      box-shadow: 0 0 15px rgba(255, 26, 64, 0.4);
+    }
+    .brand-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .brand-title span {
+      color: #ff1a40;
+    }
+    .tags {
+      display: flex;
+      gap: 8px;
+    }
+    .tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+    }
+
+    /* Stage Area */
+    .stage {
+      flex: 1;
+      display: flex;
+      gap: 24px;
+      padding: 20px 40px 90px;
+      position: relative;
+    }
+
+    /* Left: Swagger / API Console (750px) */
+    .api-card {
+      width: 720px;
+      background: #11131c;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+    }
+    .api-header {
+      height: 42px;
+      background: #181b27;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+    }
+    .api-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .api-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #94a3b8;
+      font-family: monospace;
+    }
+    .auth-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .api-body {
+      flex: 1;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow: hidden;
+    }
+
+    .endpoint-box {
+      border: 1px solid rgba(255, 26, 64, 0.3);
+      border-radius: 8px;
+      background: rgba(255, 26, 64, 0.03);
+      overflow: hidden;
+    }
+    .endpoint-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      background: rgba(255, 26, 64, 0.08);
+    }
+    .method-post {
+      background: #ff1a40;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .endpoint-path {
+      font-family: monospace;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .endpoint-desc {
+      margin-left: auto;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    .json-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      flex: 1;
+    }
+    .code-box {
+      background: #090a0f;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .code-header {
+      padding: 6px 12px;
+      background: #141722;
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .code-content {
+      padding: 12px;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 11.5px;
+      line-height: 1.45;
+      color: #cbd5e1;
+      overflow: hidden;
+      white-space: pre;
+    }
+    .json-key { color: #f43f5e; }
+    .json-str { color: #38bdf8; }
+    .json-num { color: #f59e0b; }
+    .json-bool { color: #10b981; }
+
+    /* Right: Architecture & Security Overview (480px) */
+    .arch-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .info-panel {
+      background: #11131c;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .info-panel h3 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #ff1a40;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .layer-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      margin-bottom: 6px;
+      font-size: 12px;
+    }
+    .layer-name {
+      font-weight: 600;
+      color: #fff;
+    }
+    .layer-desc {
+      color: #94a3b8;
+      font-size: 11px;
+    }
+
+    .schema-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .stat-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 24px;
+      font-weight: 800;
+      color: #ff1a40;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    /* Kinetic Subtitle */
+    .bottom-caption {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(10, 10, 14, 0.94);
+      border: 1px solid rgba(255, 26, 64, 0.6);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.8), 0 0 20px rgba(255, 26, 64, 0.25);
+      border-radius: 10px;
+      padding: 12px 28px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      backdrop-filter: blur(16px);
+      z-index: 100;
+      min-width: 680px;
+      pointer-events: none;
+    }
+    .pulse-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ff1a40;
+      box-shadow: 0 0 10px #ff1a40;
+      flex-shrink: 0;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+    .caption-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #ff1a40;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .caption-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .caption-desc {
+      font-weight: 400;
+      color: #94a3b8;
+      font-size: 13.5px;
+      margin-left: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="ambient-glow"></div>
+
+  <header class="top-bar">
+    <div class="brand">
+      <div class="brand-icon">T</div>
+      <div class="brand-title">TELEMEDICINA <span>// TRIAJE CLÍNICO IA</span></div>
+    </div>
+    <div class="tags">
+      <div class="tag">Java 21</div>
+      <div class="tag">Spring Boot 3</div>
+      <div class="tag">Spring Security 6</div>
+      <div class="tag">Flyway 35+ Tablas</div>
+      <div class="tag">OpenAPI 3 / Swagger</div>
+    </div>
+  </header>
+
+  <main class="stage">
+    <!-- Left API Execution Console -->
+    <div class="api-card">
+      <div class="api-header">
+        <div class="api-dots">
+          <div class="dot" style="background:#ef4444;"></div>
+          <div class="dot" style="background:#f59e0b;"></div>
+          <div class="dot" style="background:#10b981;"></div>
+        </div>
+        <div class="api-title">OpenAPI 3.0 / Swagger UI — Clinical Triage Core</div>
+        <div class="auth-badge">🔒 JWT HMAC-SHA512 AUTHENTICATED</div>
+      </div>
+
+      <div class="api-body">
+        <div class="endpoint-box">
+          <div class="endpoint-header">
+            <span class="method-post">POST</span>
+            <span class="endpoint-path">/api/v1/clinical/triage/evaluate</span>
+            <span class="endpoint-desc">Evaluación Asistida de Salud Mental</span>
+          </div>
+        </div>
+
+        <div class="json-panels">
+          <!-- Request Payload -->
+          <div class="code-box">
+            <div class="code-header">
+              <span>REQUEST BODY (JSON)</span>
+              <span style="color:#38bdf8;">application/json</span>
+            </div>
+            <div class="code-content" id="reqBody">{
+  <span class="json-key">"patientId"</span>: <span class="json-str">"usr-9a4f-8812"</span>,
+  <span class="json-key">"age"</span>: <span class="json-num">34</span>,
+  <span class="json-key">"symptoms"</span>: [
+    <span class="json-str">"Crisis de ansiedad severa"</span>,
+    <span class="json-str">"Insomnio de 5 días"</span>,
+    <span class="json-str">"Taquicardia en reposo"</span>
+  ],
+  <span class="json-key">"vitals"</span>: {
+    <span class="json-key">"heartRate"</span>: <span class="json-num">112</span>,
+    <span class="json-key">"bloodPressure"</span>: <span class="json-str">"135/88"</span>
+  },
+  <span class="json-key">"aiProvider"</span>: <span class="json-str">"CLINICAL_GPT_4O"</span>
+}</div>
+          </div>
+
+          <!-- Response Payload -->
+          <div class="code-box">
+            <div class="code-header">
+              <span>RESPONSE STATUS</span>
+              <span style="color:#10b981;font-weight:800;" id="respStatus">200 OK — 142ms</span>
+            </div>
+            <div class="code-content" id="respBody">{
+  <span class="json-key">"triageId"</span>: <span class="json-str">"trg-77e8-b102"</span>,
+  <span class="json-key">"riskLevel"</span>: <span class="json-str" style="color:#ef4444;font-weight:700;">"CRITICAL_PRIORITY"</span>,
+  <span class="json-key">"urgencyCategory"</span>: <span class="json-num">1</span>,
+  <span class="json-key">"aiRecommendation"</span>: {
+    <span class="json-key">"primaryAction"</span>: <span class="json-str">"Escalamiento a Psiquiatría"</span>,
+    <span class="json-key">"confidenceScore"</span>: <span class="json-num">0.96</span>,
+    <span class="json-key">"immediateProtocols"</span>: [
+      <span class="json-str">"Monitoreo electrocardiográfico"</span>,
+      <span class="json-str">"Asignación de especialista en turno"</span>
+    ]
+  },
+  <span class="json-key">"auditHash"</span>: <span class="json-str">"sha512-c940b12..."</span>
+}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Architecture & Metrics Panel -->
+    <div class="arch-card">
+      <div class="info-panel">
+        <h3>🏛️ Arquitectura DDD Multi-Módulo</h3>
+        <div class="layer-item">
+          <div>
+            <div class="layer-name">Domain Module</div>
+            <div class="layer-desc">Modelos de negocio puros, Value Objects, Reglas de Triaje</div>
+          </div>
+          <span style="color:#10b981;font-size:11px;font-weight:700;">Zero Deps</span>
+        </div>
+        <div class="layer-item">
+          <div>
+            <div class="layer-name">Application Module</div>
+            <div class="layer-desc">Casos de uso, orquestación de servicios, puertos de entrada</div>
+          </div>
+          <span style="color:#38bdf8;font-size:11px;font-weight:700;">Use Cases</span>
+        </div>
+        <div class="layer-item">
+          <div>
+            <div class="layer-name">Infrastructure Module</div>
+            <div class="layer-desc">Spring Security 6, JWT, JPA Repositories, Flyway Migrations</div>
+          </div>
+          <span style="color:#f59e0b;font-size:11px;font-weight:700;">Spring 3</span>
+        </div>
+      </div>
+
+      <div class="info-panel">
+        <h3>📊 PostgreSQL Schema & Flyway</h3>
+        <div class="schema-stats">
+          <div class="stat-box">
+            <div class="stat-number">+35</div>
+            <div class="stat-label">Tablas Relacionales (4FN)</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">UUIDv4</div>
+            <div class="stat-label">Claves Primarias Seguras</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">RBAC</div>
+            <div class="stat-label">Admin / Med / Paciente</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">JSONB</div>
+            <div class="stat-label">Eventos & Metadatos IA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kinetic Subtitle Overlay -->
+    <div class="bottom-caption" id="captionBox">
+      <div class="pulse-dot"></div>
+      <div>
+        <div class="caption-tag" id="captionTag">TELEMEDICINA // ARQUITECTURA</div>
+        <div>
+          <span class="caption-title" id="captionTitle">Triaje Clínico & Salud Mental con IA</span>
+          <span class="caption-desc" id="captionDesc">— Evaluación de riesgo en tiempo real con Spring Boot 3 y Spring Security 6</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const steps = [
+      {
+        tag: 'TELEMEDICINA // PRESENTACIÓN',
+        title: 'Plataforma Hospitalaria de Salud Mental',
+        desc: 'Arquitectura empresarial multi-módulo basada en Domain-Driven Design (DDD)',
+        duration: 3200
+      },
+      {
+        tag: 'SEGURIDAD & AUTENTICACIÓN',
+        title: 'Spring Security 6 + JWT Stateless',
+        desc: 'Autenticación criptográfica HMAC-SHA512, refresh tokens y control estricto RBAC',
+        duration: 3200
+      },
+      {
+        tag: 'TRIAJE CLÍNICO ASISTIDO POR IA',
+        title: 'Evaluación Inmediata de Riesgo',
+        desc: 'Análisis de sintomatología, toma de signos vitales y categorización de urgencia médica',
+        duration: 3500
+      },
+      {
+        tag: 'PERSISTENCIA CONTROLADA',
+        title: 'Flyway +35 Tablas Relacionales',
+        desc: 'Evolución determinista de base de datos PostgreSQL con UUIDs y eventos JSONB',
+        duration: 3500
+      },
+      {
+        tag: 'DOCUMENTACIÓN & API STANDARDS',
+        title: 'OpenAPI 3.0 / Swagger Interactive',
+        desc: 'Contratos REST desacoplados listos para integraciones de telemedicina e interoperabilidad',
+        duration: 3200
+      }
+    ];
+
+    window.runTelemedicinaShowcase = async function() {
+      for (let i = 0; i < steps.length; i++) {
+        document.getElementById('captionTag').textContent = steps[i].tag;
+        document.getElementById('captionTitle').textContent = steps[i].title;
+        document.getElementById('captionDesc').textContent = '— ' + steps[i].desc;
+        await new Promise(r => setTimeout(r, steps[i].duration));
+      }
+      return true;
+    };
+  </script>
+</body>
+</html>

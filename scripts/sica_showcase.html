@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SICA // Control de Acceso Showcase</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #090a0f;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #e2e8f0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 26, 64, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 26, 64, 0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+    .ambient-glow {
+      position: absolute;
+      top: -120px;
+      right: -100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 26, 64, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(13, 15, 22, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 10;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      background: #ff1a40;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 900;
+      font-size: 16px;
+      box-shadow: 0 0 15px rgba(255, 26, 64, 0.4);
+    }
+    .brand-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .brand-title span {
+      color: #ff1a40;
+    }
+    .tags {
+      display: flex;
+      gap: 8px;
+    }
+    .tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+    }
+
+    /* Stage */
+    .stage {
+      flex: 1;
+      display: flex;
+      gap: 24px;
+      padding: 20px 40px 90px;
+      position: relative;
+    }
+
+    /* Left: Garita Terminal UI (720px) */
+    .terminal-card {
+      width: 720px;
+      background: #11131c;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+    }
+    .terminal-header {
+      height: 42px;
+      background: #181b27;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+    }
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .terminal-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #94a3b8;
+      font-family: monospace;
+    }
+    .terminal-status {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .terminal-body {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      gap: 24px;
+    }
+
+    /* Photo and credential card */
+    .id-photo-box {
+      width: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #090a0f;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 14px;
+      text-align: center;
+    }
+    .id-photo {
+      width: 120px;
+      height: 150px;
+      border-radius: 6px;
+      object-fit: cover;
+      border: 2px solid #ff1a40;
+      box-shadow: 0 0 15px rgba(255, 26, 64, 0.3);
+      margin-bottom: 12px;
+      transition: all 0.4s ease;
+    }
+    .id-badge-code {
+      font-family: monospace;
+      font-size: 11px;
+      color: #94a3b8;
+      letter-spacing: 1px;
+    }
+    .id-role-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: #ff1a40;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* Verification Form & State */
+    .id-details-box {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .detail-row {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+    }
+    .detail-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #94a3b8;
+      margin-bottom: 2px;
+    }
+    .detail-value {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .access-status-banner {
+      padding: 12px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      background: rgba(16, 185, 129, 0.1);
+      transition: all 0.3s ease;
+    }
+    .status-text {
+      font-size: 14px;
+      font-weight: 800;
+      color: #10b981;
+    }
+    .checkin-btn {
+      background: #10b981;
+      color: #000;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    /* Right: Monitoring & Evacuation (480px) */
+    .monitoring-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .panel-box {
+      background: #11131c;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .panel-box h3 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #ff1a40;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .evac-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .metric-tile {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .metric-num {
+      font-size: 26px;
+      font-weight: 800;
+      color: #10b981;
+    }
+    .metric-sub {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    .audit-log-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-family: monospace;
+      font-size: 11px;
+    }
+    .log-item {
+      padding: 6px 10px;
+      background: rgba(0,0,0,0.3);
+      border-left: 3px solid #ff1a40;
+      border-radius: 2px;
+      color: #cbd5e1;
+    }
+    .log-time { color: #ff1a40; font-weight: 700; }
+
+    /* Kinetic Subtitle */
+    .bottom-caption {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(10, 10, 14, 0.94);
+      border: 1px solid rgba(255, 26, 64, 0.6);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.8), 0 0 20px rgba(255, 26, 64, 0.25);
+      border-radius: 10px;
+      padding: 12px 28px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      backdrop-filter: blur(16px);
+      z-index: 100;
+      min-width: 680px;
+      pointer-events: none;
+    }
+    .pulse-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ff1a40;
+      box-shadow: 0 0 10px #ff1a40;
+      flex-shrink: 0;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+    .caption-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #ff1a40;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .caption-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .caption-desc {
+      font-weight: 400;
+      color: #94a3b8;
+      font-size: 13.5px;
+      margin-left: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="ambient-glow"></div>
+
+  <header class="top-bar">
+    <div class="brand">
+      <div class="brand-icon">S</div>
+      <div class="brand-title">SICA <span>// SISTEMA DE CONTROL DE ACCESO</span></div>
+    </div>
+    <div class="tags">
+      <div class="tag">Java 17 LTS</div>
+      <div class="tag">JavaFX UI</div>
+      <div class="tag">Hibernate 6.4</div>
+      <div class="tag">PostgreSQL 15</div>
+      <div class="tag">Arquitectura Hexagonal</div>
+    </div>
+  </header>
+
+  <main class="stage">
+    <!-- Terminal Garita -->
+    <div class="terminal-card">
+      <div class="terminal-header">
+        <div class="terminal-dots">
+          <div class="dot" style="background:#ef4444;"></div>
+          <div class="dot" style="background:#f59e0b;"></div>
+          <div class="dot" style="background:#10b981;"></div>
+        </div>
+        <div class="terminal-title">Garita Principal — Terminal Táctil JavaFX [Portería Norte]</div>
+        <div class="terminal-status">● CONECTADO POSTGRESQL</div>
+      </div>
+
+      <div class="terminal-body">
+        <div class="id-photo-box">
+          <img src="assets_sica/leonardo_hernandez.jpg" id="personPhoto" class="id-photo" alt="Foto">
+          <div class="id-badge-code" id="personCode">ID: PER-2026-081</div>
+          <div class="id-role-tag" id="personRole">Ingeniero Principal</div>
+        </div>
+
+        <div class="id-details-box">
+          <div>
+            <div class="detail-row">
+              <span class="detail-label">Nombre del Titular</span>
+              <span class="detail-value" id="personName">Leonardo Hernández</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Documento de Identidad</span>
+              <span class="detail-value" id="personDoc">CC 1.098.765.432</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Empresa Destino / Complejo</span>
+              <span class="detail-value" id="personCompany">Acme Corp — Lab I+D (Piso 4)</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Tipo de Permiso</span>
+              <span class="detail-value" style="color:#38bdf8;">Acceso Irrestricto 24/7 (RBAC)</span>
+            </div>
+          </div>
+
+          <div class="access-status-banner" id="statusBanner">
+            <div>
+              <div style="font-size:10px;text-transform:uppercase;color:#94a3b8;">Estado del Acceso</div>
+              <div class="status-text" id="statusText">APROBADA // PRE-REGISTRADO</div>
+            </div>
+            <button class="checkin-btn" id="checkinBtn">REGISTRAR ENTRADA</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Evacuation & Audit -->
+    <div class="monitoring-card">
+      <div class="panel-box">
+        <h3>🚨 Módulo de Evacuación & Emergencias</h3>
+        <div class="evac-metrics">
+          <div class="metric-tile">
+            <div class="metric-num" id="insideCount">148</div>
+            <div class="metric-sub">Personal Dentro Complejo</div>
+          </div>
+          <div class="metric-tile">
+            <div class="metric-num" style="color:#38bdf8;">3</div>
+            <div class="metric-sub">Garitas Activas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-box">
+        <h3>📜 Bitácora de Auditoría Inmutable</h3>
+        <div class="audit-log-list" id="auditList">
+          <div class="log-item"><span class="log-time">[10:41:20]</span> CHECK-IN: Carlos Pérez (Hab. 201)</div>
+          <div class="log-item"><span class="log-time">[10:42:05]</span> PRE-REGISTRO: Laura Torres (Audit)</div>
+          <div class="log-item" id="latestLog"><span class="log-time">[10:43:00]</span> ESPERANDO VALIDACIÓN BIOMÉTRICA...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kinetic Subtitles -->
+    <div class="bottom-caption" id="captionBox">
+      <div class="pulse-dot"></div>
+      <div>
+        <div class="caption-tag" id="captionTag">SICA // ZONA ACME</div>
+        <div>
+          <span class="caption-title" id="captionTitle">Control Integral de Acceso Físico</span>
+          <span class="caption-desc" id="captionDesc">— Gestión concurrente de ingresos, visitas y seguridad perimetral</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const steps = [
+      {
+        tag: 'SICA // ZONA ACME',
+        title: 'Control Perimetral de Seguridad Complejo Empresarial',
+        desc: 'Java 17, JavaFX, Hibernate 6 y PostgreSQL bajo Arquitectura Hexagonal',
+        duration: 3000,
+        action: () => {}
+      },
+      {
+        tag: 'TERMINAL GARITA JAVAFX',
+        title: 'Búsqueda & Validación en Tiempo Real',
+        desc: 'Lectura de credenciales, foto oficial y empresa anfitriona en menos de 200ms',
+        duration: 3200,
+        action: () => {}
+      },
+      {
+        tag: 'MÁQUINA DE ESTADOS FORMAL',
+        title: 'Registro de Check-in Inmediato',
+        desc: 'Transición atómica: Aprobada → DENTRO, validación de bloqueo y registro en base de datos',
+        duration: 3500,
+        action: () => {
+          document.getElementById('statusText').textContent = 'DENTRO // ACCESO CONCEDIDO';
+          document.getElementById('statusText').style.color = '#38bdf8';
+          document.getElementById('statusBanner').style.borderColor = 'rgba(56, 189, 248, 0.4)';
+          document.getElementById('statusBanner').style.background = 'rgba(56, 189, 248, 0.1)';
+          document.getElementById('checkinBtn').textContent = 'COMPLETADO ✓';
+          document.getElementById('checkinBtn').style.background = '#38bdf8';
+          document.getElementById('insideCount').textContent = '149';
+          document.getElementById('latestLog').innerHTML = '<span class="log-time">[10:43:02]</span> CHECK-IN: Leonardo Hernández (Lab I+D) — ENTRADA NORTE';
+        }
+      },
+      {
+        tag: 'MÓDULO DE EVACUACIÓN',
+        title: 'Conteo de Ocupación para Emergencias',
+        desc: 'Mapeo exacto de personas en instalaciones para brigadistas y protocolos de rescate',
+        duration: 3200,
+        action: () => {}
+      },
+      {
+        tag: 'SEGURIDAD RBAC & AUDITORÍA',
+        title: 'Bitácora Inmutable en PostgreSQL',
+        desc: 'Trazabilidad criptográfica al 100% de cada operación, login y alerta perimetral',
+        duration: 3200,
+        action: () => {}
+      }
+    ];
+
+    window.runSicaShowcase = async function() {
+      for (let i = 0; i < steps.length; i++) {
+        document.getElementById('captionTag').textContent = steps[i].tag;
+        document.getElementById('captionTitle').textContent = steps[i].title;
+        document.getElementById('captionDesc').textContent = '— ' + steps[i].desc;
+        if (steps[i].action) steps[i].action();
+        await new Promise(r => setTimeout(r, steps[i].duration));
+      }
+      return true;
+    };
+  </script>
+</body>
+</html>

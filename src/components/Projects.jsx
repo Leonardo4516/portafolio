@@ -72,7 +72,7 @@ export default function Projects() {
       tags: ['Java 21', 'Spring Boot 3', 'Spring Security 6', 'JWT', 'Flyway', 'PostgreSQL', 'DDD', 'Swagger'],
       github: 'https://github.com/Leonardo4516/telemedicina-security',
       demo: null,
-      videoUrl: null,
+      videoUrl: '/videos/telemedicina_demo.mp4',
       videoHighlights: language === 'es' ? [
         { title: "Seguridad JWT Stateless", desc: "Autenticación robusta con HMAC-SHA512, refresh tokens y roles RBAC (Admin, Profesional, Paciente)." },
         { title: "Triaje Clínico con IA", desc: "Evaluación interactiva de riesgo, toma de signos y categorización asistida en salud mental." },
@@ -96,7 +96,7 @@ export default function Projects() {
       tags: ['Java 21', 'Spring Boot 3.4', 'DDD Hexagonal', 'PostgreSQL (4FN)', 'WebSockets', 'Docker Compose', 'Spring Security'],
       github: 'https://github.com/Leonardo4516/Proyecto_RentaHerramientas',
       demo: null,
-      videoUrl: null,
+      videoUrl: '/videos/rentatools_demo.mp4',
       videoHighlights: language === 'es' ? [
         { title: "Geolocalización en Mapa", desc: "Búsqueda interactiva de maquinaria pesada por proximidad geográfica con Leaflet.js." },
         { title: "Reserva Anti-Solapes", desc: "Algoritmo de disponibilidad temporal estricto para evitar colisiones de alquiler entre usuarios." },
@@ -120,7 +120,7 @@ export default function Projects() {
       tags: ['Java 17', 'PostgreSQL 15', 'Docker Compose', 'JavaFX', 'BCrypt', 'JUnit 5', 'RBAC'],
       github: 'https://github.com/Leonardo4516/Sica_project',
       demo: null,
-      videoUrl: null,
+      videoUrl: '/videos/sica_demo.mp4',
       videoHighlights: language === 'es' ? [
         { title: "Terminal Garita JavaFX", desc: "Interfaz táctil de alta velocidad para validación vehicular y peatonal en tiempo real." },
         { title: "Control de Acceso RBAC", desc: "Permisos diferenciados por roles y registro de auditoría en base de datos PostgreSQL." },
@@ -144,7 +144,7 @@ export default function Projects() {
       tags: ['PostgreSQL 16', 'Docker Compose', 'SQL DDL/DML', 'Data Quality', 'pgAdmin 4'],
       github: 'https://github.com/Leonardo4516/volcado-datos-postgresql',
       demo: null,
-      videoUrl: null,
+      videoUrl: '/videos/etl_database_demo.mp4',
       videoHighlights: language === 'es' ? [
         { title: "Saneamiento UTF-8", desc: "Recuperación de más de 700 registros con corrupción de caracteres en datasets geográficos." },
         { title: "Normalización Estricta 3NF", desc: "Eliminación de dependencias circulares complejas entre tablas y claves foráneas." },
@@ -168,7 +168,7 @@ export default function Projects() {
       tags: ['Java 17', 'Arquitectura Hexagonal', 'REST API', 'Swing / FlatLaf', 'JUnit 5', 'Maven'],
       github: 'https://github.com/Leonardo4516/f1-project',
       demo: null,
-      videoUrl: null,
+      videoUrl: '/videos/f1_telemetry_demo.mp4',
       videoHighlights: language === 'es' ? [
         { title: "Clima en Tiempo Real", desc: "Integración con API meteorológica externa para alterar la física y adherencia de pista." },
         { title: "Motor de Telemetría", desc: "Cálculo de degradación de compuestos, paradas en pits y incidentes de carrera en vivo." },
@@ -216,7 +216,7 @@ export default function Projects() {
       tags: ['n8n', 'Telegram Bot API', 'Google Sheets API', 'JavaScript', 'Webhooks'],
       github: 'https://github.com/Leonardo4516/chatbot-gestor-pedidos',
       demo: 'https://github.com/Leonardo4516/chatbot-gestor-pedidos/tree/main/Evidencias/Funcionamiento',
-      videoUrl: null,
+      videoUrl: '/videos/cafexpress_demo.mp4',
       videoHighlights: language === 'es' ? [
         { title: "Bot Telegram Interactivo", desc: "Catálogo conversacional con botones inline para pedidos comerciales sin intermediarios." },
         { title: "Orquestación en n8n", desc: "Manejo de flujos de eventos sin servidor y transformación de datos mediante nodos JavaScript." },
@@ -240,7 +240,7 @@ export default function Projects() {
       tags: ['JavaScript ES6+', 'Web Components', 'HTML5', 'CSS3', 'Web Storage API'],
       github: 'https://github.com/Leonardo4516/acme-bank',
       demo: 'https://auto-gestion-bancaria-acme.netlify.app',
-      videoUrl: null,
+      videoUrl: '/videos/acme_bank_demo.mp4',
       videoHighlights: language === 'es' ? [
         { title: "Cero Dependencias Externas", desc: "Plataforma construida en JavaScript Vanilla puro (ES6+) con Web Components nativos." },
         { title: "Validación de Saldo en Vivo", desc: "Control instantáneo de retiros, consignaciones y manejo de sesiones de usuario." },

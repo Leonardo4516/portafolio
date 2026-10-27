@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>CafExpress Showcase</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #08080a;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #fff;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Ambient background grid and glow */
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 26, 64, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 26, 64, 0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+    .ambient-glow {
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 26, 64, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Top branding bar */
+    .top-bar {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      background: rgba(10, 10, 14, 0.7);
+      backdrop-filter: blur(12px);
+      z-index: 10;
+    }
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #ff1a40;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 16px;
+      color: #fff;
+      box-shadow: 0 0 15px rgba(255, 26, 64, 0.5);
+    }
+    .logo-text {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .logo-text span {
+      color: #ff1a40;
+    }
+    .stack-badges {
+      display: flex;
+      gap: 8px;
+    }
+    .badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Main Showcase Content */
+    .stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 20px 40px 90px;
+    }
+
+    /* Mode 1: Telegram Phone Frame View */
+    .phone-container {
+      position: absolute;
+      width: 330px;
+      height: 520px;
+      background: #18191e;
+      border-radius: 36px;
+      border: 4px solid #2d2f39;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 26, 64, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .phone-notch {
+      height: 24px;
+      background: #0f1015;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .notch-pill {
+      width: 70px;
+      height: 10px;
+      border-radius: 5px;
+      background: #232530;
+    }
+    .phone-screen {
+      flex: 1;
+      position: relative;
+      background: #0e1117;
+      overflow: hidden;
+    }
+    .phone-screen img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transform: scale(0.98);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .phone-screen img.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Mode 2: n8n Flow & Sheets Dashboard */
+    .canvas-container {
+      position: absolute;
+      width: 1100px;
+      height: 520px;
+      background: #11131a;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 26, 64, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px) scale(0.96);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .canvas-container.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+    .canvas-header {
+      height: 40px;
+      background: #1a1c25;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 8px;
+    }
+    .window-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .canvas-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #94a3b8;
+      margin-left: 8px;
+    }
+    .canvas-body {
+      flex: 1;
+      position: relative;
+      background: #090a0f;
+    }
+    .canvas-body img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .canvas-body img.active {
+      opacity: 1;
+    }
+
+    /* Side metadata card when phone is visible */
+    .metadata-card {
+      position: absolute;
+      right: 120px;
+      top: 90px;
+      width: 380px;
+      background: rgba(18, 20, 29, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 24px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      transition: all 0.5s ease;
+    }
+    .metadata-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 13px;
+    }
+    .metric-label {
+      color: #94a3b8;
+    }
+    .metric-val {
+      font-weight: 700;
+      color: #ff1a40;
+    }
+
+    /* Kinetic Subtitles at the bottom */
+    .bottom-caption {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(10, 10, 14, 0.94);
+      border: 1px solid rgba(255, 26, 64, 0.6);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.8), 0 0 20px rgba(255, 26, 64, 0.25);
+      border-radius: 10px;
+      padding: 12px 28px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      backdrop-filter: blur(16px);
+      z-index: 100;
+      min-width: 680px;
+    }
+    .pulse-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ff1a40;
+      box-shadow: 0 0 10px #ff1a40;
+      flex-shrink: 0;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+    .caption-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #ff1a40;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .caption-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .caption-desc {
+      font-weight: 400;
+      color: #94a3b8;
+      font-size: 13.5px;
+      margin-left: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="ambient-glow"></div>
+
+  <!-- Header -->
+  <header class="top-bar">
+    <div class="logo-group">
+      <div class="logo-badge">C</div>
+      <div class="logo-text">CAFEXPRESS <span>// BOT & WORKFLOW</span></div>
+    </div>
+    <div class="stack-badges">
+      <div class="badge">n8n Automation</div>
+      <div class="badge">Telegram Bot API</div>
+      <div class="badge">Google Sheets API</div>
+      <div class="badge">JavaScript Nodes</div>
+    </div>
+  </header>
+
+  <!-- Showcase Stage -->
+  <main class="stage">
+    <!-- Phone Mockup Container (Steps 1-9) -->
+    <div class="phone-container" id="phoneContainer">
+      <div class="phone-notch"><div class="notch-pill"></div></div>
+      <div class="phone-screen" id="phoneScreen">
+        <img src="assets_cafexpress/what1.jpeg" id="img1" class="active" alt="Inicio del Bot">
+        <img src="assets_cafexpress/what2.jpeg" id="img2" alt="Exploración de Carta">
+        <img src="assets_cafexpress/what3.jpeg" id="img3" alt="Selección de Producto">
+        <img src="assets_cafexpress/what4.jpeg" id="img4" alt="Cesta de Compra">
+        <img src="assets_cafexpress/what5.jpeg" id="img5" alt="Confirmación y Pago">
+        <img src="assets_cafexpress/what6.jpeg" id="img6" alt="Orden Generada">
+        <img src="assets_cafexpress/what7.jpeg" id="img7" alt="Notificación a Cocina">
+        <img src="assets_cafexpress/what8.jpeg" id="img8" alt="Actualización de Estado">
+        <img src="assets_cafexpress/what9.jpeg" id="img9" alt="Entrega y Puntos de Lealtad">
+      </div>
+    </div>
+
+    <!-- Metadata Card alongside Phone -->
+    <div class="metadata-card" id="metadataCard">
+      <h3>Estado Operacional del Bot</h3>
+      <div class="metric-row">
+        <span class="metric-label">Tiempo de Respuesta</span>
+        <span class="metric-val">&lt; 350 ms</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">Tasa de Pérdida de Órdenes</span>
+        <span class="metric-val">0.0% (Nube)</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">Reducción de Espera</span>
+        <span class="metric-val">-40% Anticipado</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">Fidelización de Clientes</span>
+        <span class="metric-val">Puntos Automáticos</span>
+      </div>
+      <div class="metric-row" style="border-bottom:none;">
+        <span class="metric-label">Sincronización</span>
+        <span class="metric-val">Google Sheets Live</span>
+      </div>
+    </div>
+
+    <!-- n8n Canvas Container (Flow 1-3) -->
+    <div class="canvas-container" id="canvasContainer">
+      <div class="canvas-header">
+        <div class="window-dot" style="background:#ef4444;"></div>
+        <div class="window-dot" style="background:#f59e0b;"></div>
+        <div class="window-dot" style="background:#10b981;"></div>
+        <span class="canvas-title">n8n Editor — CafExpress Workflow Canvas [Serverless Architecture]</span>
+      </div>
+      <div class="canvas-body" id="canvasBody">
+        <img src="assets_cafexpress/n8n_flow1.png" id="flow1" class="active" alt="n8n Flow General">
+        <img src="assets_cafexpress/n8n_flow2.png" id="flow2" alt="n8n Lógica de Pedidos">
+        <img src="assets_cafexpress/n8n_flow3.png" id="flow3" alt="n8n Sync Google Sheets">
+      </div>
+    </div>
+
+    <!-- Dynamic Bottom Caption -->
+    <div class="bottom-caption" id="captionBox">
+      <div class="pulse-dot"></div>
+      <div>
+        <div class="caption-tag" id="captionTag">CAFEXPRESS // INICIO</div>
+        <div>
+          <span class="caption-title" id="captionTitle">Menú Conversacional Interactivo</span>
+          <span class="caption-desc" id="captionDesc">— Inicio del bot mediante comando /start y menú inline en Telegram</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const steps = [
+      {
+        mode: 'phone',
+        imgId: 'img1',
+        tag: 'CAFEXPRESS // BIENVENIDA',
+        title: 'Inicio y Sesión Interactiva',
+        desc: 'Comando /start con menú de navegación por botones sin salir de Telegram',
+        duration: 2500
+      },
+      {
+        mode: 'phone',
+        imgId: 'img2',
+        tag: 'CATÁLOGO DE PRODUCTOS',
+        title: 'Exploración de la Carta',
+        desc: 'Categorías dinámicas con precios e ingredientes actualizados en tiempo real',
+        duration: 2500
+      },
+      {
+        mode: 'phone',
+        imgId: 'img3',
+        tag: 'SELECCIÓN & CANTIDAD',
+        title: 'Adición a la Cesta',
+        desc: 'Control interactivo de cantidades y personalización de pedidos',
+        duration: 2500
+      },
+      {
+        mode: 'phone',
+        imgId: 'img4',
+        tag: 'CESTA DE COMPRA',
+        title: 'Revisión & Subtotal',
+        desc: 'Cálculo instantáneo de subtotal, descuentos y desglose comercial',
+        duration: 2500
+      },
+      {
+        mode: 'phone',
+        imgId: 'img5',
+        tag: 'MÉTODO DE ENTREGA',
+        title: 'Confirmación de Despacho',
+        desc: 'Captura de dirección de mesa, hora de recogida y notas especiales',
+        duration: 2500
+      },
+      {
+        mode: 'phone',
+        imgId: 'img6',
+        tag: 'ORDEN EMITIDA',
+        title: 'Generación Atómica de Ticket',
+        desc: 'Emisión de ID único de orden (ej. PED-1024) y despacho instantáneo a cocina',
+        duration: 2500
+      },
+      {
+        mode: 'phone',
+        imgId: 'img7',
+        tag: 'NOTIFICACIÓN A COCINA',
+        title: 'Canal de Administración',
+        desc: 'Alerta push inmediata en grupo privado de cocina para preparación rápida',
+        duration: 2500
+      },
+      {
+        mode: 'phone',
+        imgId: 'img8',
+        tag: 'TRACKING DE ESTADO',
+        title: 'Actualización en Vivo',
+        desc: 'Notificaciones automáticas al cliente: Recibido → En Preparación → Listo',
+        duration: 2500
+      },
+      {
+        mode: 'phone',
+        imgId: 'img9',
+        tag: 'FIDELIZACIÓN',
+        title: 'Entrega y Puntos de Lealtad',
+        desc: 'Acumulación automática de puntos de fidelidad para futuros descuentos',
+        duration: 2800
+      },
+      {
+        mode: 'canvas',
+        imgId: 'flow1',
+        tag: 'ORQUESTACIÓN SERVERLESS',
+        title: 'Arquitectura de Flujos en n8n',
+        desc: 'Canalización de webhooks, control de estados de sesión y enrutamiento modular',
+        duration: 3200
+      },
+      {
+        mode: 'canvas',
+        imgId: 'flow2',
+        tag: 'TRANSFORMACIÓN DE DATOS',
+        title: 'Nodos de Código JavaScript',
+        desc: 'Validación de inventario, parseo de JSON y persistencia en Google Sheets API',
+        duration: 3200
+      },
+      {
+        mode: 'canvas',
+        imgId: 'flow3',
+        tag: 'REPORTES AUTOMATIZADOS',
+        title: 'Cierre Contable Programado',
+        desc: 'Generación diaria de reportes de ventas, ticket promedio y producto estrella a las 6:00 PM',
+        duration: 3500
+      }
+    ];
+
+    let currentStep = 0;
+
+    function applyStep(step) {
+      document.getElementById('captionTag').textContent = step.tag;
+      document.getElementById('captionTitle').textContent = step.title;
+      document.getElementById('captionDesc').textContent = '— ' + step.desc;
+
+      const phoneCont = document.getElementById('phoneContainer');
+      const metaCard = document.getElementById('metadataCard');
+      const canvasCont = document.getElementById('canvasContainer');
+
+      if (step.mode === 'phone') {
+        canvasCont.classList.remove('active');
+        phoneCont.style.opacity = '1';
+        phoneCont.style.pointerEvents = 'auto';
+        metaCard.style.opacity = '1';
+
+        document.querySelectorAll('#phoneScreen img').forEach(img => {
+          img.classList.toggle('active', img.id === step.imgId);
+        });
+      } else {
+        phoneCont.style.opacity = '0';
+        phoneCont.style.pointerEvents = 'none';
+        metaCard.style.opacity = '0';
+        canvasCont.classList.add('active');
+
+        document.querySelectorAll('#canvasBody img').forEach(img => {
+          img.classList.toggle('active', img.id === step.imgId);
+        });
+      }
+    }
+
+    // Export function for playwright to step through deterministically
+    window.runShowcase = async function() {
+      for (let i = 0; i < steps.length; i++) {
+        applyStep(steps[i]);
+        await new Promise(r => setTimeout(r, steps[i].duration));
+      }
+      return true;
+    };
+  </script>
+</body>
+</html>

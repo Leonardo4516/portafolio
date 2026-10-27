@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>PostgreSQL 16 ETL & Data Quality Showcase</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #090a0f;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #e2e8f0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 26, 64, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 26, 64, 0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+    .ambient-glow {
+      position: absolute;
+      top: -120px;
+      right: -100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 26, 64, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .top-bar {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(13, 15, 22, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 10;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      background: #ff1a40;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 900;
+      font-size: 16px;
+      box-shadow: 0 0 15px rgba(255, 26, 64, 0.4);
+    }
+    .brand-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .brand-title span {
+      color: #ff1a40;
+    }
+    .tags {
+      display: flex;
+      gap: 8px;
+    }
+    .tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+    }
+
+    .stage {
+      flex: 1;
+      display: flex;
+      gap: 24px;
+      padding: 20px 40px 90px;
+      position: relative;
+    }
+
+    /* Left: SQL Terminal (750px) */
+    .terminal-card {
+      width: 740px;
+      background: #11131c;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+    }
+    .terminal-header {
+      height: 42px;
+      background: #181b27;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+    }
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .terminal-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #94a3b8;
+      font-family: monospace;
+    }
+    .db-status {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .terminal-body {
+      flex: 1;
+      padding: 16px;
+      background: #090a0f;
+      display: flex;
+      flex-direction: column;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      overflow: hidden;
+    }
+
+    .code-sql {
+      color: #38bdf8;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .code-sql span.kw { color: #ff1a40; font-weight: 700; }
+    .code-sql span.fn { color: #f59e0b; }
+
+    .data-table-view {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      color: #cbd5e1;
+      overflow: hidden;
+    }
+    .table-header-row {
+      display: grid;
+      grid-template-columns: 80px 160px 140px 140px 1fr;
+      padding: 6px 10px;
+      background: #141724;
+      font-weight: 700;
+      color: #94a3b8;
+      border-radius: 4px;
+    }
+    .table-data-row {
+      display: grid;
+      grid-template-columns: 80px 160px 140px 140px 1fr;
+      padding: 5px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.2s ease;
+    }
+    .table-data-row:hover {
+      background: rgba(255, 26, 64, 0.05);
+    }
+    .val-restored {
+      color: #10b981;
+      font-weight: 600;
+    }
+    .val-corrupt {
+      color: #ef4444;
+      text-decoration: line-through;
+      margin-right: 6px;
+      font-size: 11px;
+    }
+
+    /* Right: Metrics & Architecture (480px) */
+    .metrics-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .metric-panel {
+      background: #11131c;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .metric-panel h3 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #ff1a40;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .stat-tile {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .stat-val {
+      font-size: 24px;
+      font-weight: 800;
+      color: #10b981;
+    }
+    .stat-desc {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    .audit-step {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      margin-bottom: 6px;
+      font-size: 12px;
+    }
+    .step-ok {
+      color: #10b981;
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    /* Kinetic Subtitles */
+    .bottom-caption {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(10, 10, 14, 0.94);
+      border: 1px solid rgba(255, 26, 64, 0.6);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.8), 0 0 20px rgba(255, 26, 64, 0.25);
+      border-radius: 10px;
+      padding: 12px 28px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      backdrop-filter: blur(16px);
+      z-index: 100;
+      min-width: 680px;
+      pointer-events: none;
+    }
+    .pulse-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ff1a40;
+      box-shadow: 0 0 10px #ff1a40;
+      flex-shrink: 0;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+    .caption-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #ff1a40;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .caption-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .caption-desc {
+      font-weight: 400;
+      color: #94a3b8;
+      font-size: 13.5px;
+      margin-left: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="ambient-glow"></div>
+
+  <header class="top-bar">
+    <div class="brand">
+      <div class="brand-icon">P</div>
+      <div class="brand-title">POSTGRESQL 16 <span>// ETL & CALIDAD DE DATOS</span></div>
+    </div>
+    <div class="tags">
+      <div class="tag">PostgreSQL 16</div>
+      <div class="tag">Docker Compose</div>
+      <div class="tag">Normalización 3NF</div>
+      <div class="tag">Saneamiento UTF-8</div>
+      <div class="tag">0 Huérfanos</div>
+    </div>
+  </header>
+
+  <main class="stage">
+    <!-- Terminal SQL View -->
+    <div class="terminal-card">
+      <div class="terminal-header">
+        <div class="terminal-dots">
+          <div class="dot" style="background:#ef4444;"></div>
+          <div class="dot" style="background:#f59e0b;"></div>
+          <div class="dot" style="background:#10b981;"></div>
+        </div>
+        <div class="terminal-title">psql (PostgreSQL 16.2 / Docker Container) — world_db</div>
+        <div class="db-status">● PIPELINE EJECUTADO (1.4ms)</div>
+      </div>
+
+      <div class="terminal-body">
+        <div class="code-sql" id="sqlQuery">
+          <span class="kw">SELECT</span> c.code, c.name <span class="kw">AS</span> pais, co.name <span class="kw">AS</span> continente, ci.name <span class="kw">AS</span> capital, c.population<br/>
+          <span class="kw">FROM</span> country c <span class="kw">JOIN</span> continent co <span class="kw">ON</span> c.continent = co.name<br/>
+          <span class="kw">JOIN</span> city ci <span class="kw">ON</span> c.capital = ci.id <span class="kw">LIMIT</span> 6;
+        </div>
+
+        <div class="data-table-view">
+          <div class="table-header-row">
+            <span>CODE</span>
+            <span>PAÍS</span>
+            <span>CONTINENTE</span>
+            <span>CAPITAL</span>
+            <span>POBLACIÓN</span>
+          </div>
+
+          <div class="table-data-row">
+            <span style="color:#f59e0b;">COL</span>
+            <span>Colombia</span>
+            <span style="color:#38bdf8;">South America</span>
+            <span class="val-restored"><span class="val-corrupt">Santaf de Bogot</span>Santafé de Bogotá</span>
+            <span>42.321.000</span>
+          </div>
+
+          <div class="table-data-row">
+            <span style="color:#f59e0b;">TGO</span>
+            <span>Togo</span>
+            <span style="color:#38bdf8;">Africa</span>
+            <span class="val-restored"><span class="val-corrupt">Lom</span>Lomé</span>
+            <span>4.629.000</span>
+          </div>
+
+          <div class="table-data-row">
+            <span style="color:#f59e0b;">TCD</span>
+            <span>Chad</span>
+            <span style="color:#38bdf8;">Africa</span>
+            <span class="val-restored"><span class="val-corrupt">NDjamna</span>N´Djaména</span>
+            <span>7.651.000</span>
+          </div>
+
+          <div class="table-data-row">
+            <span style="color:#f59e0b;">CHE</span>
+            <span>Switzerland</span>
+            <span style="color:#38bdf8;">Europe</span>
+            <span class="val-restored"><span class="val-corrupt">Zrich</span>Zürich</span>
+            <span>7.160.000</span>
+          </div>
+
+          <div class="table-data-row">
+            <span style="color:#f59e0b;">BRA</span>
+            <span>Brazil</span>
+            <span style="color:#38bdf8;">South America</span>
+            <span class="val-restored"><span class="val-corrupt">So Paulo</span>São Paulo</span>
+            <span>170.115.000</span>
+          </div>
+
+          <div class="table-data-row">
+            <span style="color:#f59e0b;">CAN</span>
+            <span>Canada</span>
+            <span style="color:#38bdf8;">North America</span>
+            <span class="val-restored"><span class="val-corrupt">Montral</span>Montréal</span>
+            <span>31.147.000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Metrics Column -->
+    <div class="metrics-col">
+      <div class="metric-panel">
+        <h3>🛡️ Integridad & Normalización 3NF</h3>
+        <div class="stat-grid">
+          <div class="stat-tile">
+            <div class="stat-val">748</div>
+            <div class="stat-desc">Registros UTF-8 Restaurados</div>
+          </div>
+          <div class="stat-tile">
+            <div class="stat-val">0</div>
+            <div class="stat-desc">Caracteres Corruptos Restantes</div>
+          </div>
+          <div class="stat-tile">
+            <div class="stat-val">100%</div>
+            <div class="stat-desc">Integridad Referencial FK</div>
+          </div>
+          <div class="stat-tile">
+            <div class="stat-val">3NF</div>
+            <div class="stat-desc">Continentes Desacoplados</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-panel">
+        <h3>⚡ Fases del Pipeline ETL</h3>
+        <div class="audit-step">
+          <span>1. Desacople Dependencia Circular</span>
+          <span class="step-ok">RESUELTO ✓</span>
+        </div>
+        <div class="audit-step">
+          <span>2. Normalización de Entidad Continente</span>
+          <span class="step-ok">8 ÚNICOS ✓</span>
+        </div>
+        <div class="audit-step">
+          <span>3. Saneamiento U+FFFD en Ciudades y Países</span>
+          <span class="step-ok">0 ERRORES ✓</span>
+        </div>
+        <div class="audit-step">
+          <span>4. Enlace Restricciones Foreign Key</span>
+          <span class="step-ok">0 HUÉRFANOS ✓</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kinetic Subtitles -->
+    <div class="bottom-caption" id="captionBox">
+      <div class="pulse-dot"></div>
+      <div>
+        <div class="caption-tag" id="captionTag">POSTGRESQL // ETL PIPELINE</div>
+        <div>
+          <span class="caption-title" id="captionTitle">Normalización & Calidad de Datos Masivos</span>
+          <span class="caption-desc" id="captionDesc">— Pipeline contenerizado en Docker con saneamiento criptográfico y UTF-8</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const steps = [
+      {
+        tag: 'POSTGRESQL // ETL PIPELINE',
+        title: 'Arquitectura Contenerizada de Datos',
+        desc: 'Pipeline automatizado en PostgreSQL 16 con Docker Compose y scripts DDL/DML modulares',
+        duration: 3200
+      },
+      {
+        tag: 'DEPENDENCIA CIRCULAR DE FKs',
+        title: 'Resolución de Ciclos entre Country y City',
+        desc: 'Estrategia de dos fases para claves foráneas evitando fallos en cascada e inserciones huérfanas',
+        duration: 3500
+      },
+      {
+        tag: 'SANEAMIENTO UTF-8 MASIVO',
+        title: 'Restauración de +700 Registros Corruptos',
+        desc: 'Eliminación del carácter U+FFFD en 652 ciudades y 79 países cruzando fuentes oficiales',
+        duration: 3500
+      },
+      {
+        tag: 'NORMALIZACIÓN ESTRICTA 3NF',
+        title: 'Desacoplamiento de la Entidad Continent',
+        desc: 'Eliminación de redundancias en texto plano y generación de catálogos geográficos indexados',
+        duration: 3200
+      },
+      {
+        tag: 'CONSULTAS DE ALTO RENDIMIENTO',
+        title: 'Verificación Relacional Instantánea',
+        desc: 'Consultas multi-JOIN ejecutadas en 1.4ms con índices B-Tree y planes de ejecución limpios',
+        duration: 3200
+      }
+    ];
+
+    window.runEtlShowcase = async function() {
+      for (let i = 0; i < steps.length; i++) {
+        document.getElementById('captionTag').textContent = steps[i].tag;
+        document.getElementById('captionTitle').textContent = steps[i].title;
+        document.getElementById('captionDesc').textContent = '— ' + steps[i].desc;
+        await new Promise(r => setTimeout(r, steps[i].duration));
+      }
+      return true;
+    };
+  </script>
+</body>
+</html>

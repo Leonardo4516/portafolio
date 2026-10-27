@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>F1 Simulator & Telemetry Engine Showcase</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #090a0f;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #e2e8f0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 26, 64, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 26, 64, 0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+    .ambient-glow {
+      position: absolute;
+      top: -120px;
+      right: -100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 26, 64, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .top-bar {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(13, 15, 22, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 10;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      background: #ff1a40;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 900;
+      font-size: 16px;
+      box-shadow: 0 0 15px rgba(255, 26, 64, 0.4);
+    }
+    .brand-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .brand-title span {
+      color: #ff1a40;
+    }
+    .tags {
+      display: flex;
+      gap: 8px;
+    }
+    .tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+    }
+
+    .stage {
+      flex: 1;
+      display: flex;
+      gap: 24px;
+      padding: 20px 40px 90px;
+      position: relative;
+    }
+
+    /* Left: Telemetry Dashboard (720px) */
+    .telemetry-card {
+      width: 720px;
+      background: #11131c;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+    }
+    .telemetry-header {
+      height: 42px;
+      background: #181b27;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+    }
+    .telemetry-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .telemetry-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #94a3b8;
+      font-family: monospace;
+    }
+    .weather-live-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .telemetry-body {
+      flex: 1;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: #090a0f;
+    }
+
+    /* Live Telemetry Gauges */
+    .gauge-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .gauge-box {
+      background: #11131c;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+    .gauge-val {
+      font-size: 24px;
+      font-weight: 800;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      color: #ff1a40;
+    }
+    .gauge-lbl {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    /* Weather & Track Status Bar */
+    .track-status-box {
+      background: #141724;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+    }
+    .track-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .track-item-lbl {
+      font-size: 10px;
+      color: #94a3b8;
+      text-transform: uppercase;
+    }
+    .track-item-val {
+      font-weight: 700;
+      color: #fff;
+      font-size: 13px;
+    }
+
+    /* Tire Degradation Simulator */
+    .tire-section {
+      background: #11131c;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .tire-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #e2e8f0;
+    }
+    .tire-bars {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .tire-bar-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .tire-bar-lbl {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+    .progress-bar-bg {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: #ff1a40;
+      border-radius: 4px;
+      transition: width 0.6s ease;
+    }
+
+    /* Right: Leaderboard & Hexagonal Arch (480px) */
+    .leaderboard-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .info-card {
+      background: #11131c;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .info-card h3 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #ff1a40;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .leaderboard-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .leaderboard-table th {
+      text-align: left;
+      padding: 6px 8px;
+      color: #94a3b8;
+      font-size: 10px;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .leaderboard-table td {
+      padding: 7px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .pos-p1 { color: #f59e0b; font-weight: 800; }
+    .pos-p2 { color: #cbd5e1; font-weight: 800; }
+    .pos-p3 { color: #b45309; font-weight: 800; }
+
+    .compound-badge {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+    .badge-soft { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; }
+    .badge-med { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid #f59e0b; }
+    .badge-hard { background: rgba(255, 255, 255, 0.2); color: #fff; border: 1px solid #fff; }
+
+    /* Kinetic Subtitles */
+    .bottom-caption {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(10, 10, 14, 0.94);
+      border: 1px solid rgba(255, 26, 64, 0.6);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.8), 0 0 20px rgba(255, 26, 64, 0.25);
+      border-radius: 10px;
+      padding: 12px 28px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      backdrop-filter: blur(16px);
+      z-index: 100;
+      min-width: 680px;
+      pointer-events: none;
+    }
+    .pulse-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ff1a40;
+      box-shadow: 0 0 10px #ff1a40;
+      flex-shrink: 0;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+    .caption-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #ff1a40;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .caption-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .caption-desc {
+      font-weight: 400;
+      color: #94a3b8;
+      font-size: 13.5px;
+      margin-left: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="ambient-glow"></div>
+
+  <header class="top-bar">
+    <div class="brand">
+      <div class="brand-icon">F1</div>
+      <div class="brand-title">SIMULADOR F1 <span>// MOTOR DE TELEMETRÍA</span></div>
+    </div>
+    <div class="tags">
+      <div class="tag">Java 17 LTS</div>
+      <div class="tag">Arquitectura Hexagonal</div>
+      <div class="tag">REST API Clima (wttr.in)</div>
+      <div class="tag">Swing / FlatLaf Dark</div>
+      <div class="tag">JUnit 5</div>
+    </div>
+  </header>
+
+  <main class="stage">
+    <!-- Left: Telemetry Panel -->
+    <div class="telemetry-card">
+      <div class="telemetry-header">
+        <div class="telemetry-dots">
+          <div class="dot" style="background:#ef4444;"></div>
+          <div class="dot" style="background:#f59e0b;"></div>
+          <div class="dot" style="background:#10b981;"></div>
+        </div>
+        <div class="telemetry-title">Race Control Telemetry — Circuit de Monaco [Lap 24/78]</div>
+        <div class="weather-live-pill">
+          <span>🌧️ wttr.in API Live: 22°C (Lluvia Ligera)</span>
+        </div>
+      </div>
+
+      <div class="telemetry-body">
+        <div class="gauge-row">
+          <div class="gauge-box">
+            <div class="gauge-val" id="gSpeed">294</div>
+            <div class="gauge-lbl">Velocidad (km/h)</div>
+          </div>
+          <div class="gauge-box">
+            <div class="gauge-val" id="gRpm" style="color:#38bdf8;">11,840</div>
+            <div class="gauge-lbl">RPM Motor V6 Turbo</div>
+          </div>
+          <div class="gauge-box">
+            <div class="gauge-val" id="gGear">7</div>
+            <div class="gauge-lbl">Marcha Activa</div>
+          </div>
+          <div class="gauge-box">
+            <div class="gauge-val" id="gLap" style="color:#10b981;">1:14.285</div>
+            <div class="gauge-lbl">Mejor Vuelta</div>
+          </div>
+        </div>
+
+        <div class="track-status-box">
+          <div class="track-item">
+            <span class="track-item-lbl">Circuito</span>
+            <span class="track-item-val">Monte Carlo (3.337 km)</span>
+          </div>
+          <div class="track-item">
+            <span class="track-item-lbl">Adherencia Pista</span>
+            <span class="track-item-val" style="color:#f59e0b;">0.78 μ (Pista Húmeda)</span>
+          </div>
+          <div class="track-item">
+            <span class="track-item-lbl">Ventana de Pits</span>
+            <span class="track-item-val" style="color:#10b981;">Vuelta 28 - 32</span>
+          </div>
+          <div class="track-item">
+            <span class="track-item-lbl">Incidentes</span>
+            <span class="track-item-val">0 (Safety Car Standby)</span>
+          </div>
+        </div>
+
+        <div class="tire-section">
+          <div class="tire-header">
+            <span>Degradación de Compuestos en Tiempo Real</span>
+            <span style="color:#38bdf8;">Compuesto Actual: INTERMEDIATE (Verde)</span>
+          </div>
+          <div class="tire-bars">
+            <div class="tire-bar-group">
+              <div class="tire-bar-lbl">
+                <span>Delantero Izquierdo (FL)</span>
+                <span id="flDeg">74% Vida Útil</span>
+              </div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:74%;"></div></div>
+            </div>
+            <div class="tire-bar-group">
+              <div class="tire-bar-lbl">
+                <span>Delantero Derecho (FR)</span>
+                <span id="frDeg">71% Vida Útil</span>
+              </div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:71%;"></div></div>
+            </div>
+            <div class="tire-bar-group">
+              <div class="tire-bar-lbl">
+                <span>Trasero Izquierdo (RL)</span>
+                <span id="rlDeg">82% Vida Útil</span>
+              </div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:82%;"></div></div>
+            </div>
+            <div class="tire-bar-group">
+              <div class="tire-bar-lbl">
+                <span>Trasero Derecho (RR)</span>
+                <span id="rrDeg">79% Vida Útil</span>
+              </div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:79%;"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Leaderboard -->
+    <div class="leaderboard-col">
+      <div class="info-card">
+        <h3>🏁 Clasificación en Vivo (Live Timing)</h3>
+        <table class="leaderboard-table">
+          <thead>
+            <tr>
+              <th>POS</th>
+              <th>PILOTO</th>
+              <th>EQUIPO</th>
+              <th>TIEMPO</th>
+              <th>NEUMÁTICO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="pos-p1">P1</td>
+              <td><strong>M. Verstappen</strong></td>
+              <td>Red Bull</td>
+              <td style="color:#10b981;font-weight:700;">LÍDER</td>
+              <td><span class="compound-badge badge-soft">INTER</span></td>
+            </tr>
+            <tr>
+              <td class="pos-p2">P2</td>
+              <td><strong>L. Norris</strong></td>
+              <td>McLaren</td>
+              <td>+1.412s</td>
+              <td><span class="compound-badge badge-med">MED</span></td>
+            </tr>
+            <tr>
+              <td class="pos-p3">P3</td>
+              <td><strong>C. Leclerc</strong></td>
+              <td>Ferrari</td>
+              <td>+3.085s</td>
+              <td><span class="compound-badge badge-soft">INTER</span></td>
+            </tr>
+            <tr>
+              <td>P4</td>
+              <td><strong>L. Hamilton</strong></td>
+              <td>Mercedes</td>
+              <td>+5.920s</td>
+              <td><span class="compound-badge badge-hard">HARD</span></td>
+            </tr>
+            <tr>
+              <td>P5</td>
+              <td><strong>O. Piastri</strong></td>
+              <td>McLaren</td>
+              <td>+7.114s</td>
+              <td><span class="compound-badge badge-med">MED</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-card">
+        <h3>🏛️ Arquitectura Hexagonal Java</h3>
+        <div style="font-size:12px;line-height:1.6;color:#94a3b8;">
+          <p>• <strong>Dominio Puro:</strong> Modelos matemáticos de fricción y cinemática sin dependencias externas.</p>
+          <p>• <strong>Puertos & Adaptadores:</strong> Consumo desacoplado de API meteorológica y renderizado Swing FlatLaf.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kinetic Subtitles -->
+    <div class="bottom-caption" id="captionBox">
+      <div class="pulse-dot"></div>
+      <div>
+        <div class="caption-tag" id="captionTag">F1 SIMULATOR // MOTOR DE TELEMETRÍA</div>
+        <div>
+          <span class="caption-title" id="captionTitle">Simulador de Carreras & Física en Tiempo Real</span>
+          <span class="caption-desc" id="captionDesc">— Java 17 bajo Arquitectura Hexagonal y consumo de API meteorológica</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const steps = [
+      {
+        tag: 'F1 SIMULATOR // ARQUITECTURA',
+        title: 'Motor de Telemetría Multi-Vehículo en Java 17',
+        desc: 'Desacoplamiento total del núcleo matemático mediante Arquitectura Hexagonal estricta',
+        duration: 3200
+      },
+      {
+        tag: 'CLIMA EN TIEMPO REAL',
+        title: 'Integración con API Meteorológica Externa',
+        desc: 'Consumo de wttr.in para alterar dinámicamente temperatura de pista, lluvia y adherencia',
+        duration: 3500
+      },
+      {
+        tag: 'CÁLCULO DE TELEMETRÍA',
+        title: 'Degradación & Desgaste de Neumáticos',
+        desc: 'Simulación precisa de curvas de desgaste para compuestos Soft, Medium, Hard e Intermediate',
+        duration: 3500
+      },
+      {
+        tag: 'ESTRATEGIA DE CARRERA',
+        title: 'Cálculo de Ventana de Pits & Incidentes',
+        desc: 'Algoritmo de optimización de paradas y simulación estocástica de banderas y Safety Car',
+        duration: 3200
+      },
+      {
+        tag: 'INTERFAZ REACTIVA ARCADE',
+        title: 'Visualización Swing & FlatLaf Dark',
+        desc: 'Renderizado reactivo desacoplado del motor de cálculo con 60 FPS estables',
+        duration: 3200
+      }
+    ];
+
+    window.runF1Showcase = async function() {
+      for (let i = 0; i < steps.length; i++) {
+        document.getElementById('captionTag').textContent = steps[i].tag;
+        document.getElementById('captionTitle').textContent = steps[i].title;
+        document.getElementById('captionDesc').textContent = '— ' + steps[i].desc;
+        await new Promise(r => setTimeout(r, steps[i].duration));
+      }
+      return true;
+    };
+  </script>
+</body>
+</html>
