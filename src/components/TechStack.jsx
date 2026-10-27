@@ -9,13 +9,22 @@ export default function TechStack() {
   const skillsData = [
     // Backend & Bases de Datos Core
     {
-      name: 'Java (Java 17+)',
+      name: 'Java (Java 17 / 21 LTS)',
       level: 'intermediate',
       levelLabel: language === 'es' ? 'Intermedio' : 'Intermediate',
       tag: 'Backend Core',
       desc: language === 'es'
-        ? 'Principios SOLID, Arquitectura Hexagonal, patrones de diseño (State, Factory, Strategy) y pruebas automatizadas con JUnit.'
-        : 'SOLID principles, Hexagonal Architecture, design patterns (State, Factory, Strategy), and automated testing with JUnit.'
+        ? 'Principios SOLID, Arquitectura Hexagonal / DDD, patrones de diseño (State, Factory, Strategy) y pruebas automatizadas con JUnit 5.'
+        : 'SOLID principles, Hexagonal / DDD Architecture, design patterns (State, Factory, Strategy), and automated testing with JUnit 5.'
+    },
+    {
+      name: 'Spring Boot 3 & Spring Security 6',
+      level: 'intermediate',
+      levelLabel: language === 'es' ? 'Intermedio' : 'Intermediate',
+      tag: 'Framework Core',
+      desc: language === 'es'
+        ? 'APIs RESTful multi-módulo desacopladas, autenticación stateless con JWT, control de acceso por roles (RBAC) y migraciones con Flyway.'
+        : 'Decoupled multi-module RESTful APIs, stateless JWT authentication, Role-Based Access Control (RBAC), and Flyway database migrations.'
     },
     {
       name: 'PostgreSQL',

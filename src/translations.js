@@ -27,7 +27,7 @@ export const translations = {
       btnWorkflow: "Ver Metodología de Trabajo",
       scrollCue: "Explorar",
       stats: [
-        { value: "+5 Proyectos", label: "Arquitectura & Código" },
+        { value: "+8 Proyectos", label: "Arquitectura & Código" },
         { value: "Java & SQL", label: "Enfoque Backend" },
         { value: "Docker", label: "Entornos Aislados" },
         { value: "IA Asistida", label: "Productividad Ágil" }
@@ -251,7 +251,7 @@ export const translations = {
       btnWorkflow: "Explore Workflow & Methodology",
       scrollCue: "Explore",
       stats: [
-        { value: "+5 Projects", label: "Architecture & Code" },
+        { value: "+8 Projects", label: "Architecture & Code" },
         { value: "Java & SQL", label: "Backend Core" },
         { value: "Docker", label: "Isolated Envs" },
         { value: "AI-Assisted", label: "Agile Workflow" }

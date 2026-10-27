@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, ShieldCheck, Database, Server, Cpu, Bot, Globe } from 'lucide-react'
+import { ExternalLink, ShieldCheck, Database, Server, Cpu, Bot, Globe, Activity, Wrench } from 'lucide-react'
 import { GithubIcon } from './Icons'
 import { useLanguage } from '../context/LanguageContext'
 
@@ -43,6 +43,34 @@ export default function Projects() {
 
   const projectsData = [
     {
+      id: 'telemedicina-security',
+      category: 'java',
+      featured: true,
+      icon: Activity,
+      title: language === 'es' ? 'Telemedicina & Triaje Clínico IA' : 'Telemedicine & AI Clinical Triage',
+      subtitle: language === 'es' ? 'Java 21, Spring Boot 3, DDD Multi-Módulo, Spring Security 6 & Flyway' : 'Java 21, Spring Boot 3, Multi-Module DDD, Spring Security 6 & Flyway',
+      desc: language === 'es'
+        ? 'Plataforma empresarial de salud mental y triaje clínico con IA. Arquitectura multi-módulo basada en Domain-Driven Design (DDD), autenticación stateless con Spring Security 6 y JWT (HMAC-SHA512), persistencia relacional con más de 35 tablas en PostgreSQL versionadas con Flyway (UUID y JSONB) y documentación OpenAPI 3 / Swagger.'
+        : 'Enterprise mental health and AI clinical triage platform. Multi-module Domain-Driven Design (DDD) architecture, stateless authentication with Spring Security 6 and JWT (HMAC-SHA512), 35+ PostgreSQL relational tables versioned via Flyway (UUID and JSONB), and OpenAPI 3 / Swagger documentation.',
+      tags: ['Java 21', 'Spring Boot 3', 'Spring Security 6', 'JWT', 'Flyway', 'PostgreSQL', 'DDD', 'Swagger'],
+      github: 'https://github.com/Leonardo4516/telemedicina-security',
+      demo: null,
+    },
+    {
+      id: 'Proyecto_RentaHerramientas',
+      category: 'java',
+      featured: true,
+      icon: Wrench,
+      title: language === 'es' ? 'RentaTools // Marketplace de Maquinaria' : 'RentaTools // Machinery Marketplace',
+      subtitle: language === 'es' ? 'Java 21, Spring Boot 3.4, DDD Hexagonal, PostgreSQL (4FN) & WebSockets' : 'Java 21, Spring Boot 3.4, Hexagonal DDD, 4NF PostgreSQL & WebSockets',
+      desc: language === 'es'
+        ? 'Marketplace B2B/B2C para alquiler, inspección y facturación de maquinaria pesada. Implementa arquitectura hexagonal DDD desacoplada, control de acceso por roles (RBAC: Admin, Proveedor, Cliente), base de datos en 4FN con Docker Compose, geolocalización interactiva con mapas y eventos en tiempo real con Spring WebSocket + STOMP.'
+        : 'B2B/B2C marketplace for heavy machinery rental, inspection, and billing. Implements decoupled Hexagonal DDD architecture, Role-Based Access Control (RBAC: Admin, Provider, Client), 4NF normalized PostgreSQL stack via Docker Compose, interactive map geolocation, and real-time events via Spring WebSocket + STOMP.',
+      tags: ['Java 21', 'Spring Boot 3.4', 'DDD Hexagonal', 'PostgreSQL (4FN)', 'WebSockets', 'Docker Compose', 'Spring Security'],
+      github: 'https://github.com/Leonardo4516/Proyecto_RentaHerramientas',
+      demo: null,
+    },
+    {
       id: 'sica-project',
       category: 'java',
       featured: true,
@@ -59,7 +87,7 @@ export default function Projects() {
     {
       id: 'f1-project',
       category: 'java',
-      featured: true,
+      featured: false,
       icon: Cpu,
       title: language === 'es' ? 'Simulador F1 & Motor de Telemetría' : 'F1 Simulator & Telemetry Engine',
       subtitle: language === 'es' ? 'Java 17 bajo Arquitectura Hexagonal y APIs de Clima' : 'Java 17 with Hexagonal Architecture and Live Weather API',
