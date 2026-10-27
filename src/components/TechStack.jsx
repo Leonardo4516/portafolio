@@ -7,27 +7,7 @@ export default function TechStack() {
   const [activeLevel, setActiveLevel] = useState('all')
 
   const skillsData = [
-    // Avanzado
-    {
-      name: 'Prompt Engineering',
-      level: 'advanced',
-      levelLabel: language === 'es' ? 'Avanzado' : 'Advanced',
-      tag: 'AI Core',
-      desc: language === 'es' 
-        ? 'Diseño riguroso de prompts estructurados (zero-shot, few-shot, chain-of-thought) con delimitadores, restricciones y formateo determinista.'
-        : 'Rigorous prompt engineering (zero-shot, few-shot, chain-of-thought) with explicit delimiters, constraints, and deterministic outputs.'
-    },
-    {
-      name: 'Agentic AI Workflows',
-      level: 'advanced',
-      levelLabel: language === 'es' ? 'Avanzado' : 'Advanced',
-      tag: 'Autonomous AI',
-      desc: language === 'es'
-        ? 'Diseño de flujos agénticos donde modelos de lenguaje analizan, planifican y ejecutan tareas de desarrollo e investigación paso a paso.'
-        : 'Designing agentic workflows where language models plan, research, and execute multi-step engineering tasks iteratively.'
-    },
-
-    // Intermedio
+    // Backend & Bases de Datos Core
     {
       name: 'Java (Java 17+)',
       level: 'intermediate',
@@ -47,24 +27,6 @@ export default function TechStack() {
         : 'Relational modeling, date/interval queries, data migrations, normalization, and containerized Docker environments.'
     },
     {
-      name: 'MySQL / MariaDB',
-      level: 'intermediate',
-      levelLabel: language === 'es' ? 'Intermedio' : 'Intermediate',
-      tag: 'Database',
-      desc: language === 'es'
-        ? 'Diseño de esquemas relacionales, triggers de control de inventario, procedimientos almacenados y vistas analíticas.'
-        : 'Relational schema design, inventory triggers, stored procedures, and analytical views.'
-    },
-    {
-      name: 'Python',
-      level: 'intermediate',
-      levelLabel: language === 'es' ? 'Intermedio' : 'Intermediate',
-      tag: 'Language',
-      desc: language === 'es'
-        ? 'Programación orientada a objetos, scripts de gestión de herramientas, persistencia en JSON y automatización.'
-        : 'Object-oriented programming, tool management scripts, JSON persistence, and system automation.'
-    },
-    {
       name: 'Docker & Docker Compose',
       level: 'intermediate',
       levelLabel: language === 'es' ? 'Intermedio' : 'Intermediate',
@@ -74,13 +36,44 @@ export default function TechStack() {
         : 'Containerization of relational databases (PostgreSQL/MySQL), persistent volumes, and isolated local networks.'
     },
     {
-      name: 'GitHub Copilot & AI IDEs',
+      name: 'MySQL / MariaDB',
       level: 'intermediate',
       levelLabel: language === 'es' ? 'Intermedio' : 'Intermediate',
-      tag: 'Tooling',
+      tag: 'Database',
       desc: language === 'es'
-        ? 'Integración en el flujo de trabajo para acelerar la escritura de código repetitivo, refactorización y depuración guiada.'
-        : 'Integration into daily workflow for boilerplate acceleration, guided refactoring, and contextual debugging.'
+        ? 'Diseño de esquemas relacionales, triggers de control de inventario, procedimientos almacenados y vistas analíticas.'
+        : 'Relational schema design, inventory triggers, stored procedures, and analytical views.'
+    },
+
+    // Inteligencia Artificial & Automatización
+    {
+      name: 'Prompt Engineering',
+      level: 'advanced',
+      levelLabel: language === 'es' ? 'Avanzado' : 'Advanced',
+      tag: 'AI Core',
+      desc: language === 'es' 
+        ? 'Diseño riguroso de prompts estructurados (zero-shot, few-shot, chain-of-thought) con delimitadores, restricciones y formateo determinista.'
+        : 'Rigorous prompt engineering (zero-shot, few-shot, chain-of-thought) with explicit delimiters, constraints, and deterministic outputs.'
+    },
+    {
+      name: 'Agentic AI Workflows',
+      level: 'advanced',
+      levelLabel: language === 'es' ? 'Avanzado' : 'Advanced',
+      tag: 'Autonomous AI',
+      desc: language === 'es'
+        ? 'Diseño de flujos agénticos donde modelos de lenguaje analizan, planifican y ejecutan tareas de desarrollo e investigación paso a paso.'
+        : 'Designing agentic workflows where language models plan, research, and execute multi-step engineering tasks iteratively.'
+    },
+
+    // Lenguajes & Ecosistema
+    {
+      name: 'Python',
+      level: 'intermediate',
+      levelLabel: language === 'es' ? 'Intermedio' : 'Intermediate',
+      tag: 'Language',
+      desc: language === 'es'
+        ? 'Programación orientada a objetos, scripts de gestión de herramientas, persistencia en JSON y automatización.'
+        : 'Object-oriented programming, tool management scripts, JSON persistence, and system automation.'
     },
     {
       name: 'Git & GitHub',
@@ -92,33 +85,13 @@ export default function TechStack() {
         : 'Version control, branch management, merge conflict resolution, descriptive commits, and basic GitHub Actions.'
     },
     {
-      name: 'HTML5 & CSS3',
-      level: 'intermediate',
-      levelLabel: language === 'es' ? 'Intermedio' : 'Intermediate',
-      tag: 'Web Base',
-      desc: language === 'es'
-        ? 'Estructura semántica del DOM, accesibilidad básica (a11y), maquetación con Flexbox y CSS Grid responsivo.'
-        : 'Semantic DOM structure, basic accessibility (a11y), responsive layouts using Flexbox and CSS Grid.'
-    },
-
-    // Básico
-    {
-      name: 'JavaScript (ES6+)',
+      name: 'Linux / Bash',
       level: 'basic',
       levelLabel: language === 'es' ? 'Básico' : 'Basic',
-      tag: 'Language',
+      tag: 'OS & CLI',
       desc: language === 'es'
-        ? 'Manipulación nativa del DOM, Web Components, promesas, async/await y consumo de endpoints REST.'
-        : 'Native DOM manipulation, Web Components, promises, async/await, and REST endpoint consumption.'
-    },
-    {
-      name: 'Node.js',
-      level: 'basic',
-      levelLabel: language === 'es' ? 'Básico' : 'Basic',
-      tag: 'Runtime',
-      desc: language === 'es'
-        ? 'Ejecución de scripts, uso de módulos npm, estructuras básicas de backend y manejo asíncrono.'
-        : 'Script execution, npm module management, basic backend structures, and asynchronous flow.'
+        ? 'Navegación en consola, permisos de archivos, instalación de paquetes y ejecución de scripts shell básicos.'
+        : 'Command-line navigation, file permissions, package installation, and execution of basic shell scripts.'
     },
     {
       name: 'n8n Workflow Automation',
@@ -130,6 +103,15 @@ export default function TechStack() {
         : 'Serverless workflow creation, JS code nodes for data transformation, and webhook integrations with Telegram and Google Sheets.'
     },
     {
+      name: 'GitHub Copilot & AI IDEs',
+      level: 'intermediate',
+      levelLabel: language === 'es' ? 'Intermedio' : 'Intermediate',
+      tag: 'Tooling',
+      desc: language === 'es'
+        ? 'Integración en el flujo de trabajo para acelerar la escritura de código repetitivo, refactorización y depuración guiada.'
+        : 'Integration into daily workflow for boilerplate acceleration, guided refactoring, and contextual debugging.'
+    },
+    {
       name: 'Promptfoo',
       level: 'basic',
       levelLabel: language === 'es' ? 'Básico' : 'Basic',
@@ -139,13 +121,31 @@ export default function TechStack() {
         : 'Basic benchmark configuration and test cases to validate that language models output compliant responses.'
     },
     {
-      name: 'Linux / Bash',
+      name: 'JavaScript (ES6+)',
       level: 'basic',
       levelLabel: language === 'es' ? 'Básico' : 'Basic',
-      tag: 'OS & CLI',
+      tag: 'Language',
       desc: language === 'es'
-        ? 'Navegación en consola, permisos de archivos, instalación de paquetes y ejecución de scripts shell básicos.'
-        : 'Command-line navigation, file permissions, package installation, and execution of basic shell scripts.'
+        ? 'Manipulación nativa del DOM, Web Components, promesas, async/await y consumo de endpoints REST.'
+        : 'Native DOM manipulation, Web Components, promises, async/await, and REST endpoint consumption.'
+    },
+    {
+      name: 'HTML5 & CSS3',
+      level: 'intermediate',
+      levelLabel: language === 'es' ? 'Intermedio' : 'Intermediate',
+      tag: 'Web Base',
+      desc: language === 'es'
+        ? 'Estructura semántica del DOM, accesibilidad básica (a11y), maquetación con Flexbox y CSS Grid responsivo.'
+        : 'Semantic DOM structure, basic accessibility (a11y), responsive layouts using Flexbox and CSS Grid.'
+    },
+    {
+      name: 'Node.js',
+      level: 'basic',
+      levelLabel: language === 'es' ? 'Básico' : 'Basic',
+      tag: 'Runtime',
+      desc: language === 'es'
+        ? 'Ejecución de scripts, uso de módulos npm, estructuras básicas de backend y manejo asíncrono.'
+        : 'Script execution, npm module management, basic backend structures, and asynchronous flow.'
     }
   ]
 

@@ -17,14 +17,23 @@ import Preloader from './components/Preloader'
 function PortfolioContent() {
   const [isLoading, setIsLoading] = useState(true)
   const [showBackToTop, setShowBackToTop] = useState(false)
+  const [canvasOpacity, setCanvasOpacity] = useState(1)
 
   useEffect(() => {
     let ticking = false
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const shouldShow = window.scrollY > 400
+          const currentY = window.scrollY
+          const shouldShow = currentY > 400
           setShowBackToTop((prev) => (prev !== shouldShow ? shouldShow : prev))
+
+          // Smoothly fade 3D canvas when user scrolls out of the hero into text sections
+          const heroHeight = window.innerHeight || 800
+          const fadeProgress = Math.min(Math.max((currentY - 100) / (heroHeight * 0.7), 0), 1)
+          const targetOpacity = 1 - fadeProgress * 0.88 // Fades smoothly from 1.0 down to 0.12
+          setCanvasOpacity(targetOpacity)
+
           ticking = false
         })
         ticking = true
@@ -47,12 +56,16 @@ function PortfolioContent() {
       </AnimatePresence>
 
       <div className="relative min-h-screen bg-black text-neutral-100 selection:bg-red-600 selection:text-white overflow-x-hidden font-sans">
-      {/* Fixed 3D Canvas in background with DPR capping for low-end/mobile performance */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
+      {/* Dynamic 3D Canvas: Hero centerpiece that smoothly attenuates in reading sections */}
+      <div 
+        className="fixed inset-0 z-0 pointer-events-none transition-opacity duration-300 ease-out"
+        style={{ opacity: canvasOpacity }}
+      >
         <Canvas 
           dpr={typeof window !== 'undefined' && window.innerWidth < 768 ? 1 : [1, 1.3]}
           gl={{ 
             powerPreference: 'high-performance', 
+            preserveDrawingBuffer: false,
             antialias: false, 
             stencil: false, 
             depth: true 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Sparkles, ArrowRight, Workflow, GraduationCap, Cpu, Database, ShieldCheck } from 'lucide-react'
+import { Sparkles, ArrowRight, Workflow, GraduationCap, Code2, Cpu, Database, ShieldCheck } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function Hero() {
@@ -79,14 +79,14 @@ export default function Hero() {
           </h1>
 
           {/* Role + Education Subtitle */}
-          <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm font-mono text-red-300 mb-6">
-            <span className="px-2.5 py-1 rounded-md bg-red-500/10 border border-red-500/30 text-red-300 font-semibold">
+          <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm font-mono text-red-300 mb-6 max-w-full px-2">
+            <span className="px-2.5 py-1 rounded-md bg-red-500/10 border border-red-500/30 text-red-300 font-semibold whitespace-nowrap">
               {t.hero.role}
             </span>
-            <span className="text-neutral-600">•</span>
-            <span className="flex items-center gap-1 text-neutral-300">
-              <GraduationCap className="w-3.5 h-3.5 text-red-400" />
-              {t.hero.education}
+            <span className="text-neutral-600 hidden xs:inline">•</span>
+            <span className="flex items-center gap-1.5 text-neutral-300 text-center">
+              <GraduationCap className="w-3.5 h-3.5 text-red-400 shrink-0" />
+              <span>{t.hero.education}</span>
             </span>
           </div>
 
@@ -107,7 +107,7 @@ export default function Hero() {
             <a
               href="#proyectos"
               onClick={(e) => handleScrollTo(e, '#proyectos')}
-              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-500 text-white font-semibold font-mono text-xs sm:text-sm tracking-wide shadow-[0_0_25px_rgba(239,68,68,0.4)] hover:shadow-[0_0_35px_rgba(239,68,68,0.6)] transition-all transform hover:-translate-y-0.5 cursor-pointer"
+              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-500 text-white font-semibold font-mono text-xs sm:text-sm tracking-wide shadow-[0_0_25px_rgba(239,68,68,0.4)] hover:shadow-[0_0_35px_rgba(239,68,68,0.6)] transition-all duration-200 transform hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer"
             >
               <span>{t.hero.btnProjects}</span>
               <ArrowRight className="w-4 h-4" />
@@ -116,7 +116,7 @@ export default function Hero() {
             <a
               href="#metodologia"
               onClick={(e) => handleScrollTo(e, '#metodologia')}
-              className="flex items-center gap-2 px-5 py-3 rounded-xl bg-neutral-950/80 hover:bg-neutral-900 border border-neutral-800 hover:border-red-500/50 text-neutral-200 font-mono text-xs sm:text-sm tracking-wide backdrop-blur-md transition-all shadow-[0_0_15px_rgba(239,68,68,0.1)] hover:shadow-[0_0_20px_rgba(239,68,68,0.25)] cursor-pointer"
+              className="flex items-center gap-2 px-5 py-3 rounded-xl bg-neutral-950/80 hover:bg-neutral-900 border border-neutral-800 hover:border-red-500/50 text-neutral-200 font-mono text-xs sm:text-sm tracking-wide backdrop-blur-md transition-colors duration-200 active:scale-[0.98] shadow-[0_0_15px_rgba(239,68,68,0.1)] hover:shadow-[0_0_20px_rgba(239,68,68,0.25)] cursor-pointer"
             >
               <Workflow className="w-4 h-4 text-red-400" />
               <span>{t.hero.btnWorkflow}</span>
@@ -126,7 +126,7 @@ export default function Hero() {
           {/* Micro stats banner */}
           <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full max-w-3xl px-2">
             <div className="bg-neutral-950/70 backdrop-blur-md border border-neutral-800/80 hover:border-red-500/30 rounded-xl p-3 sm:p-4 text-center transition-colors">
-              <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 text-red-400 mx-auto mb-1.5" />
+              <Code2 className="w-4 h-4 sm:w-5 sm:h-5 text-red-400 mx-auto mb-1.5" />
               <div className="text-base sm:text-lg font-bold font-mono text-white">{t.hero.stats[0].value}</div>
               <div className="text-[10px] sm:text-xs font-mono text-neutral-400">{t.hero.stats[0].label}</div>
             </div>
@@ -153,7 +153,7 @@ export default function Hero() {
             className="mt-12 flex flex-col items-center gap-2 opacity-50 hover:opacity-100 transition-opacity cursor-pointer group"
           >
             <span className="text-[10px] font-mono tracking-widest uppercase text-neutral-400 group-hover:text-red-400 transition-colors">
-              Explorar
+              {t.hero.scrollCue || 'Explorar'}
             </span>
             <div className="w-5 h-8 rounded-full border border-neutral-700 group-hover:border-red-500/60 p-1 flex justify-center transition-colors">
               <motion.div

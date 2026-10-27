@@ -25,14 +25,21 @@ export default function Navbar() {
             setScrollProgress((currentY / totalScroll) * 100)
           }
 
+          // Accurate ScrollSpy using bounding client rect relative to viewport
           const sections = ['#inicio', '#sobre-mi', '#stack', '#proyectos', '#metodologia', '#contacto']
-          const scrollPos = currentY + 140
-
-          for (let i = sections.length - 1; i >= 0; i--) {
-            const el = document.querySelector(sections[i])
-            if (el && el.offsetTop <= scrollPos) {
-              setActiveSection((prev) => (prev !== sections[i] ? sections[i] : prev))
-              break
+          if (currentY < 120) {
+            setActiveSection('#inicio')
+          } else {
+            const viewportTarget = window.innerHeight * 0.38
+            for (let i = sections.length - 1; i >= 0; i--) {
+              const el = document.querySelector(sections[i])
+              if (el) {
+                const rect = el.getBoundingClientRect()
+                if (rect.top <= viewportTarget) {
+                  setActiveSection((prev) => (prev !== sections[i] ? sections[i] : prev))
+                  break
+                }
+              }
             }
           }
 
@@ -166,7 +173,7 @@ export default function Navbar() {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 rounded-lg bg-neutral-950 border border-red-500/30 text-red-400 hover:text-white transition-colors"
-            aria-label="Abrir menú"
+            aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -211,25 +218,17 @@ export default function Navbar() {
                 )
               })}
 
-              <div className="pt-4 border-t border-neutral-800 flex items-center justify-between">
+              <div className="pt-4 border-t border-neutral-800">
                 <a
                   href="https://github.com/Leonardo4516"
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-lg bg-white/5 border border-red-500/30 text-red-300"
+                  className="flex items-center justify-center gap-2 text-xs font-mono w-full py-2.5 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-red-500/40 text-neutral-200 hover:text-white transition-all shadow-[0_0_15px_rgba(239,68,68,0.1)]"
                 >
-                  <GithubIcon className="w-4 h-4" />
+                  <GithubIcon className="w-4 h-4 text-red-400" />
                   <span>GitHub @Leonardo4516</span>
                 </a>
-
-                <button
-                  onClick={toggleLanguage}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300"
-                >
-                  <Globe className="w-3.5 h-3.5 text-red-400" />
-                  <span>{language === 'es' ? 'Switch to English' : 'Cambiar a Español'}</span>
-                </button>
               </div>
             </nav>
           </motion.div>

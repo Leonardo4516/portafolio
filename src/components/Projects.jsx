@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ExternalLink, ShieldCheck, Database, Server, Cpu, Bot, Globe } from 'lucide-react'
 import { GithubIcon } from './Icons'
@@ -7,6 +7,39 @@ import { useLanguage } from '../context/LanguageContext'
 export default function Projects() {
   const { language, t } = useLanguage()
   const [filter, setFilter] = useState('all')
+  const [highlightedId, setHighlightedId] = useState(null)
+
+  useEffect(() => {
+    const handleHighlight = (e) => {
+      const targetId = e.detail?.projectId
+      if (!targetId) return
+
+      setFilter('all')
+      setHighlightedId(targetId)
+
+      setTimeout(() => {
+        const el = document.getElementById(`project-${targetId}`)
+        if (el) {
+          const navHeight = 80
+          const elementPosition = el.getBoundingClientRect().top
+          const offsetPosition = elementPosition + window.pageYOffset - navHeight
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          })
+        }
+      }, 120)
+
+      const timer = setTimeout(() => {
+        setHighlightedId(null)
+      }, 3200)
+
+      return () => clearTimeout(timer)
+    }
+
+    window.addEventListener('highlight-project', handleHighlight)
+    return () => window.removeEventListener('highlight-project', handleHighlight)
+  }, [])
 
   const projectsData = [
     {
@@ -143,15 +176,21 @@ export default function Projects() {
           <AnimatePresence>
             {filteredProjects.map((item) => {
               const Icon = item.icon
+              const isHighlighted = highlightedId === item.id
               return (
                 <motion.div
                   layout
                   key={item.id}
+                  id={`project-${item.id}`}
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.25 }}
-                  className="bg-neutral-950/60 backdrop-blur-xl border border-neutral-800/90 hover:border-red-500/50 rounded-2xl p-6 sm:p-7 flex flex-col justify-between group hover:shadow-[0_10px_40px_rgba(239,68,68,0.12)] transition-all duration-300 hover:-translate-y-1.5"
+                  className={`bg-neutral-950/60 backdrop-blur-xl rounded-2xl p-6 sm:p-7 flex flex-col justify-between group transition-all duration-300 scroll-mt-28 ${
+                    isHighlighted
+                      ? 'border-2 border-red-500 shadow-[0_0_50px_rgba(239,68,68,0.5)] ring-4 ring-red-500/20 -translate-y-1'
+                      : 'border border-neutral-800/90 hover:border-red-500/50 hover:shadow-[0_10px_40px_rgba(239,68,68,0.12)] hover:-translate-y-1.5'
+                  }`}
                 >
                   <div>
                     <div className="flex items-start justify-between mb-4">

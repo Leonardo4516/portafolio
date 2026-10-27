@@ -10,11 +10,11 @@ export const translations = {
       status: "Disponible para trabajar",
     },
     hero: {
-      badge: "DESARROLLO DE SOFTWARE // FORMACIÓN TÉCNICA",
+      badge: "INGENIERÍA DE SOFTWARE // BACKEND & DATOS",
       greeting: "Hola, soy",
       name: "Leonardo Hernández",
       role: "Desarrollador de Software Junior",
-      education: "Técnico en Desarrollo de Software",
+      education: "Desarrollador Junior • Java & SQL",
       typewriterRoles: [
         "Desarrollador de Software Junior",
         "Backend & Java Developer",
@@ -25,8 +25,9 @@ export const translations = {
       description: "Desarrollador junior con bases sólidas en lógica, arquitectura de software orientada a objetos y persistencia relacional. Utilizo herramientas de Inteligencia Artificial de forma práctica como copiloto para acelerar entregas, auditar código y optimizar flujos.",
       btnProjects: "Explorar Proyectos",
       btnWorkflow: "Ver Metodología de Trabajo",
+      scrollCue: "Explorar",
       stats: [
-        { value: "Técnico", label: "Formación en Software" },
+        { value: "+5 Proyectos", label: "Arquitectura & Código" },
         { value: "Java & SQL", label: "Enfoque Backend" },
         { value: "Docker", label: "Entornos Aislados" },
         { value: "IA Asistida", label: "Productividad Ágil" }
@@ -75,7 +76,7 @@ export const translations = {
           desc: "Priorizo consensuar especificaciones formales, casos de uso y modelos de datos para evitar retrabajos y coordinar con fluidez con el equipo.",
           evidenceProject: "Gestor de Tareas Kanban (SDD)",
           evidenceDetails: "Arquitectura definida bajo la metodología formal Spec-Driven Development previo a la implementación en Java y JDBC.",
-          projectId: "kanban"
+          projectId: "task-admin"
         },
         {
           id: "analytical-problem-solving",
@@ -84,7 +85,7 @@ export const translations = {
           desc: "Ante fallos o inconsistencias complejas, no aplico parches rápidos; analizo la integridad referencial y la consistencia de los datos.",
           evidenceProject: "ETL & Normalización PostgreSQL",
           evidenceDetails: "Diagnóstico y recuperación de corrupción UTF-8, normalización estricta a 3NF y entorno reproducible con Docker Compose.",
-          projectId: "etl"
+          projectId: "volcado-datos-postgresql"
         },
         {
           id: "adaptability-learning",
@@ -93,7 +94,7 @@ export const translations = {
           desc: "Capacidad probada para investigar, adoptar arquitecturas y herramientas modernas de forma autónoma mediante documentación oficial.",
           evidenceProject: "Simulador F1 & Telemetría",
           evidenceDetails: "Implementación autónoma de Arquitectura Hexagonal (Puertos y Adaptadores) para desacoplar el core de APIs meteorológicas externas.",
-          projectId: "f1"
+          projectId: "f1-project"
         },
         {
           id: "solution-oriented",
@@ -102,7 +103,7 @@ export const translations = {
           desc: "Identifico procesos manuales repetitivos para diseñar automatizaciones fiables que ahorren tiempo y reduzcan el error humano.",
           evidenceProject: "CafExpress (Bot Telegram + n8n)",
           evidenceDetails: "Reemplazo de toma manual de pedidos mediante un bot conversacional conectado a webhooks en n8n y Google Sheets API.",
-          projectId: "cafexpress"
+          projectId: "chatbot-gestor-pedidos"
         }
       ]
     },
@@ -233,11 +234,11 @@ export const translations = {
       status: "Available for opportunities",
     },
     hero: {
-      badge: "SOFTWARE DEVELOPMENT // TECHNICAL BACKGROUND",
+      badge: "SOFTWARE ENGINEERING // BACKEND & DATA",
       greeting: "Hello, I am",
       name: "Leonardo Hernández",
       role: "Junior Software Developer",
-      education: "Associate Degree in Software Development",
+      education: "Junior Developer • Java & SQL",
       typewriterRoles: [
         "Junior Software Developer",
         "Backend & Java Developer",
@@ -245,11 +246,12 @@ export const translations = {
         "Databases (SQL & Docker)",
         "Workflow Automation (n8n)"
       ],
-      description: "Junior software developer with a technical degree and solid fundamentals in object-oriented software architecture, relational database modeling, and practical AI tools to streamline delivery and code quality.",
+      description: "Junior software developer with solid fundamentals in object-oriented software architecture, relational database modeling, and practical AI tools to streamline delivery and code quality.",
       btnProjects: "Explore Projects",
       btnWorkflow: "Explore Workflow & Methodology",
+      scrollCue: "Explore",
       stats: [
-        { value: "Degree", label: "Software Technician" },
+        { value: "+5 Projects", label: "Architecture & Code" },
         { value: "Java & SQL", label: "Backend Core" },
         { value: "Docker", label: "Isolated Envs" },
         { value: "AI-Assisted", label: "Agile Workflow" }
@@ -298,7 +300,7 @@ export const translations = {
           desc: "I prioritize aligning on formal specifications, use cases, and data contracts to prevent rework and collaborate smoothly with team members.",
           evidenceProject: "Kanban Task Manager (SDD)",
           evidenceDetails: "Architecture established under formal Spec-Driven Development methodology prior to writing Java and JDBC code.",
-          projectId: "kanban"
+          projectId: "task-admin"
         },
         {
           id: "analytical-problem-solving",
@@ -307,7 +309,7 @@ export const translations = {
           desc: "When facing complex bugs or inconsistencies, I avoid superficial patches and address data integrity and architectural consistency.",
           evidenceProject: "PostgreSQL ETL & Normalization",
           evidenceDetails: "Diagnosed and resolved UTF-8 character encoding corruption, normalized to 3NF, and built reproducible Docker stacks.",
-          projectId: "etl"
+          projectId: "volcado-datos-postgresql"
         },
         {
           id: "adaptability-learning",
@@ -316,7 +318,7 @@ export const translations = {
           desc: "Proven track record of researching and adopting modern architectural patterns and external APIs directly from official documentation.",
           evidenceProject: "F1 Telemetry & Race Engine",
           evidenceDetails: "Autonomous adoption of Hexagonal Architecture (Ports and Adapters) decoupling domain logic from live meteorological APIs.",
-          projectId: "f1"
+          projectId: "f1-project"
         },
         {
           id: "solution-oriented",
@@ -325,7 +327,7 @@ export const translations = {
           desc: "I spot repetitive manual workflows and design resilient automated pipelines that save engineering time and mitigate human errors.",
           evidenceProject: "CafExpress (Telegram Bot & n8n)",
           evidenceDetails: "Replaced manual order intake with an automated conversational bot via webhooks, n8n orchestration, and Google Sheets API.",
-          projectId: "cafexpress"
+          projectId: "chatbot-gestor-pedidos"
         }
       ]
     },

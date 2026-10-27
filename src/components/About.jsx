@@ -25,20 +25,24 @@ export default function About() {
 
   const softSkillIcons = [MessageSquareCode, SearchCheck, Compass, Sparkles]
 
-  const handleScrollToProjects = (e) => {
+  const handleScrollToProjects = (e, projectId) => {
     e.preventDefault()
-    const element = document.querySelector('#proyectos')
-    if (element) {
-      const navHeight = 70
-      const elementPosition = element.getBoundingClientRect().top
-      const offsetPosition = elementPosition + window.pageYOffset - navHeight
+    if (projectId) {
+      window.dispatchEvent(new CustomEvent('highlight-project', { detail: { projectId } }))
+    } else {
+      const element = document.querySelector('#proyectos')
+      if (element) {
+        const navHeight = 70
+        const elementPosition = element.getBoundingClientRect().top
+        const offsetPosition = elementPosition + window.pageYOffset - navHeight
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      })
-      if (window.history.pushState) {
-        window.history.pushState(null, null, '#proyectos')
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        })
+        if (window.history.pushState) {
+          window.history.pushState(null, null, '#proyectos')
+        }
       }
     }
   }
@@ -192,7 +196,7 @@ export default function About() {
                         </span>
                         <a
                           href="#proyectos"
-                          onClick={handleScrollToProjects}
+                          onClick={(e) => handleScrollToProjects(e, skill.projectId)}
                           className="inline-flex items-center gap-1 text-red-400 hover:text-red-300 font-semibold cursor-pointer group/link"
                         >
                           <span>{t.about.viewProjectAction}</span>
