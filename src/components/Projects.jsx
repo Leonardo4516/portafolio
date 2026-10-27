@@ -1,13 +1,29 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, ShieldCheck, Database, Server, Cpu, Bot, Globe, Activity, Wrench } from 'lucide-react'
+import { 
+  ExternalLink, 
+  ShieldCheck, 
+  Database, 
+  Server, 
+  Cpu, 
+  Bot, 
+  Globe, 
+  Activity, 
+  Wrench, 
+  Play, 
+  ChevronDown, 
+  ChevronUp 
+} from 'lucide-react'
 import { GithubIcon } from './Icons'
 import { useLanguage } from '../context/LanguageContext'
+import VideoModal from './VideoModal'
 
 export default function Projects() {
   const { language, t } = useLanguage()
   const [filter, setFilter] = useState('all')
   const [highlightedId, setHighlightedId] = useState(null)
+  const [showAllProjects, setShowAllProjects] = useState(false)
+  const [selectedVideoProject, setSelectedVideoProject] = useState(null)
 
   useEffect(() => {
     const handleHighlight = (e) => {
@@ -15,6 +31,7 @@ export default function Projects() {
       if (!targetId) return
 
       setFilter('all')
+      setShowAllProjects(true)
       setHighlightedId(targetId)
 
       setTimeout(() => {
@@ -28,7 +45,7 @@ export default function Projects() {
             behavior: 'smooth'
           })
         }
-      }, 120)
+      }, 150)
 
       const timer = setTimeout(() => {
         setHighlightedId(null)
@@ -55,6 +72,16 @@ export default function Projects() {
       tags: ['Java 21', 'Spring Boot 3', 'Spring Security 6', 'JWT', 'Flyway', 'PostgreSQL', 'DDD', 'Swagger'],
       github: 'https://github.com/Leonardo4516/telemedicina-security',
       demo: null,
+      videoUrl: null,
+      videoHighlights: language === 'es' ? [
+        { title: "Seguridad JWT Stateless", desc: "Autenticación robusta con HMAC-SHA512, refresh tokens y roles RBAC (Admin, Profesional, Paciente)." },
+        { title: "Triaje Clínico con IA", desc: "Evaluación interactiva de riesgo, toma de signos y categorización asistida en salud mental." },
+        { title: "Flyway +35 Tablas", desc: "Evolución controlada de esquema PostgreSQL con UUIDs y mensajería en formato JSONB." }
+      ] : [
+        { title: "Stateless JWT Security", desc: "Robust authentication with HMAC-SHA512, refresh tokens, and RBAC roles (Admin, Provider, Patient)." },
+        { title: "AI Clinical Triage", desc: "Interactive risk assessment, vital signs intake, and AI-assisted mental health classification." },
+        { title: "Flyway 35+ Tables", desc: "Managed PostgreSQL relational schema evolution with UUID primary keys and JSONB messaging." }
+      ]
     },
     {
       id: 'Proyecto_RentaHerramientas',
@@ -69,6 +96,16 @@ export default function Projects() {
       tags: ['Java 21', 'Spring Boot 3.4', 'DDD Hexagonal', 'PostgreSQL (4FN)', 'WebSockets', 'Docker Compose', 'Spring Security'],
       github: 'https://github.com/Leonardo4516/Proyecto_RentaHerramientas',
       demo: null,
+      videoUrl: null,
+      videoHighlights: language === 'es' ? [
+        { title: "Geolocalización en Mapa", desc: "Búsqueda interactiva de maquinaria pesada por proximidad geográfica con Leaflet.js." },
+        { title: "Reserva Anti-Solapes", desc: "Algoritmo de disponibilidad temporal estricto para evitar colisiones de alquiler entre usuarios." },
+        { title: "WebSockets & Factura PDF", desc: "Notificaciones en tiempo real al proveedor y generación automática de factura comercial." }
+      ] : [
+        { title: "Map-Based Geolocation", desc: "Interactive heavy machinery search filtered by proximity radius using Leaflet.js." },
+        { title: "Non-Overlapping Booking", desc: "Strict temporal availability algorithm preventing multi-tenant booking collisions." },
+        { title: "WebSockets & PDF Invoicing", desc: "Real-time alerts sent to providers via STOMP and automated commercial invoice generation." }
+      ]
     },
     {
       id: 'sica-project',
@@ -83,20 +120,16 @@ export default function Projects() {
       tags: ['Java 17', 'PostgreSQL 15', 'Docker Compose', 'JavaFX', 'BCrypt', 'JUnit 5', 'RBAC'],
       github: 'https://github.com/Leonardo4516/Sica_project',
       demo: null,
-    },
-    {
-      id: 'f1-project',
-      category: 'java',
-      featured: false,
-      icon: Cpu,
-      title: language === 'es' ? 'Simulador F1 & Motor de Telemetría' : 'F1 Simulator & Telemetry Engine',
-      subtitle: language === 'es' ? 'Java 17 bajo Arquitectura Hexagonal y APIs de Clima' : 'Java 17 with Hexagonal Architecture and Live Weather API',
-      desc: language === 'es'
-        ? 'Simulador de carreras multi-vehículo y mini-juego arcade en Java 17. Consume datos en tiempo real de la API meteorológica (wttr.in), calcula telemetría matemática (desgaste de neumáticos, degradación, incidentes) y renderiza interfaz reactiva con Swing y FlatLaf Dark.'
-        : 'Multi-vehicle racing simulator and arcade engine in Java 17. Integrates live external weather API (wttr.in), calculates physics telemetry (tire wear, pit stops, degradation), and renders responsive UI with Swing and FlatLaf.',
-      tags: ['Java 17', 'Arquitectura Hexagonal', 'REST API', 'Swing / FlatLaf', 'JUnit 5', 'Maven'],
-      github: 'https://github.com/Leonardo4516/f1-project',
-      demo: null,
+      videoUrl: null,
+      videoHighlights: language === 'es' ? [
+        { title: "Terminal Garita JavaFX", desc: "Interfaz táctil de alta velocidad para validación vehicular y peatonal en tiempo real." },
+        { title: "Control de Acceso RBAC", desc: "Permisos diferenciados por roles y registro de auditoría en base de datos PostgreSQL." },
+        { title: "Entorno Dockerizado", desc: "Despliegue reproducible con persistencia y suites de pruebas automatizadas con JUnit 5." }
+      ] : [
+        { title: "JavaFX Gatehouse UI", desc: "High-speed touchscreen terminal for real-time vehicular and pedestrian credential validation." },
+        { title: "RBAC Access Control", desc: "Role-differentiated permissions and automated audit logging directly in PostgreSQL." },
+        { title: "Dockerized Stacks", desc: "Reproducible containerized deployment with volume persistence and JUnit 5 test suites." }
+      ]
     },
     {
       id: 'volcado-datos-postgresql',
@@ -111,6 +144,40 @@ export default function Projects() {
       tags: ['PostgreSQL 16', 'Docker Compose', 'SQL DDL/DML', 'Data Quality', 'pgAdmin 4'],
       github: 'https://github.com/Leonardo4516/volcado-datos-postgresql',
       demo: null,
+      videoUrl: null,
+      videoHighlights: language === 'es' ? [
+        { title: "Saneamiento UTF-8", desc: "Recuperación de más de 700 registros con corrupción de caracteres en datasets geográficos." },
+        { title: "Normalización Estricta 3NF", desc: "Eliminación de dependencias circulares complejas entre tablas y claves foráneas." },
+        { title: "Consultas de Alta Integridad", desc: "Vistas y procedimientos almacenados en PostgreSQL contenerizado con Docker Compose." }
+      ] : [
+        { title: "UTF-8 Data Sanitization", desc: "Recovery of 700+ corrupted character records in large-scale geographic datasets." },
+        { title: "Strict 3NF Normalization", desc: "Resolution of complex circular foreign key dependencies into third normal form." },
+        { title: "High-Integrity Queries", desc: "Analytical views and stored procedures executed in containerized PostgreSQL." }
+      ]
+    },
+    {
+      id: 'f1-project',
+      category: 'java',
+      featured: false,
+      icon: Cpu,
+      title: language === 'es' ? 'Simulador F1 & Motor de Telemetría' : 'F1 Simulator & Telemetry Engine',
+      subtitle: language === 'es' ? 'Java 17 bajo Arquitectura Hexagonal y APIs de Clima' : 'Java 17 with Hexagonal Architecture and Live Weather API',
+      desc: language === 'es'
+        ? 'Simulador de carreras multi-vehículo y mini-juego arcade en Java 17. Consume datos en tiempo real de la API meteorológica (wttr.in), calcula telemetría matemática (desgaste de neumáticos, degradación, incidentes) y renderiza interfaz reactiva con Swing y FlatLaf Dark.'
+        : 'Multi-vehicle racing simulator and arcade engine in Java 17. Integrates live external weather API (wttr.in), calculates physics telemetry (tire wear, pit stops, degradation), and renders responsive UI with Swing and FlatLaf.',
+      tags: ['Java 17', 'Arquitectura Hexagonal', 'REST API', 'Swing / FlatLaf', 'JUnit 5', 'Maven'],
+      github: 'https://github.com/Leonardo4516/f1-project',
+      demo: null,
+      videoUrl: null,
+      videoHighlights: language === 'es' ? [
+        { title: "Clima en Tiempo Real", desc: "Integración con API meteorológica externa para alterar la física y adherencia de pista." },
+        { title: "Motor de Telemetría", desc: "Cálculo de degradación de compuestos, paradas en pits y incidentes de carrera en vivo." },
+        { title: "Arquitectura Hexagonal", desc: "Desacoplamiento total del núcleo respecto a la interfaz visual Swing / FlatLaf Dark." }
+      ] : [
+        { title: "Live Meteorological API", desc: "External weather API integration dynamically modifying track grip and physics." },
+        { title: "Telemetry Engine", desc: "Real-time calculation of tire degradation, pit stop strategies, and race incident dynamics." },
+        { title: "Hexagonal Architecture", desc: "Decoupled domain core isolated from Swing / FlatLaf Dark presentation adapters." }
+      ]
     },
     {
       id: 'task-admin',
@@ -125,6 +192,16 @@ export default function Projects() {
       tags: ['Java 17', 'MySQL', 'JDBC', 'Arquitectura Hexagonal', 'UML / SDD', 'FlatLaf'],
       github: 'https://github.com/Leonardo4516/task-admin',
       demo: null,
+      videoUrl: '/videos/task_admin_demo.mp4',
+      videoHighlights: language === 'es' ? [
+        { title: "Metodología Formal SDD", desc: "Especificación formal de requisitos y contratos de datos previo a la programación Java." },
+        { title: "Máquina de Estados Kanban", desc: "Ciclo de vida auditado de tareas con arrastre interactivo y validación de transiciones." },
+        { title: "Persistencia JDBC Directa", desc: "Conexión relacional de alto rendimiento sobre motor de base de datos MySQL / MariaDB." }
+      ] : [
+        { title: "Formal SDD Methodology", desc: "Contract and requirement specifications finalized before writing Java and JDBC code." },
+        { title: "Kanban State Machine", desc: "Audited task lifecycle state machine with interactive drag-and-drop transitions." },
+        { title: "Direct JDBC Persistence", desc: "High-throughput relational persistence directly connected to MySQL / MariaDB." }
+      ]
     },
     {
       id: 'chatbot-gestor-pedidos',
@@ -139,6 +216,16 @@ export default function Projects() {
       tags: ['n8n', 'Telegram Bot API', 'Google Sheets API', 'JavaScript', 'Webhooks'],
       github: 'https://github.com/Leonardo4516/chatbot-gestor-pedidos',
       demo: 'https://github.com/Leonardo4516/chatbot-gestor-pedidos/tree/main/Evidencias/Funcionamiento',
+      videoUrl: null,
+      videoHighlights: language === 'es' ? [
+        { title: "Bot Telegram Interactivo", desc: "Catálogo conversacional con botones inline para pedidos comerciales sin intermediarios." },
+        { title: "Orquestación en n8n", desc: "Manejo de flujos de eventos sin servidor y transformación de datos mediante nodos JavaScript." },
+        { title: "Sincronización en Google Sheets", desc: "Registro inmediato de órdenes y cálculo automatizado de puntos de fidelización." }
+      ] : [
+        { title: "Interactive Telegram Bot", desc: "Conversational catalog with inline keyboard actions for direct zero-commission ordering." },
+        { title: "n8n Serverless Workflows", desc: "Event-driven workflow orchestration and JSON data transformation via JavaScript nodes." },
+        { title: "Google Sheets Cloud Sync", desc: "Immediate order ingestion and automated customer loyalty point calculations." }
+      ]
     },
     {
       id: 'acme-bank',
@@ -153,6 +240,16 @@ export default function Projects() {
       tags: ['JavaScript ES6+', 'Web Components', 'HTML5', 'CSS3', 'Web Storage API'],
       github: 'https://github.com/Leonardo4516/acme-bank',
       demo: 'https://auto-gestion-bancaria-acme.netlify.app',
+      videoUrl: null,
+      videoHighlights: language === 'es' ? [
+        { title: "Cero Dependencias Externas", desc: "Plataforma construida en JavaScript Vanilla puro (ES6+) con Web Components nativos." },
+        { title: "Validación de Saldo en Vivo", desc: "Control instantáneo de retiros, consignaciones y manejo de sesiones de usuario." },
+        { title: "Extracto Dinámico", desc: "Actualización en tiempo real del historial de movimientos y persistencia Web Storage." }
+      ] : [
+        { title: "Zero Dependencies", desc: "Engineered with native JavaScript (ES6+) and reusable Web Components without frameworks." },
+        { title: "Real-Time Balance Check", desc: "Instantaneous balance checks, withdrawals, deposits, and session security handling." },
+        { title: "Dynamic Statement History", desc: "Live updating transaction history ledger persisted via the Web Storage API." }
+      ]
     }
   ]
 
@@ -163,9 +260,14 @@ export default function Projects() {
     { id: 'automation', label: t.projects.filters.automation },
   ]
 
-  const filteredProjects = filter === 'all'
+  const categoryProjects = filter === 'all'
     ? projectsData
     : projectsData.filter(p => p.category === filter)
+
+  // Curated showcase: in 'all' view, show top 4 initially unless user expands
+  const displayedProjects = (filter === 'all' && !showAllProjects)
+    ? categoryProjects.slice(0, 4)
+    : categoryProjects
 
   return (
     <section id="proyectos" className="py-24 px-4 sm:px-6 relative z-10 scroll-mt-24">
@@ -187,8 +289,11 @@ export default function Projects() {
           {categoryFilters.map((cat) => (
             <button
               key={cat.id}
-              onClick={() => setFilter(cat.id)}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all duration-300 ${
+              onClick={() => {
+                setFilter(cat.id)
+                if (cat.id !== 'all') setShowAllProjects(true)
+              }}
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-colors duration-200 active:scale-[0.98] ${
                 filter === cat.id
                   ? 'bg-red-600 text-white font-bold shadow-[0_0_20px_rgba(239,68,68,0.4)]'
                   : 'bg-neutral-950/60 hover:bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-neutral-200'
@@ -202,7 +307,7 @@ export default function Projects() {
         {/* Projects Grid */}
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <AnimatePresence>
-            {filteredProjects.map((item) => {
+            {displayedProjects.map((item) => {
               const Icon = item.icon
               const isHighlighted = highlightedId === item.id
               return (
@@ -214,7 +319,7 @@ export default function Projects() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.25 }}
-                  className={`bg-neutral-950/60 backdrop-blur-xl rounded-2xl p-6 sm:p-7 flex flex-col justify-between group transition-all duration-300 scroll-mt-28 ${
+                  className={`bg-neutral-950/60 backdrop-blur-xl rounded-2xl p-6 sm:p-7 flex flex-col justify-between group transition-colors duration-200 scroll-mt-28 ${
                     isHighlighted
                       ? 'border-2 border-red-500 shadow-[0_0_50px_rgba(239,68,68,0.5)] ring-4 ring-red-500/20 -translate-y-1'
                       : 'border border-neutral-800/90 hover:border-red-500/50 hover:shadow-[0_10px_40px_rgba(239,68,68,0.12)] hover:-translate-y-1.5'
@@ -222,7 +327,7 @@ export default function Projects() {
                 >
                   <div>
                     <div className="flex items-start justify-between mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-neutral-900/90 border border-neutral-800 flex items-center justify-center group-hover:border-red-500/50 group-hover:scale-105 transition-all">
+                      <div className="w-12 h-12 rounded-xl bg-neutral-900/90 border border-neutral-800 flex items-center justify-center group-hover:border-red-500/50 group-hover:scale-105 transition-transform duration-200">
                         <Icon className="w-6 h-6 text-red-400" />
                       </div>
                       {item.featured && (
@@ -253,26 +358,37 @@ export default function Projects() {
                       ))}
                     </div>
 
-                    <div className="flex items-center gap-3 pt-4 border-t border-neutral-800/80">
+                    {/* Twin Action Buttons: Ver Código & Ver Demo */}
+                    <div className="flex flex-wrap items-center gap-2.5 pt-4 border-t border-neutral-800/80">
                       <a
                         href={item.github}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-lg bg-neutral-900 hover:bg-red-600 hover:text-white text-neutral-300 transition-all font-semibold"
+                        className="flex items-center gap-2 text-xs font-mono px-3.5 py-2.5 rounded-xl bg-neutral-900/90 hover:bg-neutral-800 border border-neutral-800 hover:border-neutral-700 text-neutral-200 hover:text-white transition-colors duration-200 active:scale-[0.98] font-semibold"
                       >
-                        <GithubIcon className="w-4 h-4" />
+                        <GithubIcon className="w-4 h-4 text-red-400" />
                         <span>{t.projects.btnCode}</span>
                       </a>
+
+                      <button
+                        type="button"
+                        onClick={() => setSelectedVideoProject(item)}
+                        className="flex items-center gap-2 text-xs font-mono px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-semibold transition-colors duration-200 active:scale-[0.98] shadow-[0_0_20px_rgba(239,68,68,0.3)] hover:shadow-[0_0_25px_rgba(239,68,68,0.5)] cursor-pointer"
+                      >
+                        <Play className="w-3.5 h-3.5 fill-current text-white" />
+                        <span>{t.projects.btnDemoVideo || "Ver Demo"}</span>
+                      </button>
 
                       {item.demo && (
                         <a
                           href={item.demo}
                           target="_blank"
                           rel="noreferrer"
-                          className="flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-950/40 border border-red-500/30 transition-all"
+                          className="flex items-center gap-1.5 text-xs font-mono px-3 py-2.5 rounded-xl text-neutral-400 hover:text-red-300 hover:bg-neutral-900/60 border border-neutral-800/80 transition-colors ml-auto"
+                          title={t.projects.btnDemo}
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
-                          <span>{t.projects.btnDemo}</span>
+                          <span className="hidden sm:inline">{t.projects.btnDemo}</span>
                         </a>
                       )}
                     </div>
@@ -282,7 +398,35 @@ export default function Projects() {
             })}
           </AnimatePresence>
         </motion.div>
+
+        {/* Progressive Expansion Toggle (Top 4 -> All 8) */}
+        {filter === 'all' && projectsData.length > 4 && (
+          <div className="mt-12 flex justify-center">
+            <button
+              onClick={() => setShowAllProjects(!showAllProjects)}
+              className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-neutral-950/80 hover:bg-neutral-900 border border-neutral-800 hover:border-red-500/50 text-neutral-200 hover:text-white font-mono text-xs sm:text-sm tracking-wide backdrop-blur-md transition-colors duration-200 active:scale-[0.98] shadow-[0_0_20px_rgba(239,68,68,0.1)] hover:shadow-[0_0_25px_rgba(239,68,68,0.25)] cursor-pointer group"
+            >
+              {showAllProjects ? (
+                <>
+                  <span>{t.projects.btnShowLess}</span>
+                  <ChevronUp className="w-4 h-4 text-red-400 group-hover:-translate-y-0.5 transition-transform" />
+                </>
+              ) : (
+                <>
+                  <span>{t.projects.btnShowMore.replace('{count}', projectsData.length - 4)}</span>
+                  <ChevronDown className="w-4 h-4 text-red-400 group-hover:translate-y-0.5 transition-transform" />
+                </>
+              )}
+            </button>
+          </div>
+        )}
       </div>
+
+      {/* Video Demo Modal */}
+      <VideoModal
+        project={selectedVideoProject}
+        onClose={() => setSelectedVideoProject(null)}
+      />
     </section>
   )
 }

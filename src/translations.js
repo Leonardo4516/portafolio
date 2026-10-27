@@ -137,7 +137,19 @@ export const translations = {
       },
       badgeFeatured: "★ DESTACADO",
       btnCode: "Ver Código",
-      btnDemo: "Demo en Vivo"
+      btnDemo: "Demo en Vivo",
+      btnDemoVideo: "Ver Demo",
+      btnShowMore: "+ Explorar otros proyectos ({count} más)",
+      btnShowLess: "Mostrar solo proyectos insignia",
+      videoModal: {
+        badge: "DEMOSTRACIÓN DE INTERFAZ // CASO DE ESTUDIO",
+        businessValue: "Impacto & Solución de Negocio",
+        technologies: "Tecnologías Clave",
+        viewCode: "Ver Código en GitHub",
+        close: "Cerrar",
+        inProgressBadge: "PRODUCCIÓN EN CURSO",
+        inProgressNotice: "La grabación de alta definición y subtitulado para este desarrollo se encuentra en renderizado. Puedes explorar el código completo y documentación técnica en GitHub."
+      }
     },
     workflow: {
       tag: "05. // METODOLOGÍA & FLUJO DE TRABAJO",
@@ -361,7 +373,19 @@ export const translations = {
       },
       badgeFeatured: "★ FEATURED",
       btnCode: "View Code",
-      btnDemo: "Live Demo"
+      btnDemo: "Live Demo",
+      btnDemoVideo: "Watch Demo",
+      btnShowMore: "+ Explore more projects ({count} more)",
+      btnShowLess: "Show featured projects only",
+      videoModal: {
+        badge: "INTERFACE DEMO // CASE STUDY",
+        businessValue: "Business Value & Key Impact",
+        technologies: "Key Technologies",
+        viewCode: "View Code on GitHub",
+        close: "Close",
+        inProgressBadge: "IN PRODUCTION",
+        inProgressNotice: "The high-definition video walkthrough and subtitles for this project are currently rendering. You can inspect the full source code and technical architecture on GitHub."
+      }
     },
     workflow: {
       tag: "05. // METHODOLOGY & WORKFLOW",
