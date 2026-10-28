@@ -1,0 +1,512 @@
+<template id="scene1-hero-3d-template">
+  <div
+    data-composition-id="scene1-hero-3d"
+    data-width="1920"
+    data-height="1080"
+    data-duration="5"
+  >
+    <div class="canvas">
+      <!-- Browser Container -->
+      <div class="browser-frame">
+        <!-- Browser Top Bar -->
+        <div class="browser-chrome">
+          <div class="window-controls" data-layout-ignore="true">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="url-bar" data-layout-ignore="true">
+            <span class="lock-icon">🔒</span> https://rentatools.com.co/marketplace/catalog
+          </div>
+          <div class="status-live-pill" data-layout-ignore="true">
+            <span class="live-dot"></span> EN VIVO
+          </div>
+        </div>
+
+        <!-- Web Page Inner Content -->
+        <div class="web-viewport">
+          <!-- Real RentaTools Web Header -->
+          <header class="site-header">
+            <div class="logo-group">
+              <img src="assets/img/logo.svg" alt="RentaTools" class="brand-logo" />
+            </div>
+            <div class="search-bar-mock" data-layout-ignore="true">
+              <span class="search-icon">🔍</span>
+              <span class="search-placeholder">¿Qué maquinaria o herramienta buscas para tu obra? (ej. Excavadora, Rodillo...)</span>
+            </div>
+            <div class="nav-auth-btn" data-layout-ignore="true">
+              <span>👤 Iniciar Sesión / Registro</span>
+            </div>
+          </header>
+
+          <!-- Navigation Pill Bar -->
+          <div class="sub-nav">
+            <span class="nav-link active" data-layout-ignore="true">Catálogo Completo</span>
+            <span class="nav-link" data-layout-ignore="true">Categorías ▾</span>
+            <span class="nav-link" data-layout-ignore="true">Industrias ▾</span>
+            <span class="nav-link" data-layout-ignore="true">Seguridad &amp; Servicio</span>
+            <span class="nav-link" data-layout-ignore="true">Mapa en Vivo</span>
+          </div>
+
+          <!-- Hero Section -->
+          <div class="hero-section">
+            <div class="hero-copy">
+              <div class="hero-tag" data-layout-ignore="true">ALQUILER DE MAQUINARIA EN COLOMBIA</div>
+              <h1 class="hero-heading">
+                Encuentra la Maquinaria y Herramientas <span class="highlight-green">Precisas</span> para tu Proyecto
+              </h1>
+              <p class="hero-description" data-layout-ignore="true">
+                Disponibilidad en tiempo real en toda Colombia, tarifas transparentes por día, semana y mes con facturación electrónica DIAN.
+              </p>
+              <div class="hero-buttons">
+                <div class="btn-primary" data-layout-ignore="true">Explorar Catálogo ➔</div>
+                <div class="btn-secondary" data-layout-ignore="true">Ver Categorías</div>
+              </div>
+              <div class="hero-trust-bar">
+                <span class="trust-item" data-layout-ignore="true">✓ Flota certificada</span>
+                <span class="trust-item" data-layout-ignore="true">✓ Entrega el mismo día</span>
+                <span class="trust-item" data-layout-ignore="true">✓ Factura DIAN</span>
+              </div>
+            </div>
+
+            <!-- 3D Excavator Hero Stage -->
+            <div class="hero-3d-stage">
+              <div class="ground-shadow"></div>
+              <div class="ground-circle"></div>
+              <img src="assets/img/Retroexcavadora-Oruga-CAT-320D.png" alt="Retroexcavadora 3D" class="excavator-model-img" />
+              <div class="hint-3d" data-layout-ignore="true">👆 Arrastra para girar en 360°</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Callout 1: 3D WebGL Inspection -->
+        <div class="callout callout-3d">
+          <div class="callout-point">
+            <span class="point-ring"></span>
+            <span class="point-core"></span>
+          </div>
+          <div class="callout-card">
+            <div class="callout-tag" data-layout-ignore="true">VISOR WEBGL 3D</div>
+            <div class="callout-title" data-layout-ignore="true">Inspección física 360° previa al despacho</div>
+          </div>
+        </div>
+
+        <!-- Callout 2: Search Engine & Filters -->
+        <div class="callout callout-search">
+          <div class="callout-point">
+            <span class="point-ring point-ring-amber"></span>
+            <span class="point-core point-core-amber"></span>
+          </div>
+          <div class="callout-card">
+            <div class="callout-tag text-amber" data-layout-ignore="true">BÚSQUEDA INTELIGENTE</div>
+            <div class="callout-title" data-layout-ignore="true">Filtrado por tonelaje, potencia y disponibilidad</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      [data-composition-id="scene1-hero-3d"] .canvas {
+        width: 1920px;
+        height: 1080px;
+        background: #06080d;
+        position: relative;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+        color: #0f172a;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .browser-frame {
+        position: absolute;
+        left: 60px;
+        top: 40px;
+        width: 1800px;
+        height: 940px;
+        background: #ffffff;
+        border-radius: 18px;
+        box-shadow: 0 35px 80px rgba(0, 0, 0, 0.75), 0 0 40px rgba(16, 185, 129, 0.15);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        transform-origin: center center;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .browser-chrome {
+        height: 48px;
+        background: #0f172a;
+        display: flex;
+        align-items: center;
+        padding: 0 24px;
+        gap: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      [data-composition-id="scene1-hero-3d"] .window-controls {
+        display: flex;
+        gap: 8px;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+      [data-composition-id="scene1-hero-3d"] .dot-red { background: #ef4444; }
+      [data-composition-id="scene1-hero-3d"] .dot-yellow { background: #f59e0b; }
+      [data-composition-id="scene1-hero-3d"] .dot-green { background: #10b981; }
+
+      [data-composition-id="scene1-hero-3d"] .url-bar {
+        background: #1e293b;
+        color: #94a3b8;
+        font-family: monospace;
+        font-size: 13px;
+        padding: 6px 18px;
+        border-radius: 8px;
+        width: 450px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .status-live-pill {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(16, 185, 129, 0.15);
+        border: 1px solid rgba(16, 185, 129, 0.4);
+        color: #34d399;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        padding: 4px 12px;
+        border-radius: 9999px;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .live-dot {
+        width: 8px;
+        height: 8px;
+        background: #10b981;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #10b981;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .web-viewport {
+        position: relative;
+        height: calc(100% - 48px);
+        background: radial-gradient(circle at 80% 40%, rgba(16, 185, 129, 0.08) 0%, #f8fafc 60%);
+        overflow: hidden;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .site-header {
+        height: 80px;
+        background: #ffffff;
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        align-items: center;
+        padding: 0 48px;
+        gap: 32px;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .brand-logo {
+        height: 42px;
+        width: auto;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .search-bar-mock {
+        flex: 1;
+        max-width: 650px;
+        height: 46px;
+        background: #f1f5f9;
+        border: 1px solid #cbd5e1;
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        gap: 12px;
+        color: #64748b;
+        font-size: 14px;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .nav-auth-btn {
+        margin-left: auto;
+        padding: 10px 22px;
+        border-radius: 9999px;
+        border: 1.5px solid #00843d;
+        color: #00843d;
+        font-weight: 700;
+        font-size: 14px;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .sub-nav {
+        height: 44px;
+        background: #ffffff;
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        align-items: center;
+        padding: 0 48px;
+        gap: 28px;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .nav-link {
+        font-size: 13px;
+        font-weight: 600;
+        color: #475569;
+      }
+      [data-composition-id="scene1-hero-3d"] .nav-link.active {
+        color: #00843d;
+        border-bottom: 2px solid #00843d;
+        padding-bottom: 10px;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .hero-section {
+        display: flex;
+        padding: 40px 60px 0 60px;
+        position: relative;
+        height: calc(100% - 124px);
+      }
+
+      [data-composition-id="scene1-hero-3d"] .hero-copy {
+        width: 55%;
+        z-index: 10;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .hero-tag {
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        color: #00843d;
+        background: #dcfce7;
+        padding: 6px 14px;
+        border-radius: 9999px;
+        display: inline-block;
+        margin-bottom: 16px;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .hero-heading {
+        font-size: 50px;
+        font-weight: 900;
+        line-height: 1.1;
+        letter-spacing: -0.04em;
+        color: #0f172a;
+        margin-bottom: 20px;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .highlight-green {
+        color: #00843d;
+        text-decoration: underline;
+        text-decoration-color: #86efac;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .hero-description {
+        font-size: 18px;
+        line-height: 1.5;
+        color: #475569;
+        margin-bottom: 30px;
+        max-width: 620px;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .hero-buttons {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 30px;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .btn-primary {
+        background: #00843d;
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 15px;
+        padding: 14px 28px;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 132, 61, 0.25);
+      }
+
+      [data-composition-id="scene1-hero-3d"] .btn-secondary {
+        background: #e2e8f0;
+        color: #334155;
+        font-weight: 700;
+        font-size: 15px;
+        padding: 14px 28px;
+        border-radius: 10px;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .hero-trust-bar {
+        display: flex;
+        gap: 24px;
+        color: #64748b;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .hero-3d-stage {
+        width: 45%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .ground-shadow {
+        position: absolute;
+        bottom: 80px;
+        width: 480px;
+        height: 60px;
+        background: radial-gradient(ellipse, rgba(15, 23, 42, 0.45) 0%, transparent 70%);
+      }
+
+      [data-composition-id="scene1-hero-3d"] .ground-circle {
+        position: absolute;
+        bottom: 70px;
+        width: 420px;
+        height: 120px;
+        border: 2px dashed rgba(0, 132, 61, 0.35);
+        border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(0, 132, 61, 0.08) 0%, transparent 75%);
+      }
+
+      [data-composition-id="scene1-hero-3d"] .excavator-model-img {
+        position: relative;
+        width: 600px;
+        height: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.3));
+        z-index: 5;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .hint-3d {
+        position: absolute;
+        bottom: 30px;
+        right: 40px;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 6px 14px;
+        border-radius: 9999px;
+        backdrop-filter: blur(6px);
+      }
+
+      /* Callout Pins */
+      [data-composition-id="scene1-hero-3d"] .callout {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        z-index: 50;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .callout-3d {
+        top: 360px;
+        right: 180px;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .callout-search {
+        top: 75px;
+        left: 450px;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .callout-point {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .point-ring {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 2px solid #00843d;
+        background: rgba(0, 132, 61, 0.2);
+        animation: none;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .point-ring-amber {
+        border-color: #f59e0b;
+        background: rgba(245, 158, 11, 0.2);
+      }
+
+      [data-composition-id="scene1-hero-3d"] .point-core {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #00843d;
+        border: 2px solid #ffffff;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .point-core-amber {
+        background: #f59e0b;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .callout-card {
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        padding: 12px 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        color: #ffffff;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .callout-tag {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        color: #34d399;
+        margin-bottom: 2px;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .text-amber {
+        color: #fbbf24;
+      }
+
+      [data-composition-id="scene1-hero-3d"] .callout-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: #f8fafc;
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const scope = '[data-composition-id="scene1-hero-3d"]';
+
+        const frame = `${scope} .browser-frame`;
+        const excavator = `${scope} .excavator-model-img`;
+        const callout3D = `${scope} .callout-3d`;
+        const calloutSearch = `${scope} .callout-search`;
+
+        // Initial setup
+        tl.set(frame, { opacity: 1, y: 0, scale: 1 });
+        tl.set([callout3D, calloutSearch], { opacity: 0, scale: 0.8 });
+        tl.set(excavator, { scale: 0.95, rotation: -1 });
+
+        // 3D Model subtle rotation float
+        tl.to(excavator, { scale: 1, rotation: 2, y: -10, duration: 2.5, ease: "sine.inOut" }, 0.5);
+
+        // Callout 1 appears pointing to 3D
+        tl.to(callout3D, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 1.2);
+
+        // Camera punches in gently to highlight both features
+        tl.to(frame, { scale: 1.05, transformOrigin: "70% 50%", duration: 1.8, ease: "power2.inOut" }, 1.8);
+
+        // Callout 2 appears pointing to search
+        tl.to(calloutSearch, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 2.4);
+
+        // Zoom back out to full web view before transition
+        tl.to(frame, { scale: 1, duration: 0.8, ease: "power2.inOut" }, 3.8);
+
+        // Exit Out
+        tl.to(`${scope} .canvas`, { opacity: 0, scale: 0.96, duration: 0.4, ease: "power2.in" }, 4.6);
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["scene1-hero-3d"] = tl;
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,512 @@
+<template id="scene3-catalog-template">
+  <div
+    data-composition-id="scene3-catalog"
+    data-width="1920"
+    data-height="1080"
+    data-duration="5.5"
+  >
+    <div class="canvas">
+      <!-- Browser Container -->
+      <div class="browser-frame">
+        <!-- Browser Top Bar -->
+        <div class="browser-chrome">
+          <div class="window-controls" data-layout-ignore="true">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="url-bar" data-layout-ignore="true">
+            <span class="lock-icon">🔒</span> https://rentatools.com.co/catalog#heavy-machinery
+          </div>
+          <div class="session-badge-top" data-layout-ignore="true">
+            👤 Ing. Cristian Muñoz (Hábitat SAS)
+          </div>
+        </div>
+
+        <!-- Scrollable Page Container -->
+        <div class="scroll-container">
+          <!-- Catalog Section Header -->
+          <div class="catalog-header">
+            <div class="section-tag" data-layout-ignore="true">INVENTARIO DISPONIBLE EN PATIOS</div>
+            <h2 class="section-title">Flota de Maquinaria Pesada &amp; Equipos de Obra</h2>
+            <div class="catalog-filters">
+              <span class="filter-pill active" data-layout-ignore="true">Todas las Categorías</span>
+              <span class="filter-pill" data-layout-ignore="true">Movimiento de Tierras</span>
+              <span class="filter-pill" data-layout-ignore="true">Generación &amp; Energía</span>
+              <span class="filter-pill" data-layout-ignore="true">Compactación</span>
+            </div>
+          </div>
+
+          <!-- Catalog Cards Grid -->
+          <div class="catalog-grid">
+            <!-- Card 1: Featured Excavator CAT 320D -->
+            <div class="machinery-card card-featured">
+              <div class="card-badge" data-layout-ignore="true">EQUIPO DESTACADO</div>
+              <div class="card-img-wrap">
+                <img src="assets/img/Retroexcavadora-Oruga-CAT-320D.png" alt="CAT 320D" class="card-img" />
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h3 class="card-title" data-layout-ignore="true">Excavadora Oruga CAT 320D</h3>
+                  <span class="card-status status-available" data-layout-ignore="true">DISPONIBLE</span>
+                </div>
+                <div class="card-specs-row">
+                  <span class="spec-chip" data-layout-ignore="true">⚡ 110 kW</span>
+                  <span class="spec-chip" data-layout-ignore="true">⚖️ 22.5 Ton</span>
+                  <span class="spec-chip" data-layout-ignore="true">🪣 1.2 m³</span>
+                </div>
+                <div class="card-price-row">
+                  <div>
+                    <span class="price-val" data-layout-ignore="true">$1.475.000</span>
+                    <span class="price-unit" data-layout-ignore="true">/ día</span>
+                  </div>
+                  <div class="btn-book" data-layout-ignore="true">Reservar Ahora ➔</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2: JCB 3CX -->
+            <div class="machinery-card">
+              <div class="card-img-wrap">
+                <img src="assets/img/jcb-3cx-4x4.jpg" alt="JCB 3CX" class="card-img" />
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h3 class="card-title" data-layout-ignore="true">Retroexcavadora JCB 3CX 4X4</h3>
+                  <span class="card-status status-available" data-layout-ignore="true">DISPONIBLE</span>
+                </div>
+                <div class="card-specs-row">
+                  <span class="spec-chip" data-layout-ignore="true">⚡ 68 kW</span>
+                  <span class="spec-chip" data-layout-ignore="true">⚖️ 8.1 Ton</span>
+                </div>
+                <div class="card-price-row">
+                  <div>
+                    <span class="price-val" data-layout-ignore="true">$850.000</span>
+                    <span class="price-unit" data-layout-ignore="true">/ día</span>
+                  </div>
+                  <div class="btn-book-outline" data-layout-ignore="true">Ver Ficha</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3: Cummins Generator -->
+            <div class="machinery-card">
+              <div class="card-img-wrap">
+                <img src="assets/img/planta-electrica-cummins.jpg" alt="Cummins 150kVA" class="card-img" />
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h3 class="card-title" data-layout-ignore="true">Generador Cummins 150 kVA</h3>
+                  <span class="card-status status-reserved" data-layout-ignore="true">EN OBRA</span>
+                </div>
+                <div class="card-specs-row">
+                  <span class="spec-chip" data-layout-ignore="true">⚡ 150 kVA</span>
+                  <span class="spec-chip" data-layout-ignore="true">⛽ Diésel</span>
+                </div>
+                <div class="card-price-row">
+                  <div>
+                    <span class="price-val" data-layout-ignore="true">$520.000</span>
+                    <span class="price-unit" data-layout-ignore="true">/ día</span>
+                  </div>
+                  <div class="btn-book-outline" data-layout-ignore="true">Ver Ficha</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Zoom Focus Callouts for CAT 320D -->
+        <div class="callout callout-specs">
+          <div class="callout-point">
+            <span class="point-ring"></span>
+            <span class="point-core"></span>
+          </div>
+          <div class="callout-card">
+            <div class="callout-tag" data-layout-ignore="true">ESPECIFICACIONES CERTIFICADAS</div>
+            <div class="callout-title" data-layout-ignore="true">Potencia de 110 kW, peso operativo de 22.5 ton y balde de 1.2 m³</div>
+          </div>
+        </div>
+
+        <div class="callout callout-rates">
+          <div class="callout-point">
+            <span class="point-ring point-ring-amber"></span>
+            <span class="point-core point-core-amber"></span>
+          </div>
+          <div class="callout-card">
+            <div class="callout-tag text-amber" data-layout-ignore="true">TARIFAS ESCALONADAS</div>
+            <div class="callout-title" data-layout-ignore="true">Precios transparentes por día, semana (-15%) o mes (-25%)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      [data-composition-id="scene3-catalog"] .canvas {
+        width: 1920px;
+        height: 1080px;
+        background: #06080d;
+        position: relative;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+      }
+
+      [data-composition-id="scene3-catalog"] .browser-frame {
+        position: absolute;
+        left: 60px;
+        top: 40px;
+        width: 1800px;
+        height: 940px;
+        background: #f8fafc;
+        border-radius: 18px;
+        box-shadow: 0 35px 80px rgba(0, 0, 0, 0.75);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        transform-origin: 30% 60%;
+      }
+
+      [data-composition-id="scene3-catalog"] .browser-chrome {
+        height: 48px;
+        background: #0f172a;
+        display: flex;
+        align-items: center;
+        padding: 0 24px;
+        gap: 20px;
+      }
+
+      [data-composition-id="scene3-catalog"] .window-controls { display: flex; gap: 8px; }
+      [data-composition-id="scene3-catalog"] .dot { width: 12px; height: 12px; border-radius: 50%; }
+      [data-composition-id="scene3-catalog"] .dot-red { background: #ef4444; }
+      [data-composition-id="scene3-catalog"] .dot-yellow { background: #f59e0b; }
+      [data-composition-id="scene3-catalog"] .dot-green { background: #10b981; }
+
+      [data-composition-id="scene3-catalog"] .url-bar {
+        background: #1e293b;
+        color: #94a3b8;
+        font-family: monospace;
+        font-size: 13px;
+        padding: 6px 18px;
+        border-radius: 8px;
+        width: 480px;
+      }
+
+      [data-composition-id="scene3-catalog"] .session-badge-top {
+        margin-left: auto;
+        color: #34d399;
+        font-size: 12px;
+        font-weight: 700;
+        background: rgba(16, 185, 129, 0.12);
+        padding: 4px 12px;
+        border-radius: 6px;
+      }
+
+      [data-composition-id="scene3-catalog"] .scroll-container {
+        padding: 40px 60px;
+        height: calc(100% - 48px);
+        overflow: hidden;
+      }
+
+      [data-composition-id="scene3-catalog"] .catalog-header {
+        margin-bottom: 30px;
+      }
+
+      [data-composition-id="scene3-catalog"] .section-tag {
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        color: #00843d;
+        background: #dcfce7;
+        padding: 4px 12px;
+        border-radius: 9999px;
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+
+      [data-composition-id="scene3-catalog"] .section-title {
+        font-size: 38px;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        color: #0f172a;
+        margin-bottom: 16px;
+      }
+
+      [data-composition-id="scene3-catalog"] .catalog-filters {
+        display: flex;
+        gap: 12px;
+      }
+
+      [data-composition-id="scene3-catalog"] .filter-pill {
+        font-size: 13px;
+        font-weight: 600;
+        padding: 8px 18px;
+        border-radius: 9999px;
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        color: #475569;
+      }
+
+      [data-composition-id="scene3-catalog"] .filter-pill.active {
+        background: #00843d;
+        color: #ffffff;
+        border-color: #00843d;
+      }
+
+      [data-composition-id="scene3-catalog"] .catalog-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+      }
+
+      [data-composition-id="scene3-catalog"] .machinery-card {
+        background: #ffffff;
+        border-radius: 16px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        position: relative;
+        transition: transform 0.3s;
+      }
+
+      [data-composition-id="scene3-catalog"] .card-featured {
+        border-color: #00843d;
+        box-shadow: 0 15px 35px rgba(0, 132, 61, 0.15);
+      }
+
+      [data-composition-id="scene3-catalog"] .card-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: #00843d;
+        color: #ffffff;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        padding: 4px 10px;
+        border-radius: 6px;
+        z-index: 10;
+      }
+
+      [data-composition-id="scene3-catalog"] .card-img-wrap {
+        height: 260px;
+        background: #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      [data-composition-id="scene3-catalog"] .card-img {
+        width: 90%;
+        height: 90%;
+        object-fit: contain;
+      }
+
+      [data-composition-id="scene3-catalog"] .card-body {
+        padding: 20px 24px 24px 24px;
+      }
+
+      [data-composition-id="scene3-catalog"] .card-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      [data-composition-id="scene3-catalog"] .card-title {
+        font-size: 20px;
+        font-weight: 800;
+        color: #0f172a;
+      }
+
+      [data-composition-id="scene3-catalog"] .card-status {
+        font-size: 11px;
+        font-weight: 800;
+        padding: 4px 10px;
+        border-radius: 6px;
+      }
+
+      [data-composition-id="scene3-catalog"] .status-available {
+        background: #dcfce7;
+        color: #00843d;
+      }
+
+      [data-composition-id="scene3-catalog"] .status-reserved {
+        background: #fef3c7;
+        color: #d97706;
+      }
+
+      [data-composition-id="scene3-catalog"] .card-specs-row {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+
+      [data-composition-id="scene3-catalog"] .spec-chip {
+        font-size: 12px;
+        font-weight: 600;
+        background: #f1f5f9;
+        color: #475569;
+        padding: 4px 10px;
+        border-radius: 6px;
+      }
+
+      [data-composition-id="scene3-catalog"] .card-price-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #f1f5f9;
+        padding-top: 16px;
+      }
+
+      [data-composition-id="scene3-catalog"] .price-val {
+        font-size: 24px;
+        font-weight: 900;
+        color: #0f172a;
+      }
+
+      [data-composition-id="scene3-catalog"] .price-unit {
+        font-size: 13px;
+        color: #64748b;
+      }
+
+      [data-composition-id="scene3-catalog"] .btn-book {
+        background: #00843d;
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 800;
+        padding: 10px 18px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 132, 61, 0.25);
+      }
+
+      [data-composition-id="scene3-catalog"] .btn-book-outline {
+        border: 1.5px solid #cbd5e1;
+        color: #475569;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 8px 16px;
+        border-radius: 8px;
+      }
+
+      /* Callouts */
+      [data-composition-id="scene3-catalog"] .callout {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        z-index: 50;
+      }
+
+      [data-composition-id="scene3-catalog"] .callout-specs {
+        top: 480px;
+        left: 560px;
+      }
+
+      [data-composition-id="scene3-catalog"] .callout-rates {
+        top: 680px;
+        left: 560px;
+      }
+
+      [data-composition-id="scene3-catalog"] .callout-point {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      [data-composition-id="scene3-catalog"] .point-ring {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 2px solid #00843d;
+        background: rgba(0, 132, 61, 0.2);
+      }
+
+      [data-composition-id="scene3-catalog"] .point-ring-amber {
+        border-color: #f59e0b;
+        background: rgba(245, 158, 11, 0.2);
+      }
+
+      [data-composition-id="scene3-catalog"] .point-core {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #00843d;
+        border: 2px solid #ffffff;
+      }
+
+      [data-composition-id="scene3-catalog"] .point-core-amber {
+        background: #f59e0b;
+      }
+
+      [data-composition-id="scene3-catalog"] .callout-card {
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        padding: 12px 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        color: #ffffff;
+      }
+
+      [data-composition-id="scene3-catalog"] .callout-tag {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        color: #34d399;
+        margin-bottom: 2px;
+      }
+
+      [data-composition-id="scene3-catalog"] .text-amber {
+        color: #fbbf24;
+      }
+
+      [data-composition-id="scene3-catalog"] .callout-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: #f8fafc;
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const scope = '[data-composition-id="scene3-catalog"]';
+
+        const frame = `${scope} .browser-frame`;
+        const scrollContainer = `${scope} .scroll-container`;
+        const cardFeatured = `${scope} .card-featured`;
+        const calloutSpecs = `${scope} .callout-specs`;
+        const calloutRates = `${scope} .callout-rates`;
+
+        // Initial setup
+        tl.set(frame, { opacity: 0, scale: 0.98 });
+        tl.set(scrollContainer, { y: 150 });
+        tl.set([calloutSpecs, calloutRates], { opacity: 0, scale: 0.8 });
+
+        // Scroll into catalog
+        tl.to(frame, { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }, 0.2);
+        tl.to(scrollContainer, { y: 0, duration: 1.2, ease: "power2.out" }, 0.4);
+
+        // Zoom in on the featured CAT 320D card
+        tl.to(frame, { scale: 1.22, transformOrigin: "26% 56%", duration: 1.4, ease: "power2.inOut" }, 1.4);
+
+        // Callouts appear
+        tl.to(calloutSpecs, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 2.4);
+        tl.to(calloutRates, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 3.1);
+
+        // Zoom back out to general view
+        tl.to(frame, { scale: 1, duration: 0.9, ease: "power2.inOut" }, 4.3);
+
+        // Exit Out
+        tl.to(`${scope} .canvas`, { opacity: 0, scale: 0.96, duration: 0.4, ease: "power2.in" }, 5.1);
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["scene3-catalog"] = tl;
+      })();
+    </script>
+  </div>
+</template>

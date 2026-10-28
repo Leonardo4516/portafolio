@@ -1,0 +1,538 @@
+<template id="scene5-reservation-template">
+  <div
+    data-composition-id="scene5-reservation"
+    data-width="1920"
+    data-height="1080"
+    data-duration="5"
+  >
+    <div class="canvas">
+      <!-- Browser Container -->
+      <div class="browser-frame">
+        <!-- Browser Top Bar -->
+        <div class="browser-chrome">
+          <div class="window-controls" data-layout-ignore="true">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="url-bar" data-layout-ignore="true">
+            <span class="lock-icon">🔒</span> https://rentatools.com.co/booking/confirm-order
+          </div>
+          <div class="session-badge-top" data-layout-ignore="true">
+            🏗️ Constructora Hábitat SAS
+          </div>
+        </div>
+
+        <!-- Blurred Background Viewport -->
+        <div class="backdrop-wrapper">
+          <img src="assets/img/browser_01_catalog.png" alt="Catalog Background" class="backdrop-img" />
+        </div>
+
+        <!-- Modal de Reserva & Anti-Solapes -->
+        <div class="booking-modal-card">
+          <div class="modal-header">
+            <div>
+              <div class="modal-subtitle" data-layout-ignore="true">PROCESO DE RESERVA INMEDIATA</div>
+              <h3 class="modal-title" data-layout-ignore="true">Excavadora Oruga CAT 320D</h3>
+            </div>
+            <div class="modal-unit-tag" data-layout-ignore="true">PATIO COTA #1</div>
+          </div>
+
+          <div class="modal-body">
+            <!-- Selector de Rango de Fechas -->
+            <div class="date-selector-row">
+              <div class="date-card">
+                <div class="d-lbl" data-layout-ignore="true">FECHA INICIO DE OBRA</div>
+                <div class="d-val" data-layout-ignore="true">10 NOV 2026</div>
+              </div>
+              <div class="d-arrow" data-layout-ignore="true">➔</div>
+              <div class="date-card">
+                <div class="d-lbl" data-layout-ignore="true">FECHA ENTREGA FINAL</div>
+                <div class="d-val" data-layout-ignore="true">18 NOV 2026</div>
+              </div>
+              <div class="duration-badge" data-layout-ignore="true">8 DÍAS</div>
+            </div>
+
+            <!-- Anti-Collision Validation Alert -->
+            <div class="validation-status-box">
+              <div class="check-icon-circle">✓</div>
+              <div>
+                <div class="v-title" data-layout-ignore="true">0 CONFLICTOS DE SOLAPE DETECTADOS</div>
+                <div class="v-desc" data-layout-ignore="true">Bloqueo transaccional exitoso. El equipo no presenta solapes con otros contratistas.</div>
+              </div>
+            </div>
+
+            <!-- Cost Breakdown -->
+            <div class="costs-box">
+              <div class="cost-row" data-layout-ignore="true">
+                <span>Alquiler (8 días × $1.475.000):</span>
+                <span class="cost-bold">$11.800.000</span>
+              </div>
+              <div class="cost-row" data-layout-ignore="true">
+                <span>Póliza Todo Riesgo Obra:</span>
+                <span class="cost-bold">$590.000</span>
+              </div>
+              <div class="cost-row" data-layout-ignore="true">
+                <span>Depósito de Garantía (Reembolsable):</span>
+                <span class="cost-bold">$2.000.000</span>
+              </div>
+              <div class="cost-divider"></div>
+              <div class="cost-total-row">
+                <span data-layout-ignore="true">TOTAL COTIZACIÓN:</span>
+                <span class="total-val" data-layout-ignore="true">$14.390.000</span>
+              </div>
+            </div>
+
+            <!-- Action Button -->
+            <div class="btn-confirm-booking" data-layout-ignore="true">
+              Confirmar Solicitud de Alquiler ➔
+            </div>
+          </div>
+        </div>
+
+        <!-- Success Confirmation Badge Popup -->
+        <div class="booking-success-popup">
+          <div class="success-ico">🎉</div>
+          <div>
+            <div class="s-title" data-layout-ignore="true">¡SOLICITUD APROBADA #RT-1023!</div>
+            <div class="s-desc" data-layout-ignore="true">Maquinaria asignada a Obra Puente Aranda • Contrato digital generado</div>
+          </div>
+        </div>
+
+        <!-- Callouts -->
+        <div class="callout callout-lock">
+          <div class="callout-point">
+            <span class="point-ring"></span>
+            <span class="point-core"></span>
+          </div>
+          <div class="callout-card">
+            <div class="callout-tag" data-layout-ignore="true">PREVENCIÓN DE SOLAPES</div>
+            <div class="callout-title" data-layout-ignore="true">Bloqueo concurrente a nivel de base de datos (Spring @Transactional)</div>
+          </div>
+        </div>
+
+        <div class="callout callout-pricing">
+          <div class="callout-point">
+            <span class="point-ring point-ring-amber"></span>
+            <span class="point-core point-core-amber"></span>
+          </div>
+          <div class="callout-card">
+            <div class="callout-tag text-amber" data-layout-ignore="true">COTIZACIÓN TRANSPARENTE</div>
+            <div class="callout-title" data-layout-ignore="true">Cálculo de pólizas, flete y garantías sin costos ocultos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      [data-composition-id="scene5-reservation"] .canvas {
+        width: 1920px;
+        height: 1080px;
+        background: #06080d;
+        position: relative;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+      }
+
+      [data-composition-id="scene5-reservation"] .browser-frame {
+        position: absolute;
+        left: 60px;
+        top: 40px;
+        width: 1800px;
+        height: 940px;
+        background: #f8fafc;
+        border-radius: 18px;
+        box-shadow: 0 35px 80px rgba(0, 0, 0, 0.75);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        transform-origin: center center;
+      }
+
+      [data-composition-id="scene5-reservation"] .browser-chrome {
+        height: 48px;
+        background: #0f172a;
+        display: flex;
+        align-items: center;
+        padding: 0 24px;
+        gap: 20px;
+      }
+
+      [data-composition-id="scene5-reservation"] .window-controls { display: flex; gap: 8px; }
+      [data-composition-id="scene5-reservation"] .dot { width: 12px; height: 12px; border-radius: 50%; }
+      [data-composition-id="scene5-reservation"] .dot-red { background: #ef4444; }
+      [data-composition-id="scene5-reservation"] .dot-yellow { background: #f59e0b; }
+      [data-composition-id="scene5-reservation"] .dot-green { background: #10b981; }
+
+      [data-composition-id="scene5-reservation"] .url-bar {
+        background: #1e293b;
+        color: #94a3b8;
+        font-family: monospace;
+        font-size: 13px;
+        padding: 6px 18px;
+        border-radius: 8px;
+        width: 480px;
+      }
+
+      [data-composition-id="scene5-reservation"] .session-badge-top {
+        margin-left: auto;
+        color: #10b981;
+        font-size: 12px;
+        font-weight: 700;
+        background: rgba(16, 185, 129, 0.12);
+        padding: 4px 12px;
+        border-radius: 6px;
+      }
+
+      [data-composition-id="scene5-reservation"] .backdrop-wrapper {
+        position: relative;
+        height: calc(100% - 48px);
+        overflow: hidden;
+      }
+
+      [data-composition-id="scene5-reservation"] .backdrop-img {
+        width: 100%;
+        height: auto;
+        filter: blur(5px) brightness(0.8);
+      }
+
+      /* Modal */
+      [data-composition-id="scene5-reservation"] .booking-modal-card {
+        position: absolute;
+        left: 50%;
+        top: 52%;
+        transform: translate(-50%, -50%);
+        width: 640px;
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 35px 80px rgba(0, 0, 0, 0.6), 0 0 35px rgba(0, 132, 61, 0.2);
+        border: 1px solid #e2e8f0;
+        z-index: 40;
+        overflow: hidden;
+      }
+
+      [data-composition-id="scene5-reservation"] .modal-header {
+        padding: 24px 30px;
+        background: #f8fafc;
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      [data-composition-id="scene5-reservation"] .modal-subtitle {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        color: #00843d;
+        margin-bottom: 2px;
+      }
+
+      [data-composition-id="scene5-reservation"] .modal-title {
+        font-size: 22px;
+        font-weight: 900;
+        color: #0f172a;
+      }
+
+      [data-composition-id="scene5-reservation"] .modal-unit-tag {
+        font-size: 11px;
+        font-weight: 800;
+        background: #e2e8f0;
+        color: #475569;
+        padding: 4px 10px;
+        border-radius: 6px;
+      }
+
+      [data-composition-id="scene5-reservation"] .modal-body {
+        padding: 24px 30px 30px 30px;
+      }
+
+      [data-composition-id="scene5-reservation"] .date-selector-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #f1f5f9;
+        border-radius: 12px;
+        padding: 14px 18px;
+        margin-bottom: 18px;
+        border: 1px solid #e2e8f0;
+      }
+
+      [data-composition-id="scene5-reservation"] .d-lbl {
+        font-size: 10px;
+        font-weight: 700;
+        color: #64748b;
+        letter-spacing: 0.08em;
+        margin-bottom: 2px;
+      }
+
+      [data-composition-id="scene5-reservation"] .d-val {
+        font-size: 18px;
+        font-weight: 800;
+        color: #0f172a;
+      }
+
+      [data-composition-id="scene5-reservation"] .d-arrow {
+        font-size: 18px;
+        color: #00843d;
+      }
+
+      [data-composition-id="scene5-reservation"] .duration-badge {
+        font-size: 11px;
+        font-weight: 800;
+        background: #00843d;
+        color: #ffffff;
+        padding: 4px 10px;
+        border-radius: 9999px;
+      }
+
+      [data-composition-id="scene5-reservation"] .validation-status-box {
+        background: #f0fdf4;
+        border: 1.5px solid #86efac;
+        border-radius: 12px;
+        padding: 14px 18px;
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      [data-composition-id="scene5-reservation"] .check-icon-circle {
+        width: 32px;
+        height: 32px;
+        background: #00843d;
+        color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+
+      [data-composition-id="scene5-reservation"] .v-title {
+        font-size: 13px;
+        font-weight: 800;
+        color: #00843d;
+        margin-bottom: 2px;
+      }
+
+      [data-composition-id="scene5-reservation"] .v-desc {
+        font-size: 11px;
+        color: #166534;
+      }
+
+      [data-composition-id="scene5-reservation"] .costs-box {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin-bottom: 22px;
+      }
+
+      [data-composition-id="scene5-reservation"] .cost-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        color: #475569;
+        margin-bottom: 8px;
+      }
+
+      [data-composition-id="scene5-reservation"] .cost-bold {
+        font-weight: 700;
+        color: #0f172a;
+      }
+
+      [data-composition-id="scene5-reservation"] .cost-divider {
+        height: 1px;
+        background: #e2e8f0;
+        margin: 10px 0;
+      }
+
+      [data-composition-id="scene5-reservation"] .cost-total-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        font-weight: 800;
+        color: #0f172a;
+      }
+
+      [data-composition-id="scene5-reservation"] .total-val {
+        font-size: 22px;
+        font-weight: 900;
+        color: #00843d;
+      }
+
+      [data-composition-id="scene5-reservation"] .btn-confirm-booking {
+        background: #00843d;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 800;
+        text-align: center;
+        padding: 14px;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0, 132, 61, 0.25);
+      }
+
+      /* Success Popup */
+      [data-composition-id="scene5-reservation"] .booking-success-popup {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 600px;
+        background: rgba(15, 23, 42, 0.96);
+        backdrop-filter: blur(20px);
+        border: 1.5px solid rgba(16, 185, 129, 0.4);
+        border-radius: 20px;
+        padding: 28px 32px;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        box-shadow: 0 35px 80px rgba(0, 0, 0, 0.85);
+        z-index: 50;
+      }
+
+      [data-composition-id="scene5-reservation"] .success-ico {
+        font-size: 36px;
+      }
+
+      [data-composition-id="scene5-reservation"] .s-title {
+        font-size: 20px;
+        font-weight: 800;
+        color: #34d399;
+        margin-bottom: 4px;
+      }
+
+      [data-composition-id="scene5-reservation"] .s-desc {
+        font-size: 13px;
+        color: #94a3b8;
+      }
+
+      /* Callouts */
+      [data-composition-id="scene5-reservation"] .callout {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        z-index: 60;
+      }
+
+      [data-composition-id="scene5-reservation"] .callout-lock {
+        top: 360px;
+        left: 120px;
+      }
+
+      [data-composition-id="scene5-reservation"] .callout-pricing {
+        top: 560px;
+        right: 120px;
+      }
+
+      [data-composition-id="scene5-reservation"] .callout-point {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      [data-composition-id="scene5-reservation"] .point-ring {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 2px solid #00843d;
+        background: rgba(0, 132, 61, 0.2);
+      }
+
+      [data-composition-id="scene5-reservation"] .point-ring-amber {
+        border-color: #f59e0b;
+        background: rgba(245, 158, 11, 0.2);
+      }
+
+      [data-composition-id="scene5-reservation"] .point-core {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #00843d;
+        border: 2px solid #ffffff;
+      }
+
+      [data-composition-id="scene5-reservation"] .point-core-amber {
+        background: #f59e0b;
+      }
+
+      [data-composition-id="scene5-reservation"] .callout-card {
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        padding: 12px 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        color: #ffffff;
+      }
+
+      [data-composition-id="scene5-reservation"] .callout-tag {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        color: #34d399;
+        margin-bottom: 2px;
+      }
+
+      [data-composition-id="scene5-reservation"] .text-amber {
+        color: #fbbf24;
+      }
+
+      [data-composition-id="scene5-reservation"] .callout-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: #f8fafc;
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const scope = '[data-composition-id="scene5-reservation"]';
+
+        const modal = `${scope} .booking-modal-card`;
+        const successPopup = `${scope} .booking-success-popup`;
+        const calloutLock = `${scope} .callout-lock`;
+        const calloutPricing = `${scope} .callout-pricing`;
+        const frame = `${scope} .browser-frame`;
+
+        // Initial setup
+        tl.set(modal, { opacity: 0, scale: 0.85 });
+        tl.set(successPopup, { opacity: 0, scale: 0.9 });
+        tl.set([calloutLock, calloutPricing], { opacity: 0, scale: 0.8 });
+
+        // Modal entrance
+        tl.to(modal, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.2)" }, 0.2);
+
+        // Zoom in to modal
+        tl.to(frame, { scale: 1.08, duration: 1.2, ease: "power2.inOut" }, 0.6);
+
+        // Callouts appear
+        tl.to(calloutLock, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 1.0);
+        tl.to(calloutPricing, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 1.8);
+
+        // Submit action & Success popup
+        tl.to(modal, { opacity: 0, scale: 0.96, duration: 0.3 }, 3.2);
+        tl.to(successPopup, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.3)" }, 3.3);
+
+        // Zoom back out
+        tl.to(frame, { scale: 1, duration: 0.8, ease: "power2.inOut" }, 4.0);
+
+        // Exit Out
+        tl.to(`${scope} .canvas`, { opacity: 0, scale: 0.96, duration: 0.4, ease: "power2.in" }, 4.6);
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["scene5-reservation"] = tl;
+      })();
+    </script>
+  </div>
+</template>

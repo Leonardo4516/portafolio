@@ -1,0 +1,553 @@
+<template id="scene2-login-template">
+  <div
+    data-composition-id="scene2-login"
+    data-width="1920"
+    data-height="1080"
+    data-duration="4.5"
+  >
+    <div class="canvas">
+      <!-- Browser Container -->
+      <div class="browser-frame">
+        <!-- Browser Top Bar -->
+        <div class="browser-chrome">
+          <div class="window-controls" data-layout-ignore="true">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="url-bar" data-layout-ignore="true">
+            <span class="lock-icon">🔒</span> https://rentatools.com.co/auth/login
+          </div>
+        </div>
+
+        <!-- Site Header (shows login button then switches to logged-in user) -->
+        <header class="site-header">
+          <div class="logo-group">
+            <img src="assets/img/logo.svg" alt="RentaTools" class="brand-logo" />
+          </div>
+          <div class="search-bar-mock" data-layout-ignore="true">
+            <span class="search-icon">🔍</span>
+            <span class="search-placeholder">¿Qué maquinaria o herramienta buscas para tu obra?</span>
+          </div>
+          <div class="nav-guest" id="nav-guest">
+            <div class="nav-auth-btn" data-layout-ignore="true">👤 Iniciar Sesión / Registro</div>
+          </div>
+          <div class="nav-user-logged" id="nav-user-logged" style="display: none;">
+            <div class="user-badge-pill">
+              <span class="user-avatar" data-layout-ignore="true">C</span>
+              <span class="user-name" data-layout-ignore="true">Ing. Cristian Muñoz</span>
+              <span class="role-badge" data-layout-ignore="true">CLIENTE</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Blurred Background Hero Section during Modal -->
+        <div class="web-backdrop">
+          <img src="assets/img/browser_02_client_session.png" alt="RentaTools Session" class="backdrop-img" />
+        </div>
+
+        <!-- Interactive Auth Modal -->
+        <div class="auth-modal-card">
+          <div class="modal-header">
+            <h3 class="modal-title" data-layout-ignore="true">Iniciar Sesión en RentaTools</h3>
+            <span class="modal-close" data-layout-ignore="true">✕</span>
+          </div>
+
+          <div class="modal-body">
+            <div class="input-group">
+              <label class="input-lbl" data-layout-ignore="true">Usuario o Correo:</label>
+              <div class="input-field input-user" data-layout-ignore="true">cliente</div>
+            </div>
+            <div class="input-group">
+              <label class="input-lbl" data-layout-ignore="true">Contraseña:</label>
+              <div class="input-field input-pass" data-layout-ignore="true">••••••••••</div>
+            </div>
+
+            <!-- Demo Quick Access Presets -->
+            <div class="presets-box">
+              <div class="presets-header" data-layout-ignore="true">
+                <span>⚡ Accesos Rápidos Demo:</span>
+                <span class="preset-tag" data-layout-ignore="true">Click para auto-completar</span>
+              </div>
+              <div class="presets-btns">
+                <div class="btn-preset active-preset" data-layout-ignore="true">🏗️ Cliente (Hábitat SAS)</div>
+                <div class="btn-preset" data-layout-ignore="true">🚜 Proveedor (Maquinaria Andina)</div>
+                <div class="btn-preset" data-layout-ignore="true">🛡️ Admin General</div>
+              </div>
+            </div>
+
+            <div class="btn-login-submit" data-layout-ignore="true">
+              Ingresar al Sistema ➔
+            </div>
+          </div>
+        </div>
+
+        <!-- Login Success Notification Overlay -->
+        <div class="login-success-card">
+          <div class="success-icon-box">✓</div>
+          <div class="success-content">
+            <div class="success-title" data-layout-ignore="true">¡Bienvenido, Ing. Cristian Muñoz!</div>
+            <div class="success-org" data-layout-ignore="true">Constructora Hábitat SAS • Rol: ROLE_CLIENTE</div>
+            <div class="success-tag" data-layout-ignore="true">SESIÓN AUTORIZADA // JWT TOKEN ACTIVO</div>
+          </div>
+        </div>
+
+        <!-- Animated Pointer Cursor -->
+        <div class="virtual-cursor">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="#ff3355">
+            <path d="M4 0l16 12.279-6.951 1.17 4.325 8.817-3.596 1.734-4.35-8.879-5.428 5.428z" stroke="#ffffff" stroke-width="1.5" />
+          </svg>
+        </div>
+
+        <!-- Feature Callout Tag -->
+        <div class="callout callout-auth">
+          <div class="callout-point">
+            <span class="point-ring"></span>
+            <span class="point-core"></span>
+          </div>
+          <div class="callout-card">
+            <div class="callout-tag" data-layout-ignore="true">CONTROL DE ACCESO RBAC</div>
+            <div class="callout-title" data-layout-ignore="true">Flujos diferenciados para Clientes, Proveedores y Administradores</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      [data-composition-id="scene2-login"] .canvas {
+        width: 1920px;
+        height: 1080px;
+        background: #06080d;
+        position: relative;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+      }
+
+      [data-composition-id="scene2-login"] .browser-frame {
+        position: absolute;
+        left: 60px;
+        top: 40px;
+        width: 1800px;
+        height: 940px;
+        background: #ffffff;
+        border-radius: 18px;
+        box-shadow: 0 35px 80px rgba(0, 0, 0, 0.75);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      [data-composition-id="scene2-login"] .browser-chrome {
+        height: 48px;
+        background: #0f172a;
+        display: flex;
+        align-items: center;
+        padding: 0 24px;
+        gap: 20px;
+      }
+
+      [data-composition-id="scene2-login"] .window-controls { display: flex; gap: 8px; }
+      [data-composition-id="scene2-login"] .dot { width: 12px; height: 12px; border-radius: 50%; }
+      [data-composition-id="scene2-login"] .dot-red { background: #ef4444; }
+      [data-composition-id="scene2-login"] .dot-yellow { background: #f59e0b; }
+      [data-composition-id="scene2-login"] .dot-green { background: #10b981; }
+
+      [data-composition-id="scene2-login"] .url-bar {
+        background: #1e293b;
+        color: #94a3b8;
+        font-family: monospace;
+        font-size: 13px;
+        padding: 6px 18px;
+        border-radius: 8px;
+        width: 420px;
+      }
+
+      [data-composition-id="scene2-login"] .site-header {
+        height: 80px;
+        background: #ffffff;
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        align-items: center;
+        padding: 0 48px;
+        gap: 32px;
+        position: relative;
+        z-index: 20;
+      }
+
+      [data-composition-id="scene2-login"] .brand-logo { height: 40px; }
+
+      [data-composition-id="scene2-login"] .search-bar-mock {
+        flex: 1;
+        max-width: 600px;
+        height: 44px;
+        background: #f1f5f9;
+        border: 1px solid #cbd5e1;
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        gap: 12px;
+        color: #64748b;
+        font-size: 14px;
+      }
+
+      [data-composition-id="scene2-login"] .nav-auth-btn {
+        margin-left: auto;
+        padding: 10px 22px;
+        border-radius: 9999px;
+        border: 1.5px solid #00843d;
+        color: #00843d;
+        font-weight: 700;
+        font-size: 14px;
+      }
+
+      [data-composition-id="scene2-login"] .user-badge-pill {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        padding: 6px 16px;
+        border-radius: 9999px;
+      }
+
+      [data-composition-id="scene2-login"] .user-avatar {
+        width: 30px;
+        height: 30px;
+        background: #00843d;
+        color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 14px;
+      }
+
+      [data-composition-id="scene2-login"] .user-name {
+        font-size: 14px;
+        font-weight: 700;
+        color: #0f172a;
+      }
+
+      [data-composition-id="scene2-login"] .role-badge {
+        font-size: 11px;
+        font-weight: 800;
+        background: #00843d;
+        color: #ffffff;
+        padding: 2px 8px;
+        border-radius: 6px;
+      }
+
+      [data-composition-id="scene2-login"] .web-backdrop {
+        position: relative;
+        height: calc(100% - 128px);
+        overflow: hidden;
+      }
+
+      [data-composition-id="scene2-login"] .backdrop-img {
+        width: 100%;
+        height: auto;
+        filter: blur(4px) brightness(0.85);
+      }
+
+      /* Modal */
+      [data-composition-id="scene2-login"] .auth-modal-card {
+        position: absolute;
+        left: 50%;
+        top: 52%;
+        transform: translate(-50%, -50%);
+        width: 540px;
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 132, 61, 0.15);
+        border: 1px solid #e2e8f0;
+        z-index: 40;
+        overflow: hidden;
+      }
+
+      [data-composition-id="scene2-login"] .modal-header {
+        padding: 24px 30px;
+        border-bottom: 1px solid #f1f5f9;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      [data-composition-id="scene2-login"] .modal-title {
+        font-size: 20px;
+        font-weight: 800;
+        color: #0f172a;
+      }
+
+      [data-composition-id="scene2-login"] .modal-close {
+        color: #94a3b8;
+        font-size: 18px;
+      }
+
+      [data-composition-id="scene2-login"] .modal-body {
+        padding: 24px 30px 30px 30px;
+      }
+
+      [data-composition-id="scene2-login"] .input-group {
+        margin-bottom: 16px;
+      }
+
+      [data-composition-id="scene2-login"] .input-lbl {
+        display: block;
+        font-size: 13px;
+        font-weight: 700;
+        color: #334155;
+        margin-bottom: 6px;
+      }
+
+      [data-composition-id="scene2-login"] .input-field {
+        height: 44px;
+        background: #f8fafc;
+        border: 1.5px solid #cbd5e1;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        font-size: 15px;
+        color: #0f172a;
+        font-weight: 600;
+      }
+
+      [data-composition-id="scene2-login"] .presets-box {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 16px;
+        margin: 20px 0;
+      }
+
+      [data-composition-id="scene2-login"] .presets-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        font-weight: 700;
+        color: #334155;
+        margin-bottom: 10px;
+      }
+
+      [data-composition-id="scene2-login"] .preset-tag {
+        color: #00843d;
+        background: #dcfce7;
+        padding: 2px 8px;
+        border-radius: 4px;
+      }
+
+      [data-composition-id="scene2-login"] .presets-btns {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      [data-composition-id="scene2-login"] .btn-preset {
+        font-size: 13px;
+        font-weight: 600;
+        padding: 8px 14px;
+        border-radius: 6px;
+        border: 1px solid #cbd5e1;
+        background: #ffffff;
+        color: #334155;
+      }
+
+      [data-composition-id="scene2-login"] .active-preset {
+        border-color: #00843d;
+        background: #f0fdf4;
+        color: #00843d;
+        font-weight: 700;
+      }
+
+      [data-composition-id="scene2-login"] .btn-login-submit {
+        background: #00843d;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 800;
+        text-align: center;
+        padding: 14px;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0, 132, 61, 0.25);
+      }
+
+      /* Success Card */
+      [data-composition-id="scene2-login"] .login-success-card {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 580px;
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(16, 185, 129, 0.4);
+        border-radius: 20px;
+        padding: 32px;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(16, 185, 129, 0.2);
+        z-index: 50;
+      }
+
+      [data-composition-id="scene2-login"] .success-icon-box {
+        width: 54px;
+        height: 54px;
+        background: #10b981;
+        color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        font-weight: 900;
+        flex-shrink: 0;
+      }
+
+      [data-composition-id="scene2-login"] .success-title {
+        font-size: 22px;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 4px;
+      }
+
+      [data-composition-id="scene2-login"] .success-org {
+        font-size: 14px;
+        color: #94a3b8;
+        margin-bottom: 10px;
+      }
+
+      [data-composition-id="scene2-login"] .success-tag {
+        font-size: 11px;
+        font-weight: 800;
+        color: #34d399;
+        font-family: monospace;
+        letter-spacing: 0.08em;
+      }
+
+      /* Virtual Cursor */
+      [data-composition-id="scene2-login"] .virtual-cursor {
+        position: absolute;
+        z-index: 60;
+        pointer-events: none;
+      }
+
+      /* Callout */
+      [data-composition-id="scene2-login"] .callout {
+        position: absolute;
+        top: 180px;
+        left: 120px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        z-index: 50;
+      }
+
+      [data-composition-id="scene2-login"] .callout-point {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      [data-composition-id="scene2-login"] .point-ring {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 2px solid #00843d;
+        background: rgba(0, 132, 61, 0.2);
+      }
+
+      [data-composition-id="scene2-login"] .point-core {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #00843d;
+        border: 2px solid #ffffff;
+      }
+
+      [data-composition-id="scene2-login"] .callout-card {
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        padding: 12px 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        color: #ffffff;
+      }
+
+      [data-composition-id="scene2-login"] .callout-tag {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        color: #34d399;
+        margin-bottom: 2px;
+      }
+
+      [data-composition-id="scene2-login"] .callout-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: #f8fafc;
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const scope = '[data-composition-id="scene2-login"]';
+
+        const modal = `${scope} .auth-modal-card`;
+        const successCard = `${scope} .login-success-card`;
+        const cursor = `${scope} .virtual-cursor`;
+        const callout = `${scope} .callout-auth`;
+        const navGuest = `${scope} #nav-guest`;
+        const navUser = `${scope} #nav-user-logged`;
+
+        // Initial setup
+        tl.set(modal, { opacity: 0, scale: 0.85 });
+        tl.set(successCard, { opacity: 0, scale: 0.9 });
+        tl.set(callout, { opacity: 0, x: -30 });
+        tl.set(cursor, { x: 960, y: 540, opacity: 0 });
+
+        // Cursor appears and moves towards "Iniciar Sesión" button
+        tl.to(cursor, { opacity: 1, duration: 0.3 }, 0.2);
+        tl.to(cursor, { x: 1650, y: 100, duration: 0.8, ease: "power2.out" }, 0.3);
+
+        // Click on login button
+        tl.to(cursor, { scale: 0.8, duration: 0.15, yoyo: true, repeat: 1 }, 1.1);
+
+        // Modal opens
+        tl.to(modal, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.2)" }, 1.3);
+
+        // Callout appears
+        tl.to(callout, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, 1.6);
+
+        // Cursor moves to preset button and clicks
+        tl.to(cursor, { x: 960, y: 550, duration: 0.7, ease: "power2.out" }, 1.8);
+        tl.to(cursor, { scale: 0.8, duration: 0.12, yoyo: true, repeat: 1 }, 2.5);
+
+        // Cursor moves to submit button and clicks
+        tl.to(cursor, { x: 960, y: 670, duration: 0.5, ease: "power2.out" }, 2.7);
+        tl.to(cursor, { scale: 0.8, duration: 0.12, yoyo: true, repeat: 1 }, 3.2);
+
+        // Modal closes, success card pops up
+        tl.to(modal, { opacity: 0, scale: 0.95, duration: 0.3 }, 3.4);
+        tl.to(successCard, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.2)" }, 3.5);
+
+        // Navbar updates to logged-in user
+        tl.set(navGuest, { display: "none" }, 3.5);
+        tl.set(navUser, { display: "block" }, 3.5);
+
+        // Exit Out
+        tl.to(`${scope} .canvas`, { opacity: 0, scale: 1.02, duration: 0.4, ease: "power2.in" }, 4.1);
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["scene2-login"] = tl;
+      })();
+    </script>
+  </div>
+</template>

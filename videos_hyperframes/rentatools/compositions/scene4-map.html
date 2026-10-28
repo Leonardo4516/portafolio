@@ -1,0 +1,491 @@
+<template id="scene4-map-template">
+  <div
+    data-composition-id="scene4-map"
+    data-width="1920"
+    data-height="1080"
+    data-duration="5.5"
+  >
+    <div class="canvas">
+      <!-- Browser Container -->
+      <div class="browser-frame">
+        <!-- Browser Top Bar -->
+        <div class="browser-chrome">
+          <div class="window-controls" data-layout-ignore="true">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="url-bar" data-layout-ignore="true">
+            <span class="lock-icon">🔒</span> https://rentatools.com.co/map/live-tracking
+          </div>
+          <div class="session-badge-top" data-layout-ignore="true">
+            🛰️ GPS TELEMETRÍA ACTIVA
+          </div>
+        </div>
+
+        <!-- Scrollable Page Container -->
+        <div class="scroll-container">
+          <!-- Section Header -->
+          <div class="map-section-header">
+            <div class="section-tag" data-layout-ignore="true">COBERTURA &amp; LOGÍSTICA DE DESPACHO</div>
+            <h2 class="section-title">Mapa en Vivo &amp; Geocerca de 20 km en Bogotá</h2>
+          </div>
+
+          <!-- Leaflet GIS Map Container -->
+          <div class="map-viewport">
+            <!-- Simulated Tactical SVG Vector Grid & Map Roads -->
+            <svg class="map-svg" viewBox="0 0 1680 620" width="1680" height="620">
+              <defs>
+                <radialGradient id="map-radar" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#00843d" stop-opacity="0.3" />
+                  <stop offset="100%" stop-color="#00843d" stop-opacity="0" />
+                </radialGradient>
+                <radialGradient id="red-zone" cx="50%" cy="50%" r="50%">
+                  <stop offset="75%" stop-color="#ff3355" stop-opacity="0" />
+                  <stop offset="100%" stop-color="#ff3355" stop-opacity="0.35" />
+                </radialGradient>
+              </defs>
+
+              <!-- Map Background Grid -->
+              <g stroke="rgba(15,23,42,0.08)" stroke-width="1">
+                <line x1="200" y1="0" x2="200" y2="620" />
+                <line x1="500" y1="0" x2="500" y2="620" />
+                <line x1="840" y1="0" x2="840" y2="620" />
+                <line x1="1180" y1="0" x2="1180" y2="620" />
+                <line x1="1480" y1="0" x2="1480" y2="620" />
+                <line x1="0" y1="150" x2="1680" y2="150" />
+                <line x1="0" y1="310" x2="1680" y2="310" />
+                <line x1="0" y1="470" x2="1680" y2="470" />
+              </g>
+
+              <!-- Main Corridors (Autonorte, Calle 26, Calle 80) -->
+              <g stroke="rgba(0,132,61,0.25)" stroke-width="3" fill="none">
+                <path d="M 840 0 L 850 180 L 840 310 L 810 460 L 780 620" />
+                <path d="M 200 310 L 500 300 L 840 310 L 1200 320 L 1680 340" stroke-dasharray="8 6" />
+                <path d="M 250 200 L 550 230 L 850 260 L 1300 290" />
+              </g>
+
+              <!-- 20 KM Dynamic Coverage Circle -->
+              <circle class="coverage-circle" cx="840" cy="310" r="240" fill="url(#red-zone)" stroke="#ff3355" stroke-width="2.5" stroke-dasharray="10 6" />
+              <circle class="coverage-glow" cx="840" cy="310" r="240" fill="none" stroke="#ff3355" stroke-width="1" opacity="0.5" />
+
+              <!-- Base Point -->
+              <circle cx="840" cy="310" r="8" fill="#ff3355" />
+              <circle class="radar-pulse" cx="840" cy="310" r="30" fill="url(#map-radar)" stroke="#00843d" stroke-width="2" />
+
+              <!-- Dispatch Vector to Site -->
+              <line class="dispatch-line" x1="840" y1="310" x2="1040" y2="200" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6 4" />
+            </svg>
+
+            <!-- Map Markers -->
+            <div class="map-pin pin-center">
+              <div class="pin-dot-red"></div>
+              <div class="pin-card" data-layout-ignore="true">
+                <span class="p-title">PATIO PRINCIPAL COTA</span>
+                <span class="p-sub">Base Operativa • 4.6097° N, 74.0817° W</span>
+              </div>
+            </div>
+
+            <div class="map-pin pin-site">
+              <div class="pin-dot-blue"></div>
+              <div class="pin-card" data-layout-ignore="true">
+                <span class="p-title">OBRA PUENTE ARANDA #4</span>
+                <span class="p-sub text-green">14.8 KM • DENTRO DEL RADIO</span>
+              </div>
+            </div>
+
+            <!-- Inset Telemetry Card -->
+            <div class="map-hud-card">
+              <div class="hud-top">
+                <span class="hud-dot"></span>
+                <span class="hud-head" data-layout-ignore="true">POSTGIS HAVERSINE ENGINE</span>
+              </div>
+              <div class="hud-vals">
+                <div>
+                  <div class="h-lbl" data-layout-ignore="true">RADIO AUTORIZADO</div>
+                  <div class="h-val text-red" data-layout-ignore="true">20.0 KM</div>
+                </div>
+                <div>
+                  <div class="h-lbl" data-layout-ignore="true">DISTANCIA A OBRA</div>
+                  <div class="h-val text-amber" data-layout-ignore="true">14.8 KM</div>
+                </div>
+                <div>
+                  <div class="h-lbl" data-layout-ignore="true">TIEMPO ESTIMADO</div>
+                  <div class="h-val text-green" data-layout-ignore="true">26 MIN</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Zoom Callouts -->
+        <div class="callout callout-geofence">
+          <div class="callout-point">
+            <span class="point-ring point-ring-red"></span>
+            <span class="point-core point-core-red"></span>
+          </div>
+          <div class="callout-card">
+            <div class="callout-tag text-red" data-layout-ignore="true">GEOCERCA INTELIGENTE</div>
+            <div class="callout-title" data-layout-ignore="true">Radio de 20 km validado automáticamente por coordenadas PostGIS</div>
+          </div>
+        </div>
+
+        <div class="callout callout-route">
+          <div class="callout-point">
+            <span class="point-ring point-ring-amber"></span>
+            <span class="point-core point-core-amber"></span>
+          </div>
+          <div class="callout-card">
+            <div class="callout-tag text-amber" data-layout-ignore="true">CÁLCULO DE DESPACHO</div>
+            <div class="callout-title" data-layout-ignore="true">Distancia Haversine precisa para cotización de flete en tiempo real</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      [data-composition-id="scene4-map"] .canvas {
+        width: 1920px;
+        height: 1080px;
+        background: #06080d;
+        position: relative;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+      }
+
+      [data-composition-id="scene4-map"] .browser-frame {
+        position: absolute;
+        left: 60px;
+        top: 40px;
+        width: 1800px;
+        height: 940px;
+        background: #f8fafc;
+        border-radius: 18px;
+        box-shadow: 0 35px 80px rgba(0, 0, 0, 0.75);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        transform-origin: 52% 52%;
+      }
+
+      [data-composition-id="scene4-map"] .browser-chrome {
+        height: 48px;
+        background: #0f172a;
+        display: flex;
+        align-items: center;
+        padding: 0 24px;
+        gap: 20px;
+      }
+
+      [data-composition-id="scene4-map"] .window-controls { display: flex; gap: 8px; }
+      [data-composition-id="scene4-map"] .dot { width: 12px; height: 12px; border-radius: 50%; }
+      [data-composition-id="scene4-map"] .dot-red { background: #ef4444; }
+      [data-composition-id="scene4-map"] .dot-yellow { background: #f59e0b; }
+      [data-composition-id="scene4-map"] .dot-green { background: #10b981; }
+
+      [data-composition-id="scene4-map"] .url-bar {
+        background: #1e293b;
+        color: #94a3b8;
+        font-family: monospace;
+        font-size: 13px;
+        padding: 6px 18px;
+        border-radius: 8px;
+        width: 480px;
+      }
+
+      [data-composition-id="scene4-map"] .session-badge-top {
+        margin-left: auto;
+        color: #38bdf8;
+        font-size: 12px;
+        font-weight: 700;
+        background: rgba(56, 189, 248, 0.12);
+        padding: 4px 12px;
+        border-radius: 6px;
+      }
+
+      [data-composition-id="scene4-map"] .scroll-container {
+        padding: 30px 60px;
+        height: calc(100% - 48px);
+        overflow: hidden;
+      }
+
+      [data-composition-id="scene4-map"] .map-section-header {
+        margin-bottom: 20px;
+      }
+
+      [data-composition-id="scene4-map"] .section-tag {
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        color: #00843d;
+        background: #dcfce7;
+        padding: 4px 12px;
+        border-radius: 9999px;
+        display: inline-block;
+        margin-bottom: 8px;
+      }
+
+      [data-composition-id="scene4-map"] .section-title {
+        font-size: 36px;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        color: #0f172a;
+      }
+
+      [data-composition-id="scene4-map"] .map-viewport {
+        position: relative;
+        width: 100%;
+        height: 620px;
+        background: #e2e8f0;
+        border-radius: 16px;
+        border: 1px solid #cbd5e1;
+        overflow: hidden;
+      }
+
+      [data-composition-id="scene4-map"] .map-svg {
+        position: absolute;
+        inset: 0;
+      }
+
+      [data-composition-id="scene4-map"] .map-pin {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        z-index: 20;
+      }
+
+      [data-composition-id="scene4-map"] .pin-center { left: 840px; top: 310px; }
+      [data-composition-id="scene4-map"] .pin-site { left: 1040px; top: 200px; }
+
+      [data-composition-id="scene4-map"] .pin-dot-red {
+        width: 18px;
+        height: 18px;
+        background: #ff3355;
+        border: 3px solid #ffffff;
+        border-radius: 50%;
+        box-shadow: 0 0 16px #ff3355;
+      }
+
+      [data-composition-id="scene4-map"] .pin-dot-blue {
+        width: 18px;
+        height: 18px;
+        background: #0284c7;
+        border: 3px solid #ffffff;
+        border-radius: 50%;
+        box-shadow: 0 0 16px #0284c7;
+      }
+
+      [data-composition-id="scene4-map"] .pin-card {
+        position: absolute;
+        left: 24px;
+        top: -12px;
+        background: rgba(15, 23, 42, 0.9);
+        color: #ffffff;
+        padding: 6px 12px;
+        border-radius: 6px;
+        white-space: nowrap;
+        backdrop-filter: blur(8px);
+      }
+
+      [data-composition-id="scene4-map"] .p-title {
+        display: block;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      [data-composition-id="scene4-map"] .p-sub {
+        display: block;
+        font-size: 10px;
+        color: #94a3b8;
+        font-family: monospace;
+      }
+
+      [data-composition-id="scene4-map"] .text-green { color: #34d399; }
+      [data-composition-id="scene4-map"] .text-red { color: #ff3355; }
+      [data-composition-id="scene4-map"] .text-amber { color: #fbbf24; }
+
+      [data-composition-id="scene4-map"] .map-hud-card {
+        position: absolute;
+        left: 30px;
+        bottom: 30px;
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        padding: 16px 20px;
+        z-index: 30;
+      }
+
+      [data-composition-id="scene4-map"] .hud-top {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+
+      [data-composition-id="scene4-map"] .hud-dot {
+        width: 8px;
+        height: 8px;
+        background: #10b981;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #10b981;
+      }
+
+      [data-composition-id="scene4-map"] .hud-head {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        color: #94a3b8;
+      }
+
+      [data-composition-id="scene4-map"] .hud-vals {
+        display: flex;
+        gap: 24px;
+      }
+
+      [data-composition-id="scene4-map"] .h-lbl {
+        font-size: 10px;
+        font-weight: 700;
+        color: #64748b;
+        margin-bottom: 2px;
+      }
+
+      [data-composition-id="scene4-map"] .h-val {
+        font-size: 18px;
+        font-weight: 800;
+      }
+
+      /* Callouts */
+      [data-composition-id="scene4-map"] .callout {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        z-index: 50;
+      }
+
+      [data-composition-id="scene4-map"] .callout-geofence {
+        top: 280px;
+        left: 420px;
+      }
+
+      [data-composition-id="scene4-map"] .callout-route {
+        top: 180px;
+        right: 280px;
+      }
+
+      [data-composition-id="scene4-map"] .callout-point {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      [data-composition-id="scene4-map"] .point-ring-red {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 2px solid #ff3355;
+        background: rgba(255, 51, 85, 0.2);
+      }
+
+      [data-composition-id="scene4-map"] .point-core-red {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #ff3355;
+        border: 2px solid #ffffff;
+      }
+
+      [data-composition-id="scene4-map"] .point-ring-amber {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 2px solid #f59e0b;
+        background: rgba(245, 158, 11, 0.2);
+      }
+
+      [data-composition-id="scene4-map"] .point-core-amber {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #f59e0b;
+        border: 2px solid #ffffff;
+      }
+
+      [data-composition-id="scene4-map"] .callout-card {
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        padding: 12px 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        color: #ffffff;
+      }
+
+      [data-composition-id="scene4-map"] .callout-tag {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        margin-bottom: 2px;
+      }
+
+      [data-composition-id="scene4-map"] .callout-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: #f8fafc;
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const scope = '[data-composition-id="scene4-map"]';
+
+        const frame = `${scope} .browser-frame`;
+        const circle = `${scope} .coverage-circle`;
+        const glow = `${scope} .coverage-glow`;
+        const dispatchLine = `${scope} .dispatch-line`;
+        const hud = `${scope} .map-hud-card`;
+        const calloutGeofence = `${scope} .callout-geofence`;
+        const calloutRoute = `${scope} .callout-route`;
+
+        // Initial setup
+        tl.set(frame, { opacity: 0, scale: 0.98 });
+        tl.set([circle, glow], { scale: 0.2, transformOrigin: "840px 310px", opacity: 0 });
+        tl.set(dispatchLine, { strokeDashoffset: 300, opacity: 0 });
+        tl.set(hud, { opacity: 0, y: 30 });
+        tl.set([calloutGeofence, calloutRoute], { opacity: 0, scale: 0.8 });
+
+        // Scroll entrance
+        tl.to(frame, { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }, 0.2);
+
+        // Geofence circle expands
+        tl.to([circle, glow], { scale: 1, opacity: 1, duration: 1.2, ease: "power3.out" }, 0.5);
+
+        // Vector connects base to site
+        tl.to(dispatchLine, { opacity: 1, strokeDashoffset: 0, duration: 0.8, ease: "power2.out" }, 1.2);
+        tl.to(hud, { opacity: 1, y: 0, duration: 0.6, ease: "back.out(1.2)" }, 1.5);
+
+        // Camera punches in on the 20km zone
+        tl.to(frame, { scale: 1.2, transformOrigin: "52% 48%", duration: 1.4, ease: "power2.inOut" }, 1.8);
+
+        // Callouts appear
+        tl.to(calloutGeofence, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 2.4);
+        tl.to(calloutRoute, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 3.1);
+
+        // Zoom back out
+        tl.to(frame, { scale: 1, duration: 0.9, ease: "power2.inOut" }, 4.3);
+
+        // Exit Out
+        tl.to(`${scope} .canvas`, { opacity: 0, scale: 0.96, duration: 0.4, ease: "power2.in" }, 5.1);
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["scene4-map"] = tl;
+      })();
+    </script>
+  </div>
+</template>

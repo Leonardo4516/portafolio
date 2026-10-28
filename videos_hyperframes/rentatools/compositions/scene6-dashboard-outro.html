@@ -1,0 +1,491 @@
+<template id="scene6-dashboard-outro-template">
+  <div
+    data-composition-id="scene6-dashboard-outro"
+    data-width="1920"
+    data-height="1080"
+    data-duration="4.5"
+  >
+    <div class="canvas">
+      <!-- Browser Container -->
+      <div class="browser-frame">
+        <!-- Browser Top Bar -->
+        <div class="browser-chrome">
+          <div class="window-controls" data-layout-ignore="true">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="url-bar" data-layout-ignore="true">
+            <span class="lock-icon">🔒</span> https://rentatools.com.co/client/my-rentals
+          </div>
+          <div class="session-badge-top" data-layout-ignore="true">
+            👤 Ing. Cristian Muñoz (Hábitat SAS)
+          </div>
+        </div>
+
+        <!-- Dashboard Viewport -->
+        <div class="dashboard-viewport">
+          <div class="dash-header">
+            <div class="d-title-group">
+              <span class="d-tag" data-layout-ignore="true">PANEL DE GESTIÓN</span>
+              <h2 class="d-title" data-layout-allow-occlusion="true">Historial y Solicitudes de Alquiler</h2>
+            </div>
+            <div class="dash-stats">
+              <span class="stat-pill" data-layout-ignore="true">Todas (24)</span>
+              <span class="stat-pill stat-amber" data-layout-ignore="true">En Obra (13)</span>
+              <span class="stat-pill stat-green" data-layout-ignore="true">Aprobadas (2)</span>
+            </div>
+          </div>
+
+          <!-- Real Orders Table View -->
+          <div class="orders-table-card">
+            <div class="table-head-row">
+              <span class="col-id" data-layout-ignore="true"># ID</span>
+              <span class="col-equip" data-layout-ignore="true">EQUIPO &amp; DESTINO</span>
+              <span class="col-time" data-layout-ignore="true">DÍAS</span>
+              <span class="col-cost" data-layout-ignore="true">VALOR TOTAL</span>
+              <span class="col-status" data-layout-ignore="true">ESTADO</span>
+              <span class="col-action" data-layout-ignore="true">CONTRATO / ACCIONES</span>
+            </div>
+
+            <!-- Active Row -->
+            <div class="table-row row-highlight">
+              <span class="col-id r-id" data-layout-ignore="true">#1023</span>
+              <div class="col-equip">
+                <div class="r-equip-name" data-layout-ignore="true">Retroexcavadora Oruga CAT 320D</div>
+                <div class="r-equip-loc" data-layout-ignore="true">📍 Obra Puente Aranda - Torre 4</div>
+              </div>
+              <span class="col-time r-time" data-layout-ignore="true">8 días</span>
+              <span class="col-cost r-cost" data-layout-ignore="true">$11.800.000</span>
+              <div class="col-status">
+                <span class="badge-status-approved" data-layout-ignore="true">✓ Aprobada / Por Despachar</span>
+              </div>
+              <div class="col-action">
+                <div class="btn-pdf-download" data-layout-ignore="true">📄 Contrato PDF</div>
+              </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="table-row">
+              <span class="col-id r-id" data-layout-ignore="true">#1019</span>
+              <div class="col-equip">
+                <div class="r-equip-name" data-layout-ignore="true">Retroexcavadora Oruga CAT 320D</div>
+                <div class="r-equip-loc" data-layout-ignore="true">📍 Obra Tramo 2, Medellín</div>
+              </div>
+              <span class="col-time r-time" data-layout-ignore="true">9 días</span>
+              <span class="col-cost r-cost" data-layout-ignore="true">$9.385.000</span>
+              <div class="col-status">
+                <span class="badge-status-enobra" data-layout-ignore="true">En Obra</span>
+              </div>
+              <div class="col-action">
+                <div class="btn-pdf-download-sm" data-layout-ignore="true">📄 Ver Contrato</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Callout on Download Action -->
+        <div class="callout callout-pdf">
+          <div class="callout-point">
+            <span class="point-ring"></span>
+            <span class="point-core"></span>
+          </div>
+          <div class="callout-card">
+            <div class="callout-tag" data-layout-ignore="true">AUTOMATIZACIÓN DOCUMENTAL</div>
+            <div class="callout-title" data-layout-ignore="true">Generación instantánea de comprobante y contrato PDF con código QR</div>
+          </div>
+        </div>
+
+        <!-- Outro Brand Banner Overlay -->
+        <div class="final-outro-banner">
+          <div class="outro-logo-box">
+            <span class="o-renta">RENTA</span><span class="o-tools">TOOLS</span> <span class="o-pro" data-layout-ignore="true">PRO</span>
+          </div>
+          <div class="outro-tagline" data-layout-ignore="true">PLATAFORMA INDUSTRIAL B2B DE MAQUINARIA PESADA</div>
+          <div class="outro-author-row">
+            <span class="o-author" data-layout-ignore="true">Desarrollado por Leonardo • Full Stack &amp; Distributed Systems</span>
+          </div>
+          <div class="outro-gh-badge" data-layout-ignore="true">
+            <span>⚡ github.com/Leonardo4516/Proyecto_RentaHerramientas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      [data-composition-id="scene6-dashboard-outro"] .canvas {
+        width: 1920px;
+        height: 1080px;
+        background: #06080d;
+        position: relative;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .browser-frame {
+        position: absolute;
+        left: 60px;
+        top: 40px;
+        width: 1800px;
+        height: 940px;
+        background: #f8fafc;
+        border-radius: 18px;
+        box-shadow: 0 35px 80px rgba(0, 0, 0, 0.75);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .browser-chrome {
+        height: 48px;
+        background: #0f172a;
+        display: flex;
+        align-items: center;
+        padding: 0 24px;
+        gap: 20px;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .window-controls { display: flex; gap: 8px; }
+      [data-composition-id="scene6-dashboard-outro"] .dot { width: 12px; height: 12px; border-radius: 50%; }
+      [data-composition-id="scene6-dashboard-outro"] .dot-red { background: #ef4444; }
+      [data-composition-id="scene6-dashboard-outro"] .dot-yellow { background: #f59e0b; }
+      [data-composition-id="scene6-dashboard-outro"] .dot-green { background: #10b981; }
+
+      [data-composition-id="scene6-dashboard-outro"] .url-bar {
+        background: #1e293b;
+        color: #94a3b8;
+        font-family: monospace;
+        font-size: 13px;
+        padding: 6px 18px;
+        border-radius: 8px;
+        width: 450px;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .session-badge-top {
+        margin-left: auto;
+        color: #10b981;
+        font-size: 12px;
+        font-weight: 700;
+        background: rgba(16, 185, 129, 0.12);
+        padding: 4px 12px;
+        border-radius: 6px;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .dashboard-viewport {
+        padding: 40px 60px;
+        height: calc(100% - 48px);
+        background: #f8fafc;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .dash-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 24px;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .d-tag {
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        color: #00843d;
+        background: #dcfce7;
+        padding: 4px 12px;
+        border-radius: 9999px;
+        display: inline-block;
+        margin-bottom: 8px;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .d-title {
+        font-size: 34px;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        color: #0f172a;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .dash-stats {
+        display: flex;
+        gap: 10px;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .stat-pill {
+        font-size: 13px;
+        font-weight: 700;
+        padding: 6px 16px;
+        border-radius: 8px;
+        background: #e2e8f0;
+        color: #334155;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .stat-amber {
+        background: #fef3c7;
+        color: #d97706;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .stat-green {
+        background: #dcfce7;
+        color: #00843d;
+      }
+
+      /* Orders Table */
+      [data-composition-id="scene6-dashboard-outro"] .orders-table-card {
+        background: #ffffff;
+        border-radius: 16px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .table-head-row {
+        background: #f1f5f9;
+        display: flex;
+        padding: 16px 24px;
+        font-size: 12px;
+        font-weight: 800;
+        color: #64748b;
+        letter-spacing: 0.08em;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .table-row {
+        display: flex;
+        padding: 18px 24px;
+        align-items: center;
+        border-bottom: 1px solid #f1f5f9;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .row-highlight {
+        background: #f0fdf4;
+        border-left: 4px solid #00843d;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .col-id { width: 90px; }
+      [data-composition-id="scene6-dashboard-outro"] .col-equip { flex: 1.5; }
+      [data-composition-id="scene6-dashboard-outro"] .col-time { width: 100px; }
+      [data-composition-id="scene6-dashboard-outro"] .col-cost { width: 140px; }
+      [data-composition-id="scene6-dashboard-outro"] .col-status { width: 220px; }
+      [data-composition-id="scene6-dashboard-outro"] .col-action { width: 160px; }
+
+      [data-composition-id="scene6-dashboard-outro"] .r-id {
+        font-family: monospace;
+        font-weight: 800;
+        color: #00843d;
+        font-size: 14px;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .r-equip-name {
+        font-size: 15px;
+        font-weight: 800;
+        color: #0f172a;
+        margin-bottom: 2px;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .r-equip-loc {
+        font-size: 12px;
+        color: #64748b;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .r-time {
+        font-weight: 700;
+        color: #334155;
+        font-size: 14px;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .r-cost {
+        font-weight: 800;
+        color: #0f172a;
+        font-size: 15px;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .badge-status-approved {
+        background: #dcfce7;
+        color: #00843d;
+        font-weight: 800;
+        font-size: 12px;
+        padding: 6px 14px;
+        border-radius: 9999px;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .badge-status-enobra {
+        background: #fef3c7;
+        color: #d97706;
+        font-weight: 700;
+        font-size: 12px;
+        padding: 6px 14px;
+        border-radius: 9999px;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .btn-pdf-download {
+        background: #00843d;
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 8px 16px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 132, 61, 0.25);
+        display: inline-block;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .btn-pdf-download-sm {
+        border: 1px solid #cbd5e1;
+        color: #475569;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 6px 12px;
+        border-radius: 6px;
+        display: inline-block;
+      }
+
+      /* Callout */
+      [data-composition-id="scene6-dashboard-outro"] .callout {
+        position: absolute;
+        top: 280px;
+        right: 180px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        z-index: 50;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .callout-point {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .point-ring {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 2px solid #00843d;
+        background: rgba(0, 132, 61, 0.2);
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .point-core {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #00843d;
+        border: 2px solid #ffffff;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .callout-card {
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        padding: 12px 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        color: #ffffff;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .callout-tag {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        color: #34d399;
+        margin-bottom: 2px;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .callout-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: #f8fafc;
+      }
+
+      /* Final Outro Banner */
+      [data-composition-id="scene6-dashboard-outro"] .final-outro-banner {
+        position: absolute;
+        inset: 0;
+        background: rgba(6, 8, 13, 0.95);
+        backdrop-filter: blur(24px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 80;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .outro-logo-box {
+        font-size: 72px;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        margin-bottom: 12px;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .o-renta { color: #ffffff; }
+      [data-composition-id="scene6-dashboard-outro"] .o-tools { color: #00843d; }
+      [data-composition-id="scene6-dashboard-outro"] .o-pro {
+        font-size: 32px;
+        vertical-align: super;
+        background: #f59e0b;
+        color: #06080d;
+        padding: 4px 14px;
+        border-radius: 8px;
+        font-weight: 900;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .outro-tagline {
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        color: #cbd5e1;
+        margin-bottom: 24px;
+        text-transform: uppercase;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .outro-author-row {
+        font-size: 14px;
+        color: #94a3b8;
+        margin-bottom: 28px;
+      }
+
+      [data-composition-id="scene6-dashboard-outro"] .outro-gh-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background: #0f172a;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 12px;
+        padding: 14px 28px;
+        font-family: monospace;
+        font-size: 15px;
+        color: #38bdf8;
+        font-weight: 700;
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const scope = '[data-composition-id="scene6-dashboard-outro"]';
+
+        const frame = `${scope} .browser-frame`;
+        const calloutPdf = `${scope} .callout-pdf`;
+        const outroBanner = `${scope} .final-outro-banner`;
+
+        // Initial setup
+        tl.set(frame, { opacity: 0, scale: 0.98 });
+        tl.set(calloutPdf, { opacity: 0, scale: 0.8 });
+        tl.set(outroBanner, { opacity: 0, scale: 0.92 });
+
+        // Table entrance
+        tl.to(frame, { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" }, 0.2);
+
+        // Callout appears pointing to PDF contract
+        tl.to(calloutPdf, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 0.6);
+
+        // Outro banner fades in over the dashboard to close the film
+        tl.to(outroBanner, { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }, 1.6);
+
+        // Hold until 4.5s
+        window.__timelines = window.__timelines || {};
+        window.__timelines["scene6-dashboard-outro"] = tl;
+      })();
+    </script>
+  </div>
+</template>

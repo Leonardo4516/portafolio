@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1920, height=1080" />
-    <title>RentaTools Pro - Showcase Video</title>
+    <title>RentaTools PRO - Product Walkthrough Demo</title>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=block"
@@ -21,7 +21,7 @@
         width: 1920px;
         height: 1080px;
         overflow: hidden;
-        background: #08090d;
+        background: #06080d;
         font-family: "Inter", sans-serif;
       }
       .scene {
@@ -33,25 +33,25 @@
       }
       .caption-text-wrapper {
         position: absolute;
-        bottom: 80px;
+        bottom: 45px;
         left: 0;
         right: 0;
         display: flex;
         justify-content: center;
         pointer-events: none;
-        z-index: 50;
+        z-index: 90;
       }
       .caption-pill {
-        background: rgba(8, 10, 16, 0.9);
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-        padding: 14px 36px;
+        background: rgba(8, 10, 16, 0.92);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.85);
+        padding: 14px 40px;
         border-radius: 9999px;
-        backdrop-filter: blur(12px);
+        backdrop-filter: blur(16px);
       }
       .caption-line {
         color: #ffffff;
-        font-size: 32px;
+        font-size: 30px;
         font-weight: 700;
         letter-spacing: -0.01em;
         text-align: center;
@@ -65,59 +65,31 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="20"
+      data-duration="30"
       data-width="1920"
       data-height="1080"
     >
-      <!-- Scene 1: Hero Intro (CAT 320D & Specs) -->
+      <!-- Scene 1: Hero & 3D WebGL Inspection -->
       <div
         id="scene-1"
         class="scene"
-        data-composition-id="scene1-hero-intro"
-        data-composition-src="compositions/scene1-hero-intro.html"
+        data-composition-id="scene1-hero-3d"
+        data-composition-src="compositions/scene1-hero-3d.html"
         data-start="0"
-        data-duration="4.5"
+        data-duration="5"
         data-track-index="1"
         data-track-kind="graphics"
         data-width="1920"
         data-height="1080"
       ></div>
 
-      <!-- Scene 2: GIS Map & Geofencing -->
+      <!-- Scene 2: Login & Roles RBAC -->
       <div
         id="scene-2"
         class="scene"
-        data-composition-id="scene2-gis-map"
-        data-composition-src="compositions/scene2-gis-map.html"
-        data-start="4.5"
-        data-duration="5.5"
-        data-track-index="1"
-        data-track-kind="graphics"
-        data-width="1920"
-        data-height="1080"
-      ></div>
-
-      <!-- Scene 3: Catalog & Anti-Collision Booking -->
-      <div
-        id="scene-3"
-        class="scene"
-        data-composition-id="scene3-catalog-booking"
-        data-composition-src="compositions/scene3-catalog-booking.html"
-        data-start="10"
-        data-duration="5.5"
-        data-track-index="1"
-        data-track-kind="graphics"
-        data-width="1920"
-        data-height="1080"
-      ></div>
-
-      <!-- Scene 4: Hexagonal Architecture DDD & Outro -->
-      <div
-        id="scene-4"
-        class="scene"
-        data-composition-id="scene4-architecture-outro"
-        data-composition-src="compositions/scene4-architecture-outro.html"
-        data-start="15.5"
+        data-composition-id="scene2-login"
+        data-composition-src="compositions/scene2-login.html"
+        data-start="5"
         data-duration="4.5"
         data-track-index="1"
         data-track-kind="graphics"
@@ -125,20 +97,76 @@
         data-height="1080"
       ></div>
 
-      <!-- Synchronized Dynamic Captions -->
+      <!-- Scene 3: Catalog & Machinery Specs -->
+      <div
+        id="scene-3"
+        class="scene"
+        data-composition-id="scene3-catalog"
+        data-composition-src="compositions/scene3-catalog.html"
+        data-start="9.5"
+        data-duration="5.5"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <!-- Scene 4: GIS Map & Geofencing -->
+      <div
+        id="scene-4"
+        class="scene"
+        data-composition-id="scene4-map"
+        data-composition-src="compositions/scene4-map.html"
+        data-start="15"
+        data-duration="5.5"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <!-- Scene 5: Reservation & Anti-Collision Check -->
+      <div
+        id="scene-5"
+        class="scene"
+        data-composition-id="scene5-reservation"
+        data-composition-src="compositions/scene5-reservation.html"
+        data-start="20.5"
+        data-duration="5"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <!-- Scene 6: Dashboard, PDF Contract & Outro -->
+      <div
+        id="scene-6"
+        class="scene"
+        data-composition-id="scene6-dashboard-outro"
+        data-composition-src="compositions/scene6-dashboard-outro.html"
+        data-start="25.5"
+        data-duration="4.5"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <!-- Synchronized Descriptive Captions -->
       <div
         id="captions-comp"
         data-track-kind="captions"
         data-composition-id="captions"
         data-start="0"
-        data-duration="20"
+        data-duration="30"
         data-track-index="2"
         data-width="1920"
         data-height="1080"
       >
         <div class="caption-text-wrapper">
           <div class="caption-pill">
-            <div id="caption-text" class="caption-line">RentaTools Pro: Marketplace B2B de maquinaria pesada.</div>
+            <div id="caption-text" class="caption-line">1. RentaTools permite inspeccionar maquinaria pesada en 3D y consultar disponibilidad en tiempo real.</div>
           </div>
         </div>
 
@@ -147,25 +175,35 @@
             const tl = gsap.timeline({ paused: true });
             const text = document.querySelector("#caption-text");
 
-            // Caption 1: 0.5s - 4.1s
-            tl.set(text, { innerText: "RentaTools Pro: Marketplace B2B de maquinaria pesada en tiempo real.", y: 20 }, 0.4);
-            tl.to(text, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.4);
-            tl.to(text, { opacity: 0, y: -15, duration: 0.3, ease: "power2.in" }, 4.1);
+            // Caption 1: 0.4s - 4.6s
+            tl.set(text, { innerText: "1. RentaTools permite inspeccionar maquinaria pesada en 3D y consultar disponibilidad en tiempo real.", y: 20 }, 0.3);
+            tl.to(text, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.4);
+            tl.to(text, { opacity: 0, y: -15, duration: 0.3, ease: "power2.in" }, 4.6);
 
-            // Caption 2: 4.6s - 9.6s
-            tl.set(text, { innerText: "Geolocalización en vivo y despacho inteligente con radio de cobertura de 20 km.", y: 20 }, 4.6);
-            tl.to(text, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 4.6);
-            tl.to(text, { opacity: 0, y: -15, duration: 0.3, ease: "power2.in" }, 9.6);
+            // Caption 2: 5.2s - 9.1s
+            tl.set(text, { innerText: "2. Inicio de sesión ágil con control de acceso por roles para contratistas, proveedores y administradores.", y: 20 }, 5.1);
+            tl.to(text, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 5.2);
+            tl.to(text, { opacity: 0, y: -15, duration: 0.3, ease: "power2.in" }, 9.1);
 
-            // Caption 3: 10.1s - 15.1s
-            tl.set(text, { innerText: "Validación concurrente de disponibilidad y prevención estricta de solapes.", y: 20 }, 10.1);
-            tl.to(text, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 10.1);
-            tl.to(text, { opacity: 0, y: -15, duration: 0.3, ease: "power2.in" }, 15.1);
+            // Caption 3: 9.8s - 14.6s
+            tl.set(text, { innerText: "3. Catálogo con especificaciones de rendimiento, tarifas claras y estado real de cada unidad.", y: 20 }, 9.7);
+            tl.to(text, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 9.8);
+            tl.to(text, { opacity: 0, y: -15, duration: 0.3, ease: "power2.in" }, 14.6);
 
-            // Caption 4: 15.6s - 19.6s
-            tl.set(text, { innerText: "Arquitectura hexagonal en Java 21 y Spring Boot 3.4 lista para producción.", y: 20 }, 15.6);
-            tl.to(text, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 15.6);
-            tl.to(text, { opacity: 0, y: -15, duration: 0.4, ease: "power2.in" }, 19.6);
+            // Caption 4: 15.2s - 20.1s
+            tl.set(text, { innerText: "4. Geolocalización automática que valida si la obra está dentro del radio de entrega de 20 km.", y: 20 }, 15.1);
+            tl.to(text, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 15.2);
+            tl.to(text, { opacity: 0, y: -15, duration: 0.3, ease: "power2.in" }, 20.1);
+
+            // Caption 5: 20.7s - 25.1s
+            tl.set(text, { innerText: "5. Reserva algorítmica sin solapes: impide que dos contratistas alquilen el mismo equipo en fechas idénticas.", y: 20 }, 20.6);
+            tl.to(text, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 20.7);
+            tl.to(text, { opacity: 0, y: -15, duration: 0.3, ease: "power2.in" }, 25.1);
+
+            // Caption 6: 25.7s - 29.6s
+            tl.set(text, { innerText: "6. Control total de la orden con emisión inmediata de comprobantes y contratos oficiales en PDF.", y: 20 }, 25.6);
+            tl.to(text, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 25.7);
+            tl.to(text, { opacity: 0, y: -15, duration: 0.4, ease: "power2.in" }, 29.6);
 
             window.__timelines = window.__timelines || {};
             window.__timelines["captions"] = tl;
