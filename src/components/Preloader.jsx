@@ -102,7 +102,7 @@ export default function Preloader({ onComplete }) {
       <div 
         className="absolute w-[500px] h-[500px] rounded-full pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(239, 68, 68, 0.16) 0%, rgba(153, 27, 27, 0.05) 45%, transparent 70%)'
+          background: 'radial-gradient(circle, rgba(242, 166, 90, 0.16) 0%, rgba(79, 184, 175, 0.05) 45%, transparent 70%)'
         }}
       />
 
@@ -125,7 +125,7 @@ export default function Preloader({ onComplete }) {
             transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
             className="absolute inset-0 pointer-events-none"
           >
-            <svg viewBox="0 0 200 200" className="w-full h-full text-red-500/25">
+            <svg viewBox="0 0 200 200" className="w-full h-full text-amber-500/25">
               <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="3 6" />
               <circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="1 4" opacity="0.6" />
               {/* Compass ticks */}
@@ -142,7 +142,7 @@ export default function Preloader({ onComplete }) {
             transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
             className="absolute inset-4 pointer-events-none opacity-40"
           >
-            <svg viewBox="0 0 160 160" className="w-full h-full text-red-400">
+            <svg viewBox="0 0 160 160" className="w-full h-full text-amber-400">
               <circle cx="80" cy="80" r="76" fill="none" stroke="currentColor" strokeWidth="0.8" strokeDasharray="8 8" />
               <rect x="26" y="26" width="108" height="108" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.35" />
             </svg>
@@ -152,7 +152,7 @@ export default function Preloader({ onComplete }) {
           <motion.div 
             animate={{ scale: [0.96, 1.04, 0.96], opacity: [0.4, 0.7, 0.4] }}
             transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute inset-8 rounded-full bg-red-600/15 filter blur-xl pointer-events-none"
+            className="absolute inset-8 rounded-full bg-amber-600/15 filter blur-xl pointer-events-none"
           />
 
           {/* High-Resolution Vitruvian Man Logo */}
@@ -174,12 +174,12 @@ export default function Preloader({ onComplete }) {
           className="space-y-1 mb-6"
         >
           <div className="flex items-center justify-center gap-2">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" />
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-500 animate-ping" />
             <span className="text-[11px] font-mono tracking-[0.35em] text-neutral-400 uppercase font-semibold">
               LEONARDO HERNÁNDEZ
             </span>
           </div>
-          <p className="text-[10px] font-mono tracking-[0.25em] text-red-500 uppercase">
+          <p className="text-[10px] font-mono tracking-[0.25em] text-amber-500 uppercase">
             SOFTWARE ENGINEER // VITRUVIAN CODE
           </p>
         </motion.div>
@@ -188,20 +188,20 @@ export default function Preloader({ onComplete }) {
         <div className="w-64 sm:w-72 space-y-3">
           <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400">
             <span className="text-neutral-500 text-[10px] tracking-widest flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping inline-block" />
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-ping inline-block" />
               SYSTEM LOAD
             </span>
-            <span className="text-red-400 font-bold font-mono tracking-wider tabular-nums">{Math.round(progress)}%</span>
+            <span className="text-amber-400 font-bold font-mono tracking-wider tabular-nums">{Math.round(progress)}%</span>
           </div>
 
           {/* High-tech Crimson Loading Bar with Active Fluid Motion */}
-          <div className="relative h-2 w-full bg-neutral-950 rounded-full overflow-hidden border border-red-500/35 p-[1px] shadow-[inset_0_1px_4px_rgba(0,0,0,0.9),0_0_15px_rgba(239,68,68,0.15)]">
+          <div className="relative h-2 w-full bg-neutral-950 rounded-full overflow-hidden border border-amber-500/35 p-[1px] shadow-[inset_0_1px_4px_rgba(0,0,0,0.9),0_0_15px_rgba(242, 166, 90,0.15)]">
             
             {/* Ambient Background Track Pulse */}
             <motion.div 
               animate={{ x: ['-100%', '200%'] }}
               transition={{ repeat: Infinity, duration: 1.8, ease: 'linear' }}
-              className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-red-600/20 to-transparent pointer-events-none"
+              className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-amber-600/20 to-transparent pointer-events-none"
             />
 
             {/* Filled Progress Bar with Continuous Traveling Energy Shimmer */}
@@ -209,7 +209,7 @@ export default function Preloader({ onComplete }) {
               className="h-full rounded-full relative overflow-hidden"
               style={{ 
                 width: `${progress.toFixed(2)}%`,
-                background: 'linear-gradient(90deg, #991b1b 0%, #ef4444 60%, #ff2a4d 100%)',
+                background: 'linear-gradient(90deg, #991b1b 0%, #f2a65a 60%, #ff2a4d 100%)',
                 boxShadow: '0 0 14px rgba(255, 26, 64, 0.75)'
               }}
             >

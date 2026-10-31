@@ -63,8 +63,8 @@ export default function Scene3D() {
     <>
       <ambientLight intensity={0.4} />
       {/* Optimized Crimson Point Lights */}
-      <pointLight position={[4, 4, 4]} intensity={2.8} color="#ff1a40" />
-      <pointLight position={[-4, -4, -2]} intensity={2.0} color="#991b1b" />
+      <pointLight position={[4, 4, 4]} intensity={2.8} color="#f2a65a" />
+      <pointLight position={[-4, -4, -2]} intensity={2.0} color="#4fb8af" />
 
       {/* Ultra-lightweight particle ambiance for zero mobile lag */}
       <Sparkles 
@@ -73,7 +73,7 @@ export default function Scene3D() {
         size={2.2} 
         speed={0.35} 
         opacity={0.5} 
-        color="#ff1a40" 
+        color="#f2a65a" 
       />
 
       <Float speed={1.5} rotationIntensity={0.3} floatIntensity={0.5}>
@@ -93,8 +93,8 @@ export default function Scene3D() {
           <mesh ref={ringRef1}>
             <torusGeometry args={[1.5, 0.02, 10, 36]} />
             <meshStandardMaterial 
-              color="#ff1a40" 
-              emissive="#ff1a40" 
+              color="#f2a65a" 
+              emissive="#f2a65a" 
               emissiveIntensity={1.3}
               wireframe 
             />
@@ -104,8 +104,8 @@ export default function Scene3D() {
           <mesh ref={ringRef2}>
             <icosahedronGeometry args={[1.85, 1]} />
             <meshStandardMaterial 
-              color="#991b1b" 
-              emissive="#ef4444" 
+              color="#4fb8af" 
+              emissive="#f2a65a" 
               emissiveIntensity={0.8}
               wireframe 
               transparent 

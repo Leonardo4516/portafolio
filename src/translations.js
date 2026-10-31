@@ -14,7 +14,7 @@ export const translations = {
       greeting: "Hola, soy",
       name: "Leonardo Hernández",
       role: "Desarrollador de Software Junior",
-      education: "Desarrollador Junior • Java & SQL",
+      education: "Técnico en Desarrollo de Software · Campuslands",
       typewriterRoles: [
         "Desarrollador de Software Junior",
         "Backend & Java Developer",
@@ -52,6 +52,21 @@ export const translations = {
           desc: "Ingeniería de prompts estructurada y flujos agénticos para verificación de sintaxis, análisis de casos de prueba y automatizaciones con n8n."
         }
       ],
+      experience: {
+        badge: "TRAYECTORIA PROFESIONAL",
+        title: "Experiencia y",
+        titleHighlight: "Formación",
+        cv: "Descargar CV (PDF)",
+        jobs: [
+          { date: "Jul – Ago 2026", role: "Desarrollador Backend", company: "Sica Project", desc: "Sistema de control de acceso vehicular y peatonal con RBAC. Java, PostgreSQL en Docker y pruebas automatizadas con JUnit 5." },
+          { date: "Sep 2026", role: "Desarrollador Backend, PostgreSQL y PL/pgSQL", company: "Datos geográficos (world_db)", desc: "Automatización de volcado, ingesta masiva y normalización de datos. Funciones para reglas de negocio e integridad referencial en Docker." },
+          { date: "Mar 2026", role: "Desarrollador Backend", company: "Acme Bank", desc: "Portal bancario modular con Web Components nativos en JavaScript vanilla. Validaciones en tiempo real y persistencia de sesión con Storage API." }
+        ],
+        education: [
+          { date: "Dic 2025 – Nov 2026", title: "Técnico en Desarrollo de Software", company: "Campuslands · Zona Franca, Santander" },
+          { date: "Nov 2025", title: "Bachiller", company: "Instituto Promoción Social · Piedecuesta, Santander" }
+        ]
+      },
       standardsBadge: "ESTÁNDARES DE INGENIERÍA",
       standardsTitle: "Principios de Desarrollo & Calidad de Código",
       standardsDesc: "Criterios técnicos aplicados consistentemente en cada proyecto de software:",
@@ -250,7 +265,7 @@ export const translations = {
       greeting: "Hello, I am",
       name: "Leonardo Hernández",
       role: "Junior Software Developer",
-      education: "Junior Developer • Java & SQL",
+      education: "Software Development Technician · Campuslands",
       typewriterRoles: [
         "Junior Software Developer",
         "Backend & Java Developer",
@@ -288,6 +303,21 @@ export const translations = {
           desc: "Structured prompt engineering and agentic workflows for syntax review, test-case planning, and process automations with n8n."
         }
       ],
+      experience: {
+        badge: "PROFESSIONAL PATH",
+        title: "Experience &",
+        titleHighlight: "Education",
+        cv: "Download CV (PDF)",
+        jobs: [
+          { date: "Jul – Aug 2026", role: "Backend Developer", company: "Sica Project", desc: "Vehicle and pedestrian access control system with RBAC. Java, PostgreSQL in Docker and automated tests with JUnit 5." },
+          { date: "Sep 2026", role: "Backend Developer, PostgreSQL & PL/pgSQL", company: "Geographic data (world_db)", desc: "Dump automation, bulk ingestion and data normalization. Functions enforcing business rules and referential integrity in Docker." },
+          { date: "Mar 2026", role: "Backend Developer", company: "Acme Bank", desc: "Modular banking portal built with native Web Components in vanilla JavaScript. Real-time validation and session persistence with the Storage API." }
+        ],
+        education: [
+          { date: "Dec 2025 – Nov 2026", title: "Software Development Technician", company: "Campuslands · Zona Franca, Santander" },
+          { date: "Nov 2025", title: "High School Diploma", company: "Instituto Promoción Social · Piedecuesta, Santander" }
+        ]
+      },
       standardsBadge: "ENGINEERING STANDARDS",
       standardsTitle: "Development Principles & Code Quality",
       standardsDesc: "Technical criteria consistently applied across software projects:",

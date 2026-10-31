@@ -20,12 +20,12 @@
   background: #08080a;
 }
 ::-webkit-scrollbar-thumb {
-  background: #26050a;
+  background: #2a1a0c;
   border-radius: 4px;
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  border: 1px solid rgba(242, 166, 90, 0.3);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #ef4444;
+  background: #f2a65a;
 }
 
 /* Mobile Hardware Acceleration & Zero-Delay Optimization */

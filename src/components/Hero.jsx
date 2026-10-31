@@ -62,9 +62,21 @@ export default function Hero() {
           transition={{ duration: 0.7, ease: 'easeOut' }}
           className="text-center flex flex-col items-center"
         >
+          {/* Foto de perfil con marco de acento */}
+          <div className="relative mb-7">
+            <div className="absolute -inset-2 rounded-full bg-gradient-to-tr from-amber-400 via-amber-500/0 to-teal-400 opacity-70 blur-md" aria-hidden="true" />
+            <img
+              src="/img/leonardo.jpeg"
+              alt="Leonardo Hernández"
+              width="128"
+              height="128"
+              className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-2 border-neutral-950 ring-2 ring-amber-400/80"
+            />
+          </div>
+
           {/* Top pill badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-950/90 border border-red-500/40 text-[11px] sm:text-xs font-mono text-red-300 mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(239,68,68,0.2)]">
-            <Sparkles className="w-3.5 h-3.5 text-red-400 animate-spin" style={{ animationDuration: '9s' }} />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-950/90 border border-amber-500/40 text-[11px] sm:text-xs font-mono text-amber-300 mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(242, 166, 90,0.2)]">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-spin" style={{ animationDuration: '9s' }} />
             <span>{t.hero.badge}</span>
           </div>
 
@@ -73,28 +85,27 @@ export default function Hero() {
             <span className="block text-neutral-200 text-2xl sm:text-4xl md:text-5xl font-light mb-1">
               {t.hero.greeting}
             </span>
-            <span className="bg-gradient-to-r from-red-500 via-rose-400 to-red-600 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(239,68,68,0.4)]">
+            <span className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(242, 166, 90,0.4)]">
               {t.hero.name}
             </span>
           </h1>
 
           {/* Role + Education Subtitle */}
-          <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm font-mono text-red-300 mb-6 max-w-full px-2">
-            <span className="px-2.5 py-1 rounded-md bg-red-500/10 border border-red-500/30 text-red-300 font-semibold whitespace-nowrap">
+          <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm font-mono text-amber-300 mb-6 max-w-full px-2">
+            <span className="px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-300 font-semibold whitespace-nowrap">
               {t.hero.role}
             </span>
-            <span className="text-neutral-600 hidden xs:inline">•</span>
             <span className="flex items-center gap-1.5 text-neutral-300 text-center">
-              <GraduationCap className="w-3.5 h-3.5 text-red-400 shrink-0" />
+              <GraduationCap className="w-3.5 h-3.5 text-amber-400 shrink-0" />
               <span>{t.hero.education}</span>
             </span>
           </div>
 
           {/* Typewriter role */}
-          <div className="h-10 sm:h-12 flex items-center justify-center font-mono text-base sm:text-xl md:text-2xl text-red-300/90 mb-8 max-w-full px-2 text-center">
-            <span className="text-rose-500 mr-2">&gt;</span>
+          <div className="h-10 sm:h-12 flex items-center justify-center font-mono text-base sm:text-xl md:text-2xl text-amber-300/90 mb-8 max-w-full px-2 text-center">
+            <span className="text-teal-500 mr-2">&gt;</span>
             <span className="truncate">{displayText}</span>
-            <span className="w-2.5 h-5 sm:h-6 bg-red-500 ml-1 inline-block animate-pulse"></span>
+            <span className="w-2.5 h-5 sm:h-6 bg-amber-500 ml-1 inline-block animate-pulse"></span>
           </div>
 
           {/* Description */}
@@ -107,7 +118,7 @@ export default function Hero() {
             <a
               href="#proyectos"
               onClick={(e) => handleScrollTo(e, '#proyectos')}
-              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-500 text-white font-semibold font-mono text-xs sm:text-sm tracking-wide shadow-[0_0_25px_rgba(239,68,68,0.4)] hover:shadow-[0_0_35px_rgba(239,68,68,0.6)] transition-all duration-200 transform hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer"
+              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-amber-600 via-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-500 text-neutral-950 font-semibold font-mono text-xs sm:text-sm tracking-wide shadow-[0_0_25px_rgba(242, 166, 90,0.4)] hover:shadow-[0_0_35px_rgba(242, 166, 90,0.6)] transition-all duration-200 transform hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer"
             >
               <span>{t.hero.btnProjects}</span>
               <ArrowRight className="w-4 h-4" />
@@ -116,32 +127,32 @@ export default function Hero() {
             <a
               href="#metodologia"
               onClick={(e) => handleScrollTo(e, '#metodologia')}
-              className="flex items-center gap-2 px-5 py-3 rounded-xl bg-neutral-950/80 hover:bg-neutral-900 border border-neutral-800 hover:border-red-500/50 text-neutral-200 font-mono text-xs sm:text-sm tracking-wide backdrop-blur-md transition-colors duration-200 active:scale-[0.98] shadow-[0_0_15px_rgba(239,68,68,0.1)] hover:shadow-[0_0_20px_rgba(239,68,68,0.25)] cursor-pointer"
+              className="flex items-center gap-2 px-5 py-3 rounded-xl bg-neutral-950/80 hover:bg-neutral-900 border border-neutral-800 hover:border-amber-500/50 text-neutral-200 font-mono text-xs sm:text-sm tracking-wide backdrop-blur-md transition-colors duration-200 active:scale-[0.98] shadow-[0_0_15px_rgba(242, 166, 90,0.1)] hover:shadow-[0_0_20px_rgba(242, 166, 90,0.25)] cursor-pointer"
             >
-              <Workflow className="w-4 h-4 text-red-400" />
+              <Workflow className="w-4 h-4 text-amber-400" />
               <span>{t.hero.btnWorkflow}</span>
             </a>
           </div>
 
           {/* Micro stats banner */}
           <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full max-w-3xl px-2">
-            <div className="bg-neutral-950/70 backdrop-blur-md border border-neutral-800/80 hover:border-red-500/30 rounded-xl p-3 sm:p-4 text-center transition-colors">
-              <Code2 className="w-4 h-4 sm:w-5 sm:h-5 text-red-400 mx-auto mb-1.5" />
+            <div className="bg-neutral-950/70 backdrop-blur-md border border-neutral-800/80 hover:border-amber-500/30 rounded-xl p-3 sm:p-4 text-center transition-colors">
+              <Code2 className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 mx-auto mb-1.5" />
               <div className="text-base sm:text-lg font-bold font-mono text-white">{t.hero.stats[0].value}</div>
               <div className="text-[10px] sm:text-xs font-mono text-neutral-400">{t.hero.stats[0].label}</div>
             </div>
-            <div className="bg-neutral-950/70 backdrop-blur-md border border-neutral-800/80 hover:border-red-500/30 rounded-xl p-3 sm:p-4 text-center transition-colors">
-              <Database className="w-4 h-4 sm:w-5 sm:h-5 text-rose-500 mx-auto mb-1.5" />
+            <div className="bg-neutral-950/70 backdrop-blur-md border border-neutral-800/80 hover:border-amber-500/30 rounded-xl p-3 sm:p-4 text-center transition-colors">
+              <Database className="w-4 h-4 sm:w-5 sm:h-5 text-teal-500 mx-auto mb-1.5" />
               <div className="text-base sm:text-lg font-bold font-mono text-white">{t.hero.stats[1].value}</div>
               <div className="text-[10px] sm:text-xs font-mono text-neutral-400">{t.hero.stats[1].label}</div>
             </div>
-            <div className="bg-neutral-950/70 backdrop-blur-md border border-neutral-800/80 hover:border-red-500/30 rounded-xl p-3 sm:p-4 text-center transition-colors">
-              <Cpu className="w-4 h-4 sm:w-5 sm:h-5 text-red-400 mx-auto mb-1.5" />
+            <div className="bg-neutral-950/70 backdrop-blur-md border border-neutral-800/80 hover:border-amber-500/30 rounded-xl p-3 sm:p-4 text-center transition-colors">
+              <Cpu className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 mx-auto mb-1.5" />
               <div className="text-base sm:text-lg font-bold font-mono text-white">{t.hero.stats[2].value}</div>
               <div className="text-[10px] sm:text-xs font-mono text-neutral-400">{t.hero.stats[2].label}</div>
             </div>
-            <div className="bg-neutral-950/70 backdrop-blur-md border border-neutral-800/80 hover:border-red-500/30 rounded-xl p-3 sm:p-4 text-center transition-colors">
-              <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-rose-400 mx-auto mb-1.5" />
+            <div className="bg-neutral-950/70 backdrop-blur-md border border-neutral-800/80 hover:border-amber-500/30 rounded-xl p-3 sm:p-4 text-center transition-colors">
+              <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-teal-400 mx-auto mb-1.5" />
               <div className="text-base sm:text-lg font-bold font-mono text-white">{t.hero.stats[3].value}</div>
               <div className="text-[10px] sm:text-xs font-mono text-neutral-400">{t.hero.stats[3].label}</div>
             </div>
@@ -152,14 +163,14 @@ export default function Hero() {
             onClick={(e) => handleScrollTo(e, '#sobre-mi')}
             className="mt-12 flex flex-col items-center gap-2 opacity-50 hover:opacity-100 transition-opacity cursor-pointer group"
           >
-            <span className="text-[10px] font-mono tracking-widest uppercase text-neutral-400 group-hover:text-red-400 transition-colors">
+            <span className="text-[10px] font-mono tracking-widest uppercase text-neutral-400 group-hover:text-amber-400 transition-colors">
               {t.hero.scrollCue || 'Explorar'}
             </span>
-            <div className="w-5 h-8 rounded-full border border-neutral-700 group-hover:border-red-500/60 p-1 flex justify-center transition-colors">
+            <div className="w-5 h-8 rounded-full border border-neutral-700 group-hover:border-amber-500/60 p-1 flex justify-center transition-colors">
               <motion.div
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-                className="w-1.5 h-1.5 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"
+                className="w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(242, 166, 90,0.8)]"
               />
             </div>
           </div>

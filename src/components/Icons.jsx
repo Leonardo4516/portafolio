@@ -12,7 +12,7 @@ export function BrandLogo({ className = "w-7 h-7", showGlow = true }) {
         {/* Primary Crimson Red Linear Gradient */}
         <linearGradient id="vitruviusRedGrad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#ff2a4d" />
-          <stop offset="50%" stopColor="#ef4444" />
+          <stop offset="50%" stopColor="#f2a65a" />
           <stop offset="100%" stopColor="#991b1b" />
         </linearGradient>
 
@@ -51,7 +51,7 @@ export function BrandLogo({ className = "w-7 h-7", showGlow = true }) {
         cx="50" 
         cy="50" 
         r="47.5" 
-        stroke="#ef4444" 
+        stroke="#f2a65a" 
         strokeWidth="0.5" 
         strokeDasharray="1 3"
         opacity="0.3"
@@ -80,18 +80,18 @@ export function BrandLogo({ className = "w-7 h-7", showGlow = true }) {
       />
 
       {/* Architectural Corner Registration Crosshairs */}
-      <path d="M12 15H18 M15 12V18" stroke="#ef4444" strokeWidth="0.8" opacity="0.7" />
-      <path d="M82 15H88 M85 12V18" stroke="#ef4444" strokeWidth="0.8" opacity="0.7" />
-      <path d="M12 85H18 M15 82V88" stroke="#ef4444" strokeWidth="0.8" opacity="0.7" />
-      <path d="M82 85H88 M85 82V88" stroke="#ef4444" strokeWidth="0.8" opacity="0.7" />
+      <path d="M12 15H18 M15 12V18" stroke="#f2a65a" strokeWidth="0.8" opacity="0.7" />
+      <path d="M82 15H88 M85 12V18" stroke="#f2a65a" strokeWidth="0.8" opacity="0.7" />
+      <path d="M12 85H18 M15 82V88" stroke="#f2a65a" strokeWidth="0.8" opacity="0.7" />
+      <path d="M82 85H88 M85 82V88" stroke="#f2a65a" strokeWidth="0.8" opacity="0.7" />
 
       {/* Central Axis Precision Grid */}
       <line x1="50" y1="2" x2="50" y2="98" stroke="url(#vitruviusRedGrad)" strokeWidth="0.6" strokeDasharray="3 3" opacity="0.4" />
       <line x1="2" y1="50" x2="98" y2="50" stroke="url(#vitruviusRedGrad)" strokeWidth="0.6" strokeDasharray="3 3" opacity="0.4" />
 
       {/* Diagonal Golden Ratio Sightlines */}
-      <line x1="15" y1="15" x2="85" y2="85" stroke="#ef4444" strokeWidth="0.4" strokeDasharray="2 4" opacity="0.25" />
-      <line x1="85" y1="15" x2="15" y2="85" stroke="#ef4444" strokeWidth="0.4" strokeDasharray="2 4" opacity="0.25" />
+      <line x1="15" y1="15" x2="85" y2="85" stroke="#f2a65a" strokeWidth="0.4" strokeDasharray="2 4" opacity="0.25" />
+      <line x1="85" y1="15" x2="15" y2="85" stroke="#f2a65a" strokeWidth="0.4" strokeDasharray="2 4" opacity="0.25" />
 
       {/* ================================================================= */}
       {/* 2. ANATOMICAL SILHOUETTES (Muscular mass & definition - No stickman) */}

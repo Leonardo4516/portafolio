@@ -17,7 +17,7 @@ import Preloader from './components/Preloader'
 function PortfolioContent() {
   const [isLoading, setIsLoading] = useState(true)
   const [showBackToTop, setShowBackToTop] = useState(false)
-  const [canvasOpacity, setCanvasOpacity] = useState(1)
+  const [canvasOpacity, setCanvasOpacity] = useState(0.55)
 
   useEffect(() => {
     let ticking = false
@@ -31,7 +31,7 @@ function PortfolioContent() {
           // Smoothly fade 3D canvas when user scrolls out of the hero into text sections
           const heroHeight = window.innerHeight || 800
           const fadeProgress = Math.min(Math.max((currentY - 100) / (heroHeight * 0.7), 0), 1)
-          const targetOpacity = 1 - fadeProgress * 0.88 // Fades smoothly from 1.0 down to 0.12
+          const targetOpacity = 0.55 - fadeProgress * 0.45
           setCanvasOpacity(targetOpacity)
 
           ticking = false
@@ -55,7 +55,7 @@ function PortfolioContent() {
         )}
       </AnimatePresence>
 
-      <div className="relative min-h-screen bg-black text-neutral-100 selection:bg-red-600 selection:text-white overflow-x-hidden font-sans">
+      <div className="relative min-h-screen bg-black text-neutral-100 selection:bg-amber-600 selection:text-neutral-950 overflow-x-hidden font-sans">
       {/* Dynamic 3D Canvas: Hero centerpiece that smoothly attenuates in reading sections */}
       <div 
         className="fixed inset-0 z-0 pointer-events-none transition-opacity duration-300 ease-out"
@@ -89,7 +89,7 @@ function PortfolioContent() {
       <div 
         className="fixed top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] pointer-events-none z-0"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(239, 68, 68, 0.12) 0%, rgba(153, 27, 27, 0.04) 50%, transparent 75%)'
+          background: 'radial-gradient(ellipse at center, rgba(242, 166, 90, 0.12) 0%, rgba(79, 184, 175, 0.04) 50%, transparent 75%)'
         }}
       />
 
@@ -117,7 +117,7 @@ function PortfolioContent() {
             transition={{ duration: 0.2 }}
             onClick={scrollToTop}
             aria-label="Volver arriba / Back to top"
-            className="fixed bottom-6 right-6 z-40 p-3 rounded-xl bg-neutral-950/90 border border-red-500/40 hover:border-red-400 text-red-400 hover:text-white backdrop-blur-xl shadow-[0_0_20px_rgba(239,68,68,0.25)] hover:shadow-[0_0_30px_rgba(239,68,68,0.5)] transition-all cursor-pointer group"
+            className="fixed bottom-6 right-6 z-40 p-3 rounded-xl bg-neutral-950/90 border border-amber-500/40 hover:border-amber-400 text-amber-400 hover:text-white backdrop-blur-xl shadow-[0_0_20px_rgba(242, 166, 90,0.25)] hover:shadow-[0_0_30px_rgba(242, 166, 90,0.5)] transition-all cursor-pointer group"
           >
             <ChevronUp className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
           </motion.button>

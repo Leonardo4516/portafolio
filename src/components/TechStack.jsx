@@ -173,11 +173,11 @@ export default function TechStack() {
     <section id="stack" className="py-24 px-4 sm:px-6 relative z-10 scroll-mt-24">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <span className="text-xs font-mono uppercase tracking-widest text-red-400 bg-red-950/40 border border-red-500/30 px-4 py-1.5 rounded-full inline-block">
+          <span className="text-xs font-mono uppercase tracking-widest text-amber-400 bg-amber-950/40 border border-amber-500/30 px-4 py-1.5 rounded-full inline-block">
             {t.skills.tag}
           </span>
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-neutral-100 mt-4 mb-4">
-            {t.skills.title} <span className="bg-gradient-to-r from-red-500 via-rose-400 to-red-600 bg-clip-text text-transparent">{t.skills.titleHighlight}</span>
+            {t.skills.title} <span className="bg-gradient-to-r from-amber-500 via-teal-400 to-amber-600 bg-clip-text text-transparent">{t.skills.titleHighlight}</span>
           </h2>
           <p className="max-w-2xl mx-auto text-neutral-400 text-xs sm:text-sm md:text-base font-sans leading-relaxed">
             {t.skills.desc}
@@ -194,7 +194,7 @@ export default function TechStack() {
                 onClick={() => setActiveLevel(tab.id)}
                 className={`px-4 py-2 rounded-xl font-mono text-xs sm:text-sm transition-all duration-300 cursor-pointer ${
                   isActive
-                    ? 'bg-neutral-900 border border-red-500 text-red-300 shadow-[0_0_20px_rgba(239,68,68,0.3)] font-bold'
+                    ? 'bg-neutral-900 border border-amber-500 text-amber-300 shadow-[0_0_20px_rgba(242, 166, 90,0.3)] font-bold'
                     : 'bg-neutral-950/60 hover:bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-neutral-200'
                 }`}
               >
@@ -210,9 +210,9 @@ export default function TechStack() {
             {filteredSkills.map((skill) => {
               const badgeStyle = 
                 skill.level === 'advanced'
-                  ? 'bg-red-500/20 text-red-300 border-red-500/40'
+                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
                   : skill.level === 'intermediate'
-                  ? 'bg-rose-500/15 text-rose-300 border-rose-500/30'
+                  ? 'bg-teal-500/15 text-teal-300 border-teal-500/30'
                   : 'bg-neutral-900 text-neutral-300 border-neutral-800'
 
               const levelCount = skill.level === 'advanced' ? 3 : skill.level === 'intermediate' ? 2 : 1
@@ -225,11 +225,11 @@ export default function TechStack() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.25 }}
-                  className="bg-neutral-950/60 backdrop-blur-xl border border-neutral-800/80 hover:border-red-500/50 p-5 sm:p-6 rounded-2xl transition-all duration-300 hover:shadow-[0_0_25px_rgba(239,68,68,0.15)] group hover:-translate-y-1 flex flex-col justify-between"
+                  className="bg-neutral-950/60 backdrop-blur-xl border border-neutral-800/80 hover:border-amber-500/50 p-5 sm:p-6 rounded-2xl transition-all duration-300 hover:shadow-[0_0_25px_rgba(242, 166, 90,0.15)] group hover:-translate-y-1 flex flex-col justify-between"
                 >
                   <div>
                     <div className="flex items-start justify-between gap-2 mb-3">
-                      <h3 className="font-mono font-bold text-base sm:text-lg text-neutral-100 group-hover:text-red-400 transition-colors">
+                      <h3 className="font-mono font-bold text-base sm:text-lg text-neutral-100 group-hover:text-amber-400 transition-colors">
                         {skill.name}
                       </h3>
                       <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-neutral-400 shrink-0">
@@ -251,9 +251,9 @@ export default function TechStack() {
                             className={`w-2.5 h-1.5 rounded-sm transition-all ${
                               step <= levelCount
                                 ? skill.level === 'advanced'
-                                  ? 'bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.8)]'
+                                  ? 'bg-amber-500 shadow-[0_0_6px_rgba(242, 166, 90,0.8)]'
                                   : skill.level === 'intermediate'
-                                  ? 'bg-rose-500'
+                                  ? 'bg-teal-500'
                                   : 'bg-neutral-400'
                                 : 'bg-neutral-800'
                             }`}

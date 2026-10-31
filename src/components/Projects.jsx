@@ -273,11 +273,11 @@ export default function Projects() {
     <section id="proyectos" className="py-24 px-4 sm:px-6 relative z-10 scroll-mt-24">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <span className="text-xs font-mono uppercase tracking-widest text-red-400 bg-red-950/40 border border-red-500/30 px-4 py-1.5 rounded-full inline-block">
+          <span className="text-xs font-mono uppercase tracking-widest text-amber-400 bg-amber-950/40 border border-amber-500/30 px-4 py-1.5 rounded-full inline-block">
             {t.projects.tag}
           </span>
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-neutral-100 mt-4 mb-4">
-            {t.projects.title} <span className="bg-gradient-to-r from-red-500 via-rose-400 to-red-600 bg-clip-text text-transparent">{t.projects.titleHighlight}</span>
+            {t.projects.title} <span className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 bg-clip-text text-transparent">{t.projects.titleHighlight}</span>
           </h2>
           <p className="max-w-2xl mx-auto text-neutral-400 text-xs sm:text-sm md:text-base font-sans leading-relaxed">
             {t.projects.desc}
@@ -295,7 +295,7 @@ export default function Projects() {
               }}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-colors duration-200 active:scale-[0.98] ${
                 filter === cat.id
-                  ? 'bg-red-600 text-white font-bold shadow-[0_0_20px_rgba(239,68,68,0.4)]'
+                  ? 'bg-amber-600 text-neutral-950 font-bold shadow-[0_0_20px_rgba(242, 166, 90,0.4)]'
                   : 'bg-neutral-950/60 hover:bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-neutral-200'
               }`}
             >
@@ -321,26 +321,26 @@ export default function Projects() {
                   transition={{ duration: 0.25 }}
                   className={`bg-neutral-950/60 backdrop-blur-xl rounded-2xl p-6 sm:p-7 flex flex-col justify-between group transition-colors duration-200 scroll-mt-28 ${
                     isHighlighted
-                      ? 'border-2 border-red-500 shadow-[0_0_50px_rgba(239,68,68,0.5)] ring-4 ring-red-500/20 -translate-y-1'
-                      : 'border border-neutral-800/90 hover:border-red-500/50 hover:shadow-[0_10px_40px_rgba(239,68,68,0.12)] hover:-translate-y-1.5'
+                      ? 'border-2 border-amber-500 shadow-[0_0_50px_rgba(242, 166, 90,0.5)] ring-4 ring-amber-500/20 -translate-y-1'
+                      : 'border border-neutral-800/90 hover:border-amber-500/50 hover:shadow-[0_10px_40px_rgba(242, 166, 90,0.12)] hover:-translate-y-1.5'
                   }`}
                 >
                   <div>
                     <div className="flex items-start justify-between mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-neutral-900/90 border border-neutral-800 flex items-center justify-center group-hover:border-red-500/50 group-hover:scale-105 transition-transform duration-200">
-                        <Icon className="w-6 h-6 text-red-400" />
+                      <div className="w-12 h-12 rounded-xl bg-neutral-900/90 border border-neutral-800 flex items-center justify-center group-hover:border-amber-500/50 group-hover:scale-105 transition-transform duration-200">
+                        <Icon className="w-6 h-6 text-amber-400" />
                       </div>
                       {item.featured && (
-                        <span className="px-3 py-1 rounded-full text-[10px] font-mono tracking-wider bg-red-500/20 text-red-300 border border-red-500/30">
+                        <span className="px-3 py-1 rounded-full text-[10px] font-mono tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30">
                           {t.projects.badgeFeatured}
                         </span>
                       )}
                     </div>
 
-                    <h3 className="font-mono font-bold text-lg sm:text-xl text-neutral-100 mb-1 group-hover:text-red-400 transition-colors">
+                    <h3 className="font-mono font-bold text-lg sm:text-xl text-neutral-100 mb-1 group-hover:text-amber-400 transition-colors">
                       {item.title}
                     </h3>
-                    <p className="text-xs font-mono text-red-400/90 mb-3">{item.subtitle}</p>
+                    <p className="text-xs font-mono text-amber-400/90 mb-3">{item.subtitle}</p>
                     <p className="text-neutral-300/80 text-xs sm:text-sm leading-relaxed mb-6 font-sans">
                       {item.desc}
                     </p>
@@ -366,14 +366,14 @@ export default function Projects() {
                         rel="noreferrer"
                         className="flex items-center gap-2 text-xs font-mono px-3.5 py-2.5 rounded-xl bg-neutral-900/90 hover:bg-neutral-800 border border-neutral-800 hover:border-neutral-700 text-neutral-200 hover:text-white transition-colors duration-200 active:scale-[0.98] font-semibold"
                       >
-                        <GithubIcon className="w-4 h-4 text-red-400" />
+                        <GithubIcon className="w-4 h-4 text-amber-400" />
                         <span>{t.projects.btnCode}</span>
                       </a>
 
                       <button
                         type="button"
                         onClick={() => setSelectedVideoProject(item)}
-                        className="flex items-center gap-2 text-xs font-mono px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-semibold transition-colors duration-200 active:scale-[0.98] shadow-[0_0_20px_rgba(239,68,68,0.3)] hover:shadow-[0_0_25px_rgba(239,68,68,0.5)] cursor-pointer"
+                        className="flex items-center gap-2 text-xs font-mono px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-neutral-950 font-semibold transition-colors duration-200 active:scale-[0.98] shadow-[0_0_20px_rgba(242, 166, 90,0.3)] hover:shadow-[0_0_25px_rgba(242, 166, 90,0.5)] cursor-pointer"
                       >
                         <Play className="w-3.5 h-3.5 fill-current text-white" />
                         <span>{t.projects.btnDemoVideo || "Ver Demo"}</span>
@@ -384,7 +384,7 @@ export default function Projects() {
                           href={item.demo}
                           target="_blank"
                           rel="noreferrer"
-                          className="flex items-center gap-1.5 text-xs font-mono px-3 py-2.5 rounded-xl text-neutral-400 hover:text-red-300 hover:bg-neutral-900/60 border border-neutral-800/80 transition-colors ml-auto"
+                          className="flex items-center gap-1.5 text-xs font-mono px-3 py-2.5 rounded-xl text-neutral-400 hover:text-amber-300 hover:bg-neutral-900/60 border border-neutral-800/80 transition-colors ml-auto"
                           title={t.projects.btnDemo}
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
@@ -404,17 +404,17 @@ export default function Projects() {
           <div className="mt-12 flex justify-center">
             <button
               onClick={() => setShowAllProjects(!showAllProjects)}
-              className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-neutral-950/80 hover:bg-neutral-900 border border-neutral-800 hover:border-red-500/50 text-neutral-200 hover:text-white font-mono text-xs sm:text-sm tracking-wide backdrop-blur-md transition-colors duration-200 active:scale-[0.98] shadow-[0_0_20px_rgba(239,68,68,0.1)] hover:shadow-[0_0_25px_rgba(239,68,68,0.25)] cursor-pointer group"
+              className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-neutral-950/80 hover:bg-neutral-900 border border-neutral-800 hover:border-amber-500/50 text-neutral-200 hover:text-white font-mono text-xs sm:text-sm tracking-wide backdrop-blur-md transition-colors duration-200 active:scale-[0.98] shadow-[0_0_20px_rgba(242, 166, 90,0.1)] hover:shadow-[0_0_25px_rgba(242, 166, 90,0.25)] cursor-pointer group"
             >
               {showAllProjects ? (
                 <>
                   <span>{t.projects.btnShowLess}</span>
-                  <ChevronUp className="w-4 h-4 text-red-400 group-hover:-translate-y-0.5 transition-transform" />
+                  <ChevronUp className="w-4 h-4 text-amber-400 group-hover:-translate-y-0.5 transition-transform" />
                 </>
               ) : (
                 <>
                   <span>{t.projects.btnShowMore.replace('{count}', projectsData.length - 4)}</span>
-                  <ChevronDown className="w-4 h-4 text-red-400 group-hover:translate-y-0.5 transition-transform" />
+                  <ChevronDown className="w-4 h-4 text-amber-400 group-hover:translate-y-0.5 transition-transform" />
                 </>
               )}
             </button>
