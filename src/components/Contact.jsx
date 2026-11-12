@@ -58,11 +58,11 @@ export default function Contact() {
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-14">
-          <span className="text-xs font-mono uppercase tracking-widest text-amber-400 bg-amber-950/40 border border-amber-500/30 px-4 py-1.5 rounded-full inline-block">
+          <span className="text-xs font-mono uppercase tracking-widest text-violet-400 bg-violet-950/40 border border-violet-500/30 px-4 py-1.5 rounded-full inline-block">
             {t.contact.tag}
           </span>
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-neutral-100 mt-4 mb-3 font-mono">
-            {t.contact.title} <span className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 bg-clip-text text-transparent">{t.contact.titleHighlight}</span>
+            {t.contact.title} <span className="bg-gradient-to-r from-violet-500 via-violet-400 to-violet-600 bg-clip-text text-transparent">{t.contact.titleHighlight}</span>
           </h2>
           <p className="max-w-xl mx-auto text-neutral-400 text-xs sm:text-sm font-sans leading-relaxed">
             {t.contact.desc}
@@ -72,13 +72,13 @@ export default function Contact() {
         {/* 2-Column Responsive Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Column 1: Interactive Message Composer */}
-          <div className="lg:col-span-7 bg-neutral-950/80 backdrop-blur-2xl border border-neutral-800 hover:border-amber-500/30 rounded-3xl p-6 sm:p-8 shadow-[0_0_50px_rgba(242, 166, 90,0.1)] transition-colors">
+          <div className="lg:col-span-7 bg-neutral-950/80 backdrop-blur-2xl border border-neutral-800 hover:border-violet-500/30 rounded-3xl p-6 sm:p-8 shadow-[0_0_50px_rgba(166,107,255,0.1)] transition-colors">
             <div className="flex items-center justify-between mb-2">
               <h3 className="font-mono font-bold text-lg text-neutral-100 flex items-center gap-2">
-                <Mail className="w-5 h-5 text-amber-400" />
+                <Mail className="w-5 h-5 text-violet-400" />
                 <span>{language === 'es' ? 'Redactar Mensaje Directo' : 'Compose Direct Message'}</span>
               </h3>
-              <span className="text-[11px] font-mono px-2.5 py-1 rounded-md bg-amber-950/60 text-amber-300 border border-amber-500/30">
+              <span className="text-[11px] font-mono px-2.5 py-1 rounded-md bg-violet-950/60 text-violet-300 border border-violet-500/30">
                 {language === 'es' ? 'Gmail Web Directo' : 'Direct Gmail Web'}
               </span>
             </div>
@@ -101,7 +101,7 @@ export default function Contact() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder={t.contact.form.namePlaceholder}
-                    className="w-full bg-black/80 border border-neutral-800 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-3.5 py-2.5 text-neutral-100 placeholder-neutral-600 focus:outline-none transition-all"
+                    className="w-full bg-black/80 border border-neutral-800 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 rounded-xl px-3.5 py-2.5 text-neutral-100 placeholder-neutral-600 focus:outline-none transition-all"
                   />
                 </div>
 
@@ -115,7 +115,7 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     placeholder={t.contact.form.subjectPlaceholder}
-                    className="w-full bg-black/80 border border-neutral-800 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-3.5 py-2.5 text-neutral-100 placeholder-neutral-600 focus:outline-none transition-all"
+                    className="w-full bg-black/80 border border-neutral-800 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 rounded-xl px-3.5 py-2.5 text-neutral-100 placeholder-neutral-600 focus:outline-none transition-all"
                   />
                 </div>
               </div>
@@ -131,14 +131,14 @@ export default function Contact() {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder={t.contact.form.messagePlaceholder}
-                  className="w-full bg-black/80 border border-neutral-800 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-3.5 py-2.5 text-neutral-100 placeholder-neutral-600 focus:outline-none transition-all resize-none font-sans"
+                  className="w-full bg-black/80 border border-neutral-800 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 rounded-xl px-3.5 py-2.5 text-neutral-100 placeholder-neutral-600 focus:outline-none transition-all resize-none font-sans"
                 ></textarea>
               </div>
 
               {/* Submit Button (Opens Gmail Web) */}
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-amber-600 via-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-500 text-neutral-950 font-bold font-mono text-xs sm:text-sm tracking-wide shadow-[0_0_25px_rgba(242, 166, 90,0.35)] hover:shadow-[0_0_35px_rgba(242, 166, 90,0.55)] transition-all transform hover:-translate-y-0.5 cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-violet-600 via-violet-600 to-violet-700 hover:from-violet-500 hover:to-violet-500 text-white font-bold font-mono text-xs sm:text-sm tracking-wide shadow-[0_0_25px_rgba(166,107,255,0.35)] hover:shadow-[0_0_35px_rgba(166,107,255,0.55)] transition-all transform hover:-translate-y-0.5 cursor-pointer"
               >
                 <ExternalLink className="w-4 h-4" />
                 <span>
@@ -153,9 +153,9 @@ export default function Contact() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="p-4 rounded-2xl bg-black border border-amber-500/40 text-xs space-y-3 font-sans shadow-lg shadow-amber-950/50"
+                    className="p-4 rounded-2xl bg-black border border-violet-500/40 text-xs space-y-3 font-sans shadow-lg shadow-violet-950/50"
                   >
-                    <div className="flex items-center gap-2 text-teal-400 font-semibold font-mono">
+                    <div className="flex items-center gap-2 text-blue-400 font-semibold font-mono">
                       <CheckCircle2 className="w-4 h-4 shrink-0" />
                       <span>
                         {language === 'es' 
@@ -174,7 +174,7 @@ export default function Contact() {
                         href={getGmailWebUrl()}
                         target="_blank"
                         rel="noreferrer"
-                        className="px-3 py-1.5 rounded-lg bg-amber-600/20 hover:bg-amber-600/30 border border-amber-500/40 text-amber-300 flex items-center gap-1.5 transition-colors"
+                        className="px-3 py-1.5 rounded-lg bg-violet-600/20 hover:bg-violet-600/30 border border-violet-500/40 text-violet-300 flex items-center gap-1.5 transition-colors"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
                         <span>Gmail Web</span>
@@ -184,7 +184,7 @@ export default function Contact() {
                         href={getMailtoUrl()}
                         className="px-3 py-1.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-300 flex items-center gap-1.5 transition-colors"
                       >
-                        <Mail className="w-3.5 h-3.5 text-amber-400" />
+                        <Mail className="w-3.5 h-3.5 text-violet-400" />
                         <span>{language === 'es' ? 'App de Correo' : 'Mail App'}</span>
                       </a>
 
@@ -193,7 +193,7 @@ export default function Contact() {
                         onClick={handleCopyMessage}
                         className="px-3 py-1.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-300 flex items-center gap-1.5 transition-colors"
                       >
-                        {copied ? <Check className="w-3.5 h-3.5 text-teal-400" /> : <Copy className="w-3.5 h-3.5 text-neutral-400" />}
+                        {copied ? <Check className="w-3.5 h-3.5 text-blue-400" /> : <Copy className="w-3.5 h-3.5 text-neutral-400" />}
                         <span>{copied ? (language === 'es' ? '¡Copiado!' : 'Copied!') : (language === 'es' ? 'Copiar Texto' : 'Copy Text')}</span>
                       </button>
                     </div>
@@ -206,16 +206,16 @@ export default function Contact() {
           {/* Column 2: Status, Availability & Quick Direct Channels */}
           <div className="lg:col-span-5 space-y-5">
             {/* Direct Gmail Web Quick Card */}
-            <div className="bg-neutral-950/80 backdrop-blur-xl border border-neutral-800 hover:border-amber-500/40 rounded-3xl p-6 transition-all group shadow-[0_0_30px_rgba(242, 166, 90,0.06)]">
+            <div className="bg-neutral-950/80 backdrop-blur-xl border border-neutral-800 hover:border-violet-500/40 rounded-3xl p-6 transition-all group shadow-[0_0_30px_rgba(166,107,255,0.06)]">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-mono text-amber-400">
+                <span className="text-xs font-mono text-violet-400">
                   {language === 'es' ? 'Gmail Directo en Navegador' : 'Direct Web Gmail'}
                 </span>
                 <a
                   href="https://mail.google.com/mail/?view=cm&fs=1&to=lehernan.07@gmail.com"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-xs font-mono text-amber-300 hover:text-white flex items-center gap-1 transition-colors"
+                  className="text-xs font-mono text-violet-300 hover:text-white flex items-center gap-1 transition-colors"
                 >
                   <span>{language === 'es' ? 'Abrir Gmail' : 'Open Gmail'}</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -225,7 +225,7 @@ export default function Contact() {
                 href="https://mail.google.com/mail/?view=cm&fs=1&to=lehernan.07@gmail.com"
                 target="_blank"
                 rel="noreferrer"
-                className="font-mono font-bold text-base sm:text-lg text-neutral-100 group-hover:text-amber-400 transition-colors block truncate"
+                className="font-mono font-bold text-base sm:text-lg text-neutral-100 group-hover:text-violet-400 transition-colors block truncate"
               >
                 lehernan.07@gmail.com
               </a>
@@ -238,8 +238,8 @@ export default function Contact() {
 
             {/* Status & Availability Card */}
             <div className="bg-neutral-950/80 backdrop-blur-xl border border-neutral-800 rounded-3xl p-6 relative overflow-hidden">
-              <div className="flex items-center gap-2 text-xs font-mono text-amber-400 mb-3">
-                <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+              <div className="flex items-center gap-2 text-xs font-mono text-violet-400 mb-3">
+                <span className="w-2 h-2 rounded-full bg-violet-500 animate-pulse"></span>
                 <span>{t.contact.cards.availabilityStatus}</span>
               </div>
               <h4 className="font-mono font-bold text-base text-neutral-100 mb-3">
@@ -247,17 +247,17 @@ export default function Contact() {
               </h4>
               <div className="space-y-2.5 text-xs font-mono text-neutral-300">
                 <div className="flex items-center gap-2">
-                  <Briefcase className="w-4 h-4 text-amber-400 shrink-0" />
+                  <Briefcase className="w-4 h-4 text-violet-400 shrink-0" />
                   <span className="text-neutral-400">{t.contact.cards.modalityLabel}</span>
                   <span className="text-neutral-200">{t.contact.cards.modalityValue}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-teal-500 shrink-0" />
+                  <Clock className="w-4 h-4 text-blue-500 shrink-0" />
                   <span className="text-neutral-400">{t.contact.cards.responseTimeLabel}</span>
                   <span className="text-neutral-200">{t.contact.cards.responseTimeValue}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-amber-400 shrink-0" />
+                  <MapPin className="w-4 h-4 text-violet-400 shrink-0" />
                   <span className="text-neutral-400">Ubicación:</span>
                   <span className="text-neutral-200">Colombia (GMT-5) / Remoto Global</span>
                 </div>
@@ -266,7 +266,7 @@ export default function Contact() {
 
             {/* Professional Networks */}
             <div className="bg-neutral-950/80 backdrop-blur-xl border border-neutral-800 rounded-3xl p-6">
-              <div className="text-xs font-mono text-amber-400 mb-1">{t.contact.cards.networksTitle}</div>
+              <div className="text-xs font-mono text-violet-400 mb-1">{t.contact.cards.networksTitle}</div>
               <p className="text-xs text-neutral-400 mb-4 font-sans">{t.contact.cards.networksSub}</p>
               
               <div className="grid grid-cols-2 gap-3 font-mono text-xs">
@@ -274,7 +274,7 @@ export default function Contact() {
                   href="https://github.com/Leonardo4516"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center justify-center gap-2 p-3 rounded-xl bg-black hover:bg-neutral-900 border border-neutral-800 hover:border-amber-500/50 text-neutral-300 hover:text-amber-300 transition-all"
+                  className="flex items-center justify-center gap-2 p-3 rounded-xl bg-black hover:bg-neutral-900 border border-neutral-800 hover:border-violet-500/50 text-neutral-300 hover:text-violet-300 transition-all"
                 >
                   <GithubIcon className="w-4 h-4" />
                   <span>{t.contact.github}</span>
@@ -284,7 +284,7 @@ export default function Contact() {
                   href="https://www.linkedin.com/in/leonardo-hernández-2a6a66389"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center justify-center gap-2 p-3 rounded-xl bg-black hover:bg-neutral-900 border border-neutral-800 hover:border-amber-500/50 text-neutral-300 hover:text-amber-300 transition-all"
+                  className="flex items-center justify-center gap-2 p-3 rounded-xl bg-black hover:bg-neutral-900 border border-neutral-800 hover:border-violet-500/50 text-neutral-300 hover:text-violet-300 transition-all"
                 >
                   <LinkedinIcon className="w-4 h-4" />
                   <span>{t.contact.linkedin}</span>

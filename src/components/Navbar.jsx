@@ -95,7 +95,7 @@ export default function Navbar() {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       scrolled 
-        ? 'bg-black/95 backdrop-blur-xl border-b border-amber-500/20 py-2.5 shadow-[0_4px_30px_rgba(242, 166, 90,0.15)]' 
+        ? 'bg-black/95 backdrop-blur-xl border-b border-violet-500/20 py-2.5 shadow-[0_4px_30px_rgba(166,107,255,0.15)]' 
         : 'bg-transparent py-4'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
@@ -106,7 +106,7 @@ export default function Navbar() {
           className="flex items-center group focus:outline-none"
           title="Inicio // Home"
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-600/30 via-black to-teal-900/30 p-[1px] border border-amber-500/40 shadow-[0_0_20px_rgba(242, 166, 90,0.25)] group-hover:shadow-[0_0_25px_rgba(242, 166, 90,0.5)] group-hover:border-amber-400 transition-all">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-violet-600/30 via-black to-blue-900/30 p-[1px] border border-violet-500/40 shadow-[0_0_20px_rgba(166,107,255,0.25)] group-hover:shadow-[0_0_25px_rgba(166,107,255,0.5)] group-hover:border-violet-400 transition-all">
             <div className="w-full h-full bg-black/95 rounded-[11px] flex items-center justify-center group-hover:bg-neutral-900 transition-colors">
               <BrandLogo className="w-7 h-7 group-hover:scale-105 transition-transform" />
             </div>
@@ -124,7 +124,7 @@ export default function Navbar() {
                 onClick={(e) => handleNavClick(e, link.href)}
                 className={`px-3 py-1.5 rounded-lg transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? 'text-amber-400 font-bold bg-amber-950/40 border border-amber-500/35 shadow-[0_0_14px_rgba(242, 166, 90,0.22)]'
+                    ? 'text-violet-400 font-bold bg-violet-950/40 border border-violet-500/35 shadow-[0_0_14px_rgba(166,107,255,0.22)]'
                     : 'text-neutral-400 hover:text-neutral-100 hover:bg-neutral-900/60'
                 }`}
               >
@@ -139,13 +139,13 @@ export default function Navbar() {
           {/* Language Switcher */}
           <button
             onClick={toggleLanguage}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-950 border border-neutral-800 hover:border-amber-500/60 text-xs font-mono text-neutral-300 hover:text-amber-300 transition-all shadow-sm"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-950 border border-neutral-800 hover:border-violet-500/60 text-xs font-mono text-neutral-300 hover:text-violet-300 transition-all shadow-sm"
             title="Cambiar idioma / Switch language"
           >
-            <Globe className="w-3.5 h-3.5 text-amber-400" />
-            <span className={language === 'es' ? 'text-amber-400 font-bold' : 'text-neutral-500'}>ES</span>
+            <Globe className="w-3.5 h-3.5 text-violet-400" />
+            <span className={language === 'es' ? 'text-violet-400 font-bold' : 'text-neutral-500'}>ES</span>
             <span className="text-neutral-700">|</span>
-            <span className={language === 'en' ? 'text-amber-400 font-bold' : 'text-neutral-500'}>EN</span>
+            <span className={language === 'en' ? 'text-violet-400 font-bold' : 'text-neutral-500'}>EN</span>
           </button>
 
           {/* GitHub Profile */}
@@ -153,7 +153,7 @@ export default function Navbar() {
             href="https://github.com/Leonardo4516"
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-2 text-xs font-mono px-3.5 py-1.5 rounded-lg bg-white/5 border border-amber-500/30 text-amber-300 hover:bg-amber-500/10 hover:border-amber-400 transition-all shadow-[0_0_15px_rgba(242, 166, 90,0.15)]"
+            className="flex items-center gap-2 text-xs font-mono px-3.5 py-1.5 rounded-lg bg-white/5 border border-violet-500/30 text-violet-300 hover:bg-violet-500/10 hover:border-violet-400 transition-all shadow-[0_0_15px_rgba(166,107,255,0.15)]"
           >
             <GithubIcon className="w-3.5 h-3.5" />
             <span>@Leonardo4516</span>
@@ -164,7 +164,7 @@ export default function Navbar() {
         <div className="flex md:hidden items-center gap-2">
           <button
             onClick={toggleLanguage}
-            className="px-2.5 py-1 rounded-lg bg-neutral-950 border border-neutral-800 text-xs font-mono text-amber-400"
+            className="px-2.5 py-1 rounded-lg bg-neutral-950 border border-neutral-800 text-xs font-mono text-violet-400"
             aria-label="Toggle language"
           >
             {language === 'es' ? 'EN' : 'ES'}
@@ -172,7 +172,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg bg-neutral-950 border border-amber-500/30 text-amber-400 hover:text-white transition-colors"
+            className="p-2 rounded-lg bg-neutral-950 border border-violet-500/30 text-violet-400 hover:text-white transition-colors"
             aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -183,7 +183,7 @@ export default function Navbar() {
       {/* Reading Progress Line */}
       <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-neutral-900/60 overflow-hidden pointer-events-none">
         <div 
-          className="h-full bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 transition-all duration-150 shadow-[0_0_8px_rgba(242, 166, 90,0.8)]"
+          className="h-full bg-gradient-to-r from-violet-600 via-violet-500 to-violet-600 transition-all duration-150 shadow-[0_0_8px_rgba(166,107,255,0.8)]"
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
@@ -196,7 +196,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden bg-black/95 backdrop-blur-2xl border-b border-amber-500/20 px-6 py-6 overflow-hidden shadow-2xl"
+            className="md:hidden bg-black/95 backdrop-blur-2xl border-b border-violet-500/20 px-6 py-6 overflow-hidden shadow-2xl"
           >
             <nav className="flex flex-col gap-3 font-mono text-sm">
               {navLinks.map((link) => {
@@ -208,12 +208,12 @@ export default function Navbar() {
                     onClick={(e) => handleNavClick(e, link.href)}
                     className={`py-2.5 px-3.5 rounded-xl border-l-2 transition-all cursor-pointer flex items-center justify-between ${
                       isActive
-                        ? 'bg-amber-950/40 text-amber-400 border-amber-500 font-bold shadow-[0_0_15px_rgba(242, 166, 90,0.2)]'
-                        : 'text-neutral-300 hover:bg-amber-500/10 hover:text-amber-400 border-transparent'
+                        ? 'bg-violet-950/40 text-violet-400 border-violet-500 font-bold shadow-[0_0_15px_rgba(166,107,255,0.2)]'
+                        : 'text-neutral-300 hover:bg-violet-500/10 hover:text-violet-400 border-transparent'
                     }`}
                   >
                     <span>{link.label}</span>
-                    {isActive && <div className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />}
+                    {isActive && <div className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" />}
                   </a>
                 )
               })}
@@ -224,9 +224,9 @@ export default function Navbar() {
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-2 text-xs font-mono w-full py-2.5 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-amber-500/40 text-neutral-200 hover:text-white transition-all shadow-[0_0_15px_rgba(242, 166, 90,0.1)]"
+                  className="flex items-center justify-center gap-2 text-xs font-mono w-full py-2.5 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-violet-500/40 text-neutral-200 hover:text-white transition-all shadow-[0_0_15px_rgba(166,107,255,0.1)]"
                 >
-                  <GithubIcon className="w-4 h-4 text-amber-400" />
+                  <GithubIcon className="w-4 h-4 text-violet-400" />
                   <span>GitHub @Leonardo4516</span>
                 </a>
               </div>

@@ -1,5 +1,9 @@
 export const translations = {
   es: {
+    intro: {
+      start: "Haz clic en cualquier lugar o presiona cualquier tecla",
+      skip: "Saltar intro",
+    },
     nav: {
       home: "01. // inicio",
       about: "02. // trayectoria",
@@ -251,6 +255,10 @@ export const translations = {
   },
 
   en: {
+    intro: {
+      start: "Click anywhere or press any key",
+      skip: "Skip intro",
+    },
     nav: {
       home: "01. // home",
       about: "02. // background",

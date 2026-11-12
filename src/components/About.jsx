@@ -18,9 +18,9 @@ export default function About() {
 
   const pillarIcons = [Server, Database, Bot]
   const pillarColors = [
-    { bg: 'from-amber-600 to-teal-900', border: 'border-amber-500/30' },
-    { bg: 'from-teal-600 to-amber-950', border: 'border-amber-500/30' },
-    { bg: 'from-amber-700 to-neutral-900', border: 'border-amber-500/30' }
+    { bg: 'from-violet-600 to-blue-900', border: 'border-violet-500/30' },
+    { bg: 'from-blue-600 to-violet-950', border: 'border-violet-500/30' },
+    { bg: 'from-violet-700 to-neutral-900', border: 'border-violet-500/30' }
   ]
 
   const softSkillIcons = [MessageSquareCode, SearchCheck, Compass, Sparkles]
@@ -52,11 +52,11 @@ export default function About() {
       <div className="max-w-6xl mx-auto space-y-16">
         {/* Section Header */}
         <div className="text-center">
-          <span className="text-xs font-mono uppercase tracking-widest text-amber-400 bg-amber-950/40 border border-amber-500/30 px-4 py-1.5 rounded-full inline-block">
+          <span className="text-xs font-mono uppercase tracking-widest text-violet-400 bg-violet-950/40 border border-violet-500/30 px-4 py-1.5 rounded-full inline-block">
             {t.about.tag}
           </span>
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-neutral-100 mt-4 mb-4">
-            {t.about.title} <span className="bg-gradient-to-r from-amber-500 via-teal-400 to-amber-600 bg-clip-text text-transparent">{t.about.titleHighlight}</span>
+            {t.about.title} <span className="bg-gradient-to-r from-violet-500 via-blue-400 to-violet-600 bg-clip-text text-transparent">{t.about.titleHighlight}</span>
           </h2>
           <p className="max-w-2xl mx-auto text-neutral-400 text-xs sm:text-sm md:text-base font-sans leading-relaxed">
             {t.about.desc}
@@ -75,9 +75,9 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.12, duration: 0.5 }}
-                className={`relative bg-neutral-950/70 backdrop-blur-xl border ${color.border} p-6 sm:p-8 rounded-2xl group hover:shadow-[0_10px_35px_rgba(242, 166, 90,0.2)] hover:border-amber-500/60 transition-all duration-300 hover:-translate-y-1`}
+                className={`relative bg-neutral-950/70 backdrop-blur-xl border ${color.border} p-6 sm:p-8 rounded-2xl group hover:shadow-[0_10px_35px_rgba(166,107,255,0.2)] hover:border-violet-500/60 transition-all duration-300 hover:-translate-y-1`}
               >
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${color.bg} p-2.5 flex items-center justify-center text-white mb-5 shadow-lg shadow-amber-950/50 group-hover:scale-105 transition-transform`}>
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${color.bg} p-2.5 flex items-center justify-center text-white mb-5 shadow-lg shadow-violet-950/50 group-hover:scale-105 transition-transform`}>
                   <Icon className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold text-neutral-100 mb-3 font-mono">
@@ -99,20 +99,20 @@ export default function About() {
           className="grid grid-cols-1 lg:grid-cols-5 gap-10"
         >
           <div className="lg:col-span-3">
-            <span className="text-xs font-mono uppercase tracking-widest text-amber-300 bg-amber-400/10 border border-amber-400/30 px-4 py-1.5 rounded-full inline-block mb-4">
+            <span className="text-xs font-mono uppercase tracking-widest text-violet-300 bg-violet-400/10 border border-violet-400/30 px-4 py-1.5 rounded-full inline-block mb-4">
               {t.about.experience.badge}
             </span>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-neutral-100 mb-6">
               {t.about.experience.title}{' '}
-              <span className="text-teal-300">{t.about.experience.titleHighlight}</span>
+              <span className="text-blue-300">{t.about.experience.titleHighlight}</span>
             </h3>
-            <ol className="relative border-l-2 border-amber-400/30 pl-6 space-y-7">
+            <ol className="relative border-l-2 border-violet-400/30 pl-6 space-y-7">
               {t.about.experience.jobs.map((job) => (
                 <li key={job.company + job.date} className="relative">
-                  <span className="absolute -left-[2.1rem] top-1.5 w-3.5 h-3.5 rounded-full bg-amber-400 shadow-[0_0_12px_rgba(242,166,90,0.7)]" />
-                  <p className="text-xs font-mono text-amber-300/90">{job.date}</p>
+                  <span className="absolute -left-[2.1rem] top-1.5 w-3.5 h-3.5 rounded-full bg-violet-400 shadow-[0_0_12px_rgba(166,107,255,0.7)]" />
+                  <p className="text-xs font-mono text-violet-300/90">{job.date}</p>
                   <p className="text-base sm:text-lg font-bold text-neutral-100 mt-1">{job.role}</p>
-                  <p className="text-sm font-mono text-teal-300 mb-2">{job.company}</p>
+                  <p className="text-sm font-mono text-blue-300 mb-2">{job.company}</p>
                   <p className="text-sm text-neutral-400 leading-relaxed">{job.desc}</p>
                 </li>
               ))}
@@ -134,7 +134,7 @@ export default function About() {
             <a
               href="/CV_Leonardo_Hernandez.pdf"
               download
-              className="flex items-center justify-between gap-3 px-6 py-4 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 text-neutral-950 font-bold font-mono text-sm shadow-[0_0_30px_rgba(242,166,90,0.35)] hover:shadow-[0_0_40px_rgba(242,166,90,0.55)] hover:-translate-y-0.5 transition-all"
+              className="flex items-center justify-between gap-3 px-6 py-4 rounded-2xl bg-gradient-to-r from-violet-400 to-violet-500 text-white font-bold font-mono text-sm shadow-[0_0_30px_rgba(166,107,255,0.35)] hover:shadow-[0_0_40px_rgba(166,107,255,0.55)] hover:-translate-y-0.5 transition-all"
             >
               <span>{t.about.experience.cv}</span>
               <ArrowRight className="w-5 h-5" />
@@ -147,11 +147,11 @@ export default function About() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-neutral-950/80 border border-neutral-800 hover:border-amber-500/40 transition-all rounded-2xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl"
+          className="bg-neutral-950/80 border border-neutral-800 hover:border-violet-500/40 transition-all rounded-2xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl"
         >
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-5 border-b border-neutral-800/80">
             <div>
-              <span className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-amber-400 bg-amber-950/50 border border-amber-500/30 px-3 py-1 rounded-md inline-block mb-2">
+              <span className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-violet-400 bg-violet-950/50 border border-violet-500/30 px-3 py-1 rounded-md inline-block mb-2">
                 {t.about.standardsBadge}
               </span>
               <h3 className="text-lg sm:text-xl font-bold font-mono text-white">
@@ -167,11 +167,11 @@ export default function About() {
             {t.about.standards.map((standard, idx) => (
               <div 
                 key={idx}
-                className="p-4 rounded-xl bg-black/60 border border-neutral-800/70 hover:border-amber-500/40 hover:bg-neutral-900/50 transition-all group"
+                className="p-4 rounded-xl bg-black/60 border border-neutral-800/70 hover:border-violet-500/40 hover:bg-neutral-900/50 transition-all group"
               >
                 <div className="flex items-center gap-2.5 mb-2">
-                  <div className="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(242, 166, 90,0.8)] group-hover:scale-125 transition-transform" />
-                  <h4 className="text-xs sm:text-sm font-semibold font-mono text-neutral-200 group-hover:text-amber-300 transition-colors">
+                  <div className="w-2 h-2 rounded-full bg-violet-500 shadow-[0_0_8px_rgba(166,107,255,0.8)] group-hover:scale-125 transition-transform" />
+                  <h4 className="text-xs sm:text-sm font-semibold font-mono text-neutral-200 group-hover:text-violet-300 transition-colors">
                     {standard.label}
                   </h4>
                 </div>
@@ -188,16 +188,16 @@ export default function About() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-neutral-950/80 border border-neutral-800 hover:border-amber-500/40 transition-all rounded-2xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl"
+          className="bg-neutral-950/80 border border-neutral-800 hover:border-violet-500/40 transition-all rounded-2xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl"
         >
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-5 border-b border-neutral-800/80">
             <div>
-              <span className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-amber-400 bg-amber-950/50 border border-amber-500/30 px-3 py-1 rounded-md inline-block mb-2">
+              <span className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-violet-400 bg-violet-950/50 border border-violet-500/30 px-3 py-1 rounded-md inline-block mb-2">
                 {t.about.softSkillsBadge}
               </span>
               <h3 className="text-lg sm:text-xl font-bold font-mono text-white">
                 {t.about.softSkillsTitle}{' '}
-                <span className="bg-gradient-to-r from-amber-500 via-teal-400 to-amber-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-violet-500 via-blue-400 to-violet-600 bg-clip-text text-transparent">
                   {t.about.softSkillsHighlight}
                 </span>
               </h3>
@@ -213,19 +213,19 @@ export default function About() {
               return (
                 <div
                   key={skill.id}
-                  className="p-5 sm:p-6 rounded-2xl bg-black/60 border border-neutral-800 hover:border-amber-500/50 hover:bg-neutral-950/60 transition-all group flex flex-col justify-between"
+                  className="p-5 sm:p-6 rounded-2xl bg-black/60 border border-neutral-800 hover:border-violet-500/50 hover:bg-neutral-950/60 transition-all group flex flex-col justify-between"
                 >
                   <div>
                     <div className="flex items-start justify-between gap-3 mb-3">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-amber-950/50 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-105 group-hover:border-amber-400 transition-all shadow-[0_0_12px_rgba(242, 166, 90,0.2)]">
-                          <Icon className="w-5 h-5 text-amber-400" />
+                        <div className="w-10 h-10 rounded-xl bg-violet-950/50 border border-violet-500/30 flex items-center justify-center text-violet-400 group-hover:scale-105 group-hover:border-violet-400 transition-all shadow-[0_0_12px_rgba(166,107,255,0.2)]">
+                          <Icon className="w-5 h-5 text-violet-400" />
                         </div>
                         <div>
-                          <h4 className="text-sm sm:text-base font-bold font-mono text-white group-hover:text-amber-300 transition-colors">
+                          <h4 className="text-sm sm:text-base font-bold font-mono text-white group-hover:text-violet-300 transition-colors">
                             {skill.title}
                           </h4>
-                          <span className="text-[11px] font-mono text-amber-400/90 block">
+                          <span className="text-[11px] font-mono text-violet-400/90 block">
                             {skill.subtitle}
                           </span>
                         </div>
@@ -239,16 +239,16 @@ export default function About() {
 
                   {/* Verifiable Evidence Callout Box */}
                   <div className="pt-3 border-t border-neutral-800/80">
-                    <div className="p-3 rounded-xl bg-neutral-950/90 border border-amber-500/25 flex flex-col gap-1.5">
+                    <div className="p-3 rounded-xl bg-neutral-950/90 border border-violet-500/25 flex flex-col gap-1.5">
                       <div className="flex items-center justify-between text-[11px] font-mono">
                         <span className="text-neutral-400 font-medium flex items-center gap-1.5">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />
+                          <CheckCircle2 className="w-3.5 h-3.5 text-violet-400" />
                           <span>{t.about.evidenceLabel}</span>
                         </span>
                         <a
                           href="#proyectos"
                           onClick={(e) => handleScrollToProjects(e, skill.projectId)}
-                          className="inline-flex items-center gap-1 text-amber-400 hover:text-amber-300 font-semibold cursor-pointer group/link"
+                          className="inline-flex items-center gap-1 text-violet-400 hover:text-violet-300 font-semibold cursor-pointer group/link"
                         >
                           <span>{t.about.viewProjectAction}</span>
                           <ArrowRight className="w-3 h-3 group-hover/link:translate-x-0.5 transition-transform" />

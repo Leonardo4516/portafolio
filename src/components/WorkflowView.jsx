@@ -54,12 +54,12 @@ export default function WorkflowView() {
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-14">
-          <span className="text-xs font-mono uppercase tracking-widest text-amber-400 bg-amber-950/40 border border-amber-500/30 px-4 py-1.5 rounded-full inline-block">
+          <span className="text-xs font-mono uppercase tracking-widest text-violet-400 bg-violet-950/40 border border-violet-500/30 px-4 py-1.5 rounded-full inline-block">
             {t.workflow.tag}
           </span>
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-neutral-100 mt-4 mb-3 font-mono">
             {t.workflow.title}{' '}
-            <span className="bg-gradient-to-r from-amber-500 via-teal-400 to-amber-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-violet-500 via-blue-400 to-violet-600 bg-clip-text text-transparent">
               {t.workflow.titleHighlight}
             </span>
           </h2>
@@ -80,14 +80,14 @@ export default function WorkflowView() {
                 onClick={() => setActiveStep(idx)}
                 className={`relative text-left p-4 sm:p-5 rounded-2xl border transition-all duration-300 backdrop-blur-xl group flex flex-col justify-between ${
                   isActive
-                    ? 'bg-neutral-950/90 border-amber-500/60 shadow-[0_0_25px_rgba(242, 166, 90,0.25)]'
-                    : 'bg-neutral-950/50 border-neutral-800/80 hover:border-amber-500/30 hover:bg-neutral-900/40'
+                    ? 'bg-neutral-950/90 border-violet-500/60 shadow-[0_0_25px_rgba(166,107,255,0.25)]'
+                    : 'bg-neutral-950/50 border-neutral-800/80 hover:border-violet-500/30 hover:bg-neutral-900/40'
                 }`}
               >
                 {isActive && (
                   <motion.div
                     layoutId="activeWorkflowIndicator"
-                    className="absolute -top-px -left-px -right-px h-1 bg-gradient-to-r from-amber-600 via-teal-500 to-amber-600 rounded-t-2xl"
+                    className="absolute -top-px -left-px -right-px h-1 bg-gradient-to-r from-violet-600 via-blue-500 to-violet-600 rounded-t-2xl"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -95,13 +95,13 @@ export default function WorkflowView() {
                 <div className="flex items-center justify-between mb-3 w-full">
                   <span className={`font-mono text-xs font-bold px-2 py-0.5 rounded-md ${
                     isActive 
-                      ? 'bg-amber-600 text-neutral-950 shadow-[0_0_10px_rgba(242, 166, 90,0.6)]' 
-                      : 'bg-neutral-900 text-neutral-400 group-hover:text-amber-400'
+                      ? 'bg-violet-600 text-white shadow-[0_0_10px_rgba(166,107,255,0.6)]' 
+                      : 'bg-neutral-900 text-neutral-400 group-hover:text-violet-400'
                   }`}>
                     {phase.step}
                   </span>
                   <Icon className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors ${
-                    isActive ? 'text-amber-400' : 'text-neutral-500 group-hover:text-neutral-300'
+                    isActive ? 'text-violet-400' : 'text-neutral-500 group-hover:text-neutral-300'
                   }`} />
                 </div>
 
@@ -125,17 +125,17 @@ export default function WorkflowView() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.28 }}
-            className="bg-neutral-950/80 backdrop-blur-2xl border border-neutral-800/90 hover:border-amber-500/40 rounded-3xl p-6 sm:p-9 shadow-[0_0_40px_rgba(242, 166, 90,0.12)] transition-all"
+            className="bg-neutral-950/80 backdrop-blur-2xl border border-neutral-800/90 hover:border-violet-500/40 rounded-3xl p-6 sm:p-9 shadow-[0_0_40px_rgba(166,107,255,0.12)] transition-all"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               {/* Left Column: Phase Information */}
               <div className="lg:col-span-7">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-600/30 to-teal-950/30 border border-amber-500/40 flex items-center justify-center text-amber-400 shadow-[0_0_15px_rgba(242, 166, 90,0.2)]">
-                    <CurrentIcon className="w-6 h-6 text-amber-400" />
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-600/30 to-blue-950/30 border border-violet-500/40 flex items-center justify-center text-violet-400 shadow-[0_0_15px_rgba(166,107,255,0.2)]">
+                    <CurrentIcon className="w-6 h-6 text-violet-400" />
                   </div>
                   <div>
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-amber-400 font-bold">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-violet-400 font-bold">
                       {language === 'es' ? `FASE ${currentPhase.step} DEL PIPELINE` : `PIPELINE STAGE ${currentPhase.step}`}
                     </span>
                     <h3 className="text-xl sm:text-2xl font-bold font-mono text-white">
@@ -151,14 +151,14 @@ export default function WorkflowView() {
                 {/* Tools & Stack in this Phase */}
                 <div className="mb-6">
                   <div className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                    <Layers className="w-3.5 h-3.5 text-amber-400" />
+                    <Layers className="w-3.5 h-3.5 text-violet-400" />
                     <span>{language === 'es' ? 'Herramientas y Tecnologías:' : 'Tools & Technologies:'}</span>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {currentPhase.tools.map((tool, i) => (
                       <span
                         key={i}
-                        className="px-3 py-1 rounded-lg text-xs font-mono bg-black/80 border border-neutral-800 text-neutral-300 hover:border-amber-500/40 hover:text-amber-300 transition-colors"
+                        className="px-3 py-1 rounded-lg text-xs font-mono bg-black/80 border border-neutral-800 text-neutral-300 hover:border-violet-500/40 hover:text-violet-300 transition-colors"
                       >
                         {tool}
                       </span>
@@ -168,9 +168,9 @@ export default function WorkflowView() {
 
                 {/* Deliverable result */}
                 <div className="p-4 rounded-xl bg-black/60 border border-neutral-800/80 flex items-start gap-3">
-                  <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-4 h-4 text-violet-400 shrink-0 mt-0.5" />
                   <div className="text-xs sm:text-sm text-neutral-300 font-mono">
-                    <span className="text-amber-400 font-semibold">{language === 'es' ? 'Entregable Técnico: ' : 'Technical Deliverable: '}</span>
+                    <span className="text-violet-400 font-semibold">{language === 'es' ? 'Entregable Técnico: ' : 'Technical Deliverable: '}</span>
                     {currentPhase.deliverable}
                   </div>
                 </div>
@@ -178,12 +178,12 @@ export default function WorkflowView() {
 
               {/* Right Column: Real Case Study Connection & Controls */}
               <div className="lg:col-span-5 flex flex-col justify-between h-full space-y-6">
-                <div className="p-6 rounded-2xl bg-gradient-to-br from-amber-950/20 via-black to-neutral-950 border border-amber-500/30 shadow-[0_0_20px_rgba(242, 166, 90,0.1)]">
+                <div className="p-6 rounded-2xl bg-gradient-to-br from-violet-950/20 via-black to-neutral-950 border border-violet-500/30 shadow-[0_0_20px_rgba(166,107,255,0.1)]">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-amber-400 bg-amber-950/50 border border-amber-500/30 px-2.5 py-1 rounded-md">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-violet-400 bg-violet-950/50 border border-violet-500/30 px-2.5 py-1 rounded-md">
                       {currentPhase.caseStudyLabel}
                     </span>
-                    <ShieldCheck className="w-4 h-4 text-amber-400" />
+                    <ShieldCheck className="w-4 h-4 text-violet-400" />
                   </div>
 
                   <h4 className="text-base sm:text-lg font-bold font-mono text-white mb-2">
@@ -199,7 +199,7 @@ export default function WorkflowView() {
                   <a
                     href="#proyectos"
                     onClick={handleScrollToProjects}
-                    className="inline-flex items-center gap-1.5 text-xs font-mono text-amber-400 hover:text-amber-300 transition-colors group cursor-pointer"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono text-violet-400 hover:text-violet-300 transition-colors group cursor-pointer"
                   >
                     <span>{language === 'es' ? 'Ver en proyectos destacados' : 'View in featured projects'}</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -210,19 +210,19 @@ export default function WorkflowView() {
                 <div className="flex items-center justify-between pt-2 border-t border-neutral-800/80">
                   <button
                     onClick={handlePrev}
-                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-neutral-900 border border-neutral-800 hover:border-amber-500/40 text-xs font-mono text-neutral-400 hover:text-white transition-colors"
+                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-neutral-900 border border-neutral-800 hover:border-violet-500/40 text-xs font-mono text-neutral-400 hover:text-white transition-colors"
                   >
                     <ChevronLeft className="w-4 h-4" />
                     <span>{language === 'es' ? 'Fase Anterior' : 'Previous Stage'}</span>
                   </button>
 
                   <div className="font-mono text-xs text-neutral-500">
-                    <span className="text-amber-400 font-bold">{activeStep + 1}</span> / {t.workflow.phases.length}
+                    <span className="text-violet-400 font-bold">{activeStep + 1}</span> / {t.workflow.phases.length}
                   </div>
 
                   <button
                     onClick={handleNext}
-                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-neutral-900 border border-neutral-800 hover:border-amber-500/40 text-xs font-mono text-neutral-400 hover:text-white transition-colors"
+                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-neutral-900 border border-neutral-800 hover:border-violet-500/40 text-xs font-mono text-neutral-400 hover:text-white transition-colors"
                   >
                     <span>{language === 'es' ? 'Siguiente Fase' : 'Next Stage'}</span>
                     <ChevronRight className="w-4 h-4" />
