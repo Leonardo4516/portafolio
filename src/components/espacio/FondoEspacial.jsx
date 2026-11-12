@@ -36,7 +36,12 @@ void main(){
   vec4 mv = modelViewMatrix * vec4(position, 1.0);
   // Los puntos que pasan muy cerca de la cámara se desvanecen (no se ven manchas grandes)
   vCerca = smoothstep(3.0, 12.0, -mv.z);
-  gl_PointSize = min(aTam * uPixel / -mv.z, 20.0);
+  float tam = aTam * uPixel / -mv.z;
+  // Mínimo de 2 px: los puntos más chicos saltaban de píxel en píxel y titilaban
+  // al mover la cámara; su brillo se reduce en proporción al área agregada
+  float visible = max(tam, 2.0);
+  vCerca *= min(1.0, (tam * tam) / (visible * visible));
+  gl_PointSize = min(visible, 20.0);
   gl_Position = projectionMatrix * mv;
 }
 `
@@ -48,6 +53,34 @@ void main(){
   float d = length(gl_PointCoord - 0.5);
   float a = smoothstep(0.5, 0.0, d);
   gl_FragColor = vec4(vColor * a * uOpac * vCerca, 1.0);
+}
+`
+
+// Estrellas de fondo: mismo tamaño que un PointsMaterial con atenuación, pero
+// con el mismo mínimo de 2 px y compensación de brillo para que no titilen
+const VERT_ESTRELLAS = /* glsl */ `
+attribute vec3 aColor;
+uniform float uTam;
+uniform float uEscala;
+varying vec3 vColor;
+varying float vAlfa;
+void main(){
+  vColor = aColor;
+  vec4 mv = modelViewMatrix * vec4(position, 1.0);
+  float tam = uTam * uEscala / -mv.z;
+  float visible = max(tam, 2.0);
+  vAlfa = min(1.0, (tam * tam) / (visible * visible));
+  gl_PointSize = visible;
+  gl_Position = projectionMatrix * mv;
+}
+`
+const FRAG_ESTRELLAS = /* glsl */ `
+uniform sampler2D uMapa;
+uniform float uOpac;
+varying vec3 vColor;
+varying float vAlfa;
+void main(){
+  gl_FragColor = vec4(vColor, texture2D(uMapa, gl_PointCoord).a * uOpac * vAlfa);
 }
 `
 
@@ -128,6 +161,7 @@ export default function FondoEspacial({ activo = true }) {
     const camara = new THREE.PerspectiveCamera(FOV, 1, 0.1, 400)
     const luz = new THREE.Vector3(-0.7, 0.4, 0.6).normalize()
     const uPixel = { value: 600 }
+    const uEscala = { value: 400 } // escala de tamaño de PointsMaterial: media altura en píxeles
     const liberar = []
     const actualizar = [] // funciones (t) => void para animar cada objeto
 
@@ -153,14 +187,12 @@ export default function FondoEspacial({ activo = true }) {
       }
       const geo = new THREE.BufferGeometry()
       geo.setAttribute('position', new THREE.BufferAttribute(pos, 3))
-      geo.setAttribute('color', new THREE.BufferAttribute(col, 3))
-      const mat = new THREE.PointsMaterial({
-        size: tam,
-        sizeAttenuation: true,
-        map: texEstrella,
-        vertexColors: true,
+      geo.setAttribute('aColor', new THREE.BufferAttribute(col, 3))
+      const mat = new THREE.ShaderMaterial({
+        uniforms: { uTam: { value: tam }, uEscala, uMapa: { value: texEstrella }, uOpac: { value: opacidad } },
+        vertexShader: VERT_ESTRELLAS,
+        fragmentShader: FRAG_ESTRELLAS,
         transparent: true,
-        opacity: opacidad,
         depthWrite: false
       })
       liberar.push(() => {
@@ -176,8 +208,9 @@ export default function FondoEspacial({ activo = true }) {
 
     // Nebulosas de fondo, alternando lados.
     // Su shader de ruido es muy caro a pantalla completa (~40 ms por cuadro), así que
-    // se dibuja en una textura y el plano solo la muestra. La textura se refresca por
-    // franjas, poco a poco, para conservar su movimiento lento sin picos de trabajo.
+    // se dibuja una sola vez en una textura y el plano solo la muestra. (Refrescarla
+    // por franjas dejaba cortes horizontales entre franjas de distinto instante.)
+    // El movimiento lo da una deriva suave del plano.
     const geoNebulosa = new THREE.PlaneGeometry(1, 1)
     liberar.push(() => geoNebulosa.dispose())
     const camaraHorneado = new THREE.OrthographicCamera(-0.5, 0.5, 0.5, -0.5, 0, 1)
@@ -187,8 +220,6 @@ export default function FondoEspacial({ activo = true }) {
     escenaHorneado.add(quadHorneado)
     const TEX_ANCHO = movil ? 1024 : 1536
     const TEX_ALTO = Math.round(TEX_ANCHO * 0.5625)
-    const FRANJAS = 16
-    const CADA = 8 // cuadros entre franja y franja
     const nebulosas = [
       { x: -40, y: 10, z: -90, ancho: 150, c1: '#3b1d6e', c2: '#a66bff', semilla: [0.0, 0.0] },
       { x: 45, y: -12, z: -150, ancho: 170, c1: '#0f2a66', c2: '#4a8cff', semilla: [3.1, 1.7] },
@@ -224,47 +255,29 @@ export default function FondoEspacial({ activo = true }) {
       plano.renderOrder = -1
       escena.add(plano)
       liberar.push(() => {
-        matRuido.dispose()
         mat.dispose()
         rt.dispose()
       })
       return { matRuido, rt, mat, plano, z: n.z }
     })
 
-    // Dibuja una franja (o toda la textura) de una nebulosa en el instante t
-    const hornear = (n, t, franja = -1) => {
-      n.matRuido.uniforms.uT.value = t
+    // Dibuja la textura de cada nebulosa una vez; ya no hace falta el material de ruido
+    nebulosas.forEach((n) => {
       quadHorneado.material = n.matRuido
-      const previo = renderer.getRenderTarget()
-      // El recorte se fija antes de activar el render target (three lo aplica ahí)
-      if (franja >= 0) {
-        const alto = Math.ceil(TEX_ALTO / FRANJAS)
-        n.rt.scissor.set(0, franja * alto, TEX_ANCHO, alto)
-        n.rt.scissorTest = true
-      }
       renderer.setRenderTarget(n.rt)
       renderer.render(escenaHorneado, camaraHorneado)
-      n.rt.scissorTest = false
-      renderer.setRenderTarget(previo)
-    }
-    nebulosas.forEach((n) => hornear(n, 0))
+      n.matRuido.dispose()
+    })
+    renderer.setRenderTarget(null)
 
-    let turno = 0
     actualizar.push((t) => {
-      nebulosas.forEach((n) => {
+      nebulosas.forEach((n, i) => {
         // Se desvanece al acercarse para que la cámara nunca atraviese el borde del plano
         const distancia = camara.position.z - n.z
         n.mat.opacity = 0.55 * THREE.MathUtils.smoothstep(distancia, 12, 45)
         n.plano.visible = n.mat.opacity > 0.001
+        n.plano.rotation.z = Math.sin(t * 0.03 + i * 1.7) * 0.05
       })
-      // Cada CADA cuadros se refresca una franja de una nebulosa visible
-      turno++
-      if (turno % CADA !== 0) return
-      const visibles = nebulosas.filter((n) => n.plano.visible)
-      if (!visibles.length) return
-      const paso = Math.floor(turno / CADA)
-      const n = visibles[Math.floor(paso / FRANJAS) % visibles.length]
-      hornear(n, t, paso % FRANJAS)
     })
 
     const texBrillo = texturaBrillo()
@@ -325,7 +338,7 @@ export default function FondoEspacial({ activo = true }) {
 
     // 1) Planeta de magma violeta
     {
-      const p = crearPlanetaMagma({ radio: 3.2, paleta: 'morado', semilla: [2, 5, 1], luz })
+      const p = crearPlanetaMagma({ radio: 3.2, paleta: 'morado', semilla: [2, 5, 1], luz, renderer })
       p.grupo.position.set(-9, -1.5, zEstacion(1) - 22)
       estaciones[1].add(p.grupo)
       liberar.push(p.liberar)
@@ -337,7 +350,7 @@ export default function FondoEspacial({ activo = true }) {
 
     // 2) Planeta azul con anillo de partículas
     {
-      const p = crearPlanetaMagma({ radio: 2.3, paleta: 'azul', semilla: [4, 1, 7], luz })
+      const p = crearPlanetaMagma({ radio: 2.3, paleta: 'azul', semilla: [4, 1, 7], luz, renderer })
       const grupo = new THREE.Group()
       grupo.position.set(9, 1, zEstacion(2) - 22)
       const anillo = agregarPuntos(
@@ -389,8 +402,8 @@ export default function FondoEspacial({ activo = true }) {
       const grupo = new THREE.Group()
       grupo.position.set(11, 3.5, zEstacion(4) - 22)
       grupo.rotation.set(0.35, 0, 0.15)
-      const a = crearPlanetaMagma({ radio: 0.9, paleta: 'morado', semilla: [1, 1, 1], luz, calor: 1.8 })
-      const b = crearPlanetaMagma({ radio: 0.9, paleta: 'azul', semilla: [6, 2, 3], luz, calor: 1.8 })
+      const a = crearPlanetaMagma({ radio: 0.9, paleta: 'morado', semilla: [1, 1, 1], luz, renderer, calor: 1.8 })
+      const b = crearPlanetaMagma({ radio: 0.9, paleta: 'azul', semilla: [6, 2, 3], luz, renderer, calor: 1.8 })
       grupo.add(a.grupo, b.grupo, crearResplandor('#9d8bff', 9, 0.35))
       estaciones[4].add(grupo)
       liberar.push(a.liberar, b.liberar)
@@ -405,7 +418,7 @@ export default function FondoEspacial({ activo = true }) {
 
     // 5) Horizonte de un planeta gigante, al llegar a contacto
     {
-      const p = crearPlanetaMagma({ radio: 30, paleta: 'azul', semilla: [9, 3, 5], luz: new THREE.Vector3(0, 1, 0.3).normalize(), fuerzaAtmos: 2.2, calor: 0.7 })
+      const p = crearPlanetaMagma({ radio: 30, paleta: 'azul', semilla: [9, 3, 5], luz: new THREE.Vector3(0, 1, 0.3).normalize(), renderer, fuerzaAtmos: 2.2, calor: 0.7 })
       p.grupo.position.set(0, -38, zEstacion(5) - 30)
       estaciones[5].add(p.grupo)
       liberar.push(p.liberar)
@@ -422,6 +435,10 @@ export default function FondoEspacial({ activo = true }) {
     composer.addPass(new RenderPass(escena, camara))
     if (!movil) composer.addPass(new UnrealBloomPass(new THREE.Vector2(1, 1), 0.75, 0.45, 0.55))
     composer.addPass(new OutputPass())
+
+    // Los shaders de las estaciones se compilan ya, no la primera vez que aparecen
+    // (si no, al llegar a cada sección el scroll se trababa mientras compilaba)
+    renderer.compile(escena, camara)
 
     // Progreso del scroll medido en secciones (0 = inicio, 5 = contacto)
     let anclas = []
@@ -454,6 +471,7 @@ export default function FondoEspacial({ activo = true }) {
       camara.aspect = w / h
       camara.updateProjectionMatrix()
       uPixel.value = (h * renderer.getPixelRatio()) / (2 * Math.tan(THREE.MathUtils.degToRad(FOV / 2)))
+      uEscala.value = (h * renderer.getPixelRatio()) / 2
       medirAnclas()
     }
     ajustar()
@@ -486,7 +504,9 @@ export default function FondoEspacial({ activo = true }) {
     const frame = (ahora) => {
       raf = requestAnimationFrame(frame)
       if (!activoRef.current) return
-      if (ahora - ultimaActividad > 1500) {
+      const destino = progresoScroll()
+      // Solo baja a medio ritmo cuando la cámara ya terminó de deslizarse
+      if (ahora - ultimaActividad > 1500 && Math.abs(destino - s) < 0.002) {
         saltar = !saltar
         if (saltar) return
       }
@@ -495,7 +515,7 @@ export default function FondoEspacial({ activo = true }) {
       const t = reducirMovimiento ? 0 : ahora / 1000
 
       // La cámara sigue al scroll con suavizado
-      s += (progresoScroll() - s) * (1 - Math.exp(-dt * 3.5))
+      s += (destino - s) * (1 - Math.exp(-dt * 3.5))
       cam.x += (mouse.x * 1.2 - cam.x) * (1 - Math.exp(-dt * 2))
       cam.y += (-mouse.y * 0.7 - cam.y) * (1 - Math.exp(-dt * 2))
       camara.position.set(cam.x, cam.y, -s * ESPACIO)

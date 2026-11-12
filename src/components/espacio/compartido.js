@@ -69,7 +69,7 @@ void main(){
 `
 
 // Magma: corteza oscura con grietas incandescentes que laten (paleta por uniforms)
-export const FRAG_MAGMA = /* glsl */ `
+const UNIFORMS_MAGMA = /* glsl */ `
 uniform vec3 uLuz;
 uniform float uTiempo;
 uniform float uCalor;
@@ -83,12 +83,20 @@ varying vec3 vObj;
 varying vec3 vNormal;
 varying vec3 vWorld;
 ${RUIDO}
-void main(){
-  vec3 p = vObj * 1.6 + uSemilla;
-  vec3 q = p + 0.35 * vec3(fbm(p + 1.7), fbm(p + 9.2), fbm(p + 4.4));
-  float base = fbm(q * 1.3);
-  float ridge = 1.0 - abs(snoise(q * 2.4 + uTiempo * 0.05));
-  float grietas = pow(ridge, 10.0) + 0.5 * pow(1.0 - abs(snoise(q * 5.0)), 14.0);
+`
+// Desplazamiento del dominio (q - p) y relieve base: no cambian con el tiempo
+const CAMPO_MAGMA = /* glsl */ `
+vec4 campoMagma(vec3 p){
+  vec3 desvio = 0.35 * vec3(fbm(p + 1.7), fbm(p + 9.2), fbm(p + 4.4));
+  return vec4(desvio, fbm((p + desvio) * 1.3));
+}
+`
+// Grietas animadas e iluminación, a partir de q y base
+const COLOR_MAGMA = /* glsl */ `
+  // El ruido puede pasarse apenas de ±1: sin el max, pow recibe una base negativa,
+  // da NaN y el bloom lo esparce en rectángulos negros por la pantalla
+  float ridge = max(1.0 - abs(snoise(q * 2.4 + uTiempo * 0.05)), 0.0);
+  float grietas = pow(ridge, 10.0) + 0.5 * pow(max(1.0 - abs(snoise(q * 5.0)), 0.0), 14.0);
   float pulso = 0.85 + 0.15 * sin(uTiempo * 2.0 + base * 6.0);
 
   vec3 corteza = mix(uCorteza1, uCorteza2, smoothstep(-0.4, 0.5, base));
@@ -97,14 +105,85 @@ void main(){
   vec3 N = normalize(vNormal);
   vec3 V = normalize(cameraPosition - vWorld);
   float dif = max(dot(N, uLuz), 0.0);
-  float fres = pow(1.0 - max(dot(N, V), 0.0), 3.0);
+  float fres = pow(clamp(1.0 - dot(N, V), 0.0, 1.0), 3.0);
 
   vec3 col = corteza * (0.2 + 1.3 * dif);
   col += brillo * grietas * 2.1 * pulso * uCalor;
   col += uBorde * fres * (0.1 + 0.6 * dif);
   gl_FragColor = vec4(col, 1.0);
+`
+export const FRAG_MAGMA = /* glsl */ `
+${UNIFORMS_MAGMA}
+${CAMPO_MAGMA}
+void main(){
+  vec3 p = vObj * 1.6 + uSemilla;
+  vec4 campo = campoMagma(p);
+  vec3 q = p + campo.xyz;
+  float base = campo.w;
+${COLOR_MAGMA}
 }
 `
+
+// Variante para el fondo: la parte fija (20 de las 22 evaluaciones de ruido) se lee
+// de una textura horneada una vez; por píxel solo quedan las grietas animadas
+const VERT_PLANETA_HORNEADO = /* glsl */ `
+varying vec3 vObj;
+varying vec3 vNormal;
+varying vec3 vWorld;
+varying vec2 vUv;
+void main(){
+  vObj = normalize(position);
+  vNormal = normalize(mat3(modelMatrix) * normal);
+  vUv = uv;
+  vec4 w = modelMatrix * vec4(position, 1.0);
+  vWorld = w.xyz;
+  gl_Position = projectionMatrix * viewMatrix * w;
+}
+`
+const FRAG_MAGMA_HORNEADO = /* glsl */ `
+${UNIFORMS_MAGMA}
+uniform sampler2D uCampo;
+varying vec2 vUv;
+void main(){
+  vec3 p = vObj * 1.6 + uSemilla;
+  vec4 campo = texture2D(uCampo, vUv);
+  vec3 q = p + campo.xyz;
+  float base = campo.w;
+${COLOR_MAGMA}
+}
+`
+// Hornea el campo en las coordenadas uv de la esfera (misma convención que SphereGeometry)
+const VERT_HORNEO = /* glsl */ `
+varying vec2 vUv;
+void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }
+`
+const FRAG_HORNEO = /* glsl */ `
+uniform vec3 uSemilla;
+varying vec2 vUv;
+${RUIDO}
+${CAMPO_MAGMA}
+void main(){
+  float u = vUv.x * 6.28318530718;
+  float v = (1.0 - vUv.y) * 3.14159265359;
+  vec3 dir = vec3(-cos(u) * sin(v), cos(v), sin(u) * sin(v));
+  gl_FragColor = campoMagma(dir * 1.6 + uSemilla);
+}
+`
+function hornearCampoMagma(renderer, semilla) {
+  const rt = new THREE.WebGLRenderTarget(1024, 512, { type: THREE.HalfFloatType, depthBuffer: false })
+  rt.texture.wrapS = THREE.RepeatWrapping
+  const geo = new THREE.PlaneGeometry(2, 2)
+  const mat = new THREE.ShaderMaterial({ uniforms: { uSemilla: { value: semilla } }, vertexShader: VERT_HORNEO, fragmentShader: FRAG_HORNEO })
+  const escena = new THREE.Scene()
+  escena.add(new THREE.Mesh(geo, mat))
+  const previo = renderer.getRenderTarget()
+  renderer.setRenderTarget(rt)
+  renderer.render(escena, new THREE.Camera())
+  renderer.setRenderTarget(previo)
+  geo.dispose()
+  mat.dispose()
+  return rt
+}
 
 // Atmósfera: halo con efecto fresnel en una esfera algo mayor (cara trasera)
 export const VERT_ATMOS = /* glsl */ `
@@ -179,22 +258,30 @@ export const PALETAS_MAGMA = {
   }
 }
 
-// Planeta de magma con atmósfera; devuelve el grupo y cómo actualizarlo/liberarlo
-export function crearPlanetaMagma({ radio, paleta, semilla = [0, 0, 0], luz, fuerzaAtmos = 1.6, calor = 1 }) {
+// Planeta de magma con atmósfera; devuelve el grupo y cómo actualizarlo/liberarlo.
+// Con `renderer`, la parte fija del magma se hornea en una textura (mucho más barato)
+export function crearPlanetaMagma({ radio, paleta, semilla = [0, 0, 0], luz, fuerzaAtmos = 1.6, calor = 1, renderer }) {
   const p = PALETAS_MAGMA[paleta]
   const geo = new THREE.SphereGeometry(1, 64, 64)
+  const vSemilla = new THREE.Vector3(...semilla)
+  const campo = renderer ? hornearCampoMagma(renderer, vSemilla) : null
   const uniforms = {
     uLuz: { value: luz },
     uTiempo: { value: 0 },
     uCalor: { value: calor },
-    uSemilla: { value: new THREE.Vector3(...semilla) },
+    uSemilla: { value: vSemilla },
+    uCampo: { value: campo?.texture ?? null },
     uCorteza1: { value: p.corteza[0] },
     uCorteza2: { value: p.corteza[1] },
     uBrillo1: { value: p.brillo[0] },
     uBrillo2: { value: p.brillo[1] },
     uBorde: { value: p.borde }
   }
-  const matCuerpo = new THREE.ShaderMaterial({ uniforms, vertexShader: VERT_PLANETA, fragmentShader: FRAG_MAGMA })
+  const matCuerpo = new THREE.ShaderMaterial({
+    uniforms,
+    vertexShader: campo ? VERT_PLANETA_HORNEADO : VERT_PLANETA,
+    fragmentShader: campo ? FRAG_MAGMA_HORNEADO : FRAG_MAGMA
+  })
   const matAtmos = new THREE.ShaderMaterial({
     uniforms: { uColor: { value: new THREE.Color(p.atmosfera) }, uLuz: { value: luz }, uFuerza: { value: fuerzaAtmos } },
     vertexShader: VERT_ATMOS,
@@ -218,6 +305,7 @@ export function crearPlanetaMagma({ radio, paleta, semilla = [0, 0, 0], luz, fue
       geo.dispose()
       matCuerpo.dispose()
       matAtmos.dispose()
+      campo?.dispose()
     }
   }
 }

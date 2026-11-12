@@ -139,7 +139,7 @@ void main(){
   vec3 L = normalize(vec3(-0.3, 1.0, 0.5));
   float dif = max(dot(N, L), 0.0);
   float esp = pow(max(dot(reflect(-L, N), V), 0.0), 30.0);
-  float fres = pow(1.0 - max(dot(N, V), 0.0), 2.0);
+  float fres = pow(clamp(1.0 - dot(N, V), 0.0, 1.0), 2.0);
   float cresta = smoothstep(0.0, 0.5, vOla);
   // Sin reflejos puntuales en el fondo de los pozos
   esp *= (1.0 - exp(-dot(vP - uA, vP - uA) * 0.6)) * (1.0 - exp(-dot(vP - uB, vP - uB) * 0.8));
