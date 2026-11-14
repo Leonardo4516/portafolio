@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Sparkles, ArrowRight, Workflow, GraduationCap, Code2, Cpu, Database, ShieldCheck } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function Hero() {
@@ -54,128 +54,90 @@ export default function Hero() {
   }, [displayText, isDeleting, roleIndex, roles])
 
   return (
-    <section id="inicio" className="min-h-screen relative flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 scroll-mt-24">
-      <div className="max-w-5xl mx-auto w-full z-10">
+    <section id="inicio" className="min-h-screen relative flex items-center pt-28 pb-16 px-5 sm:px-8 scroll-mt-24">
+      <div className="max-w-6xl mx-auto w-full z-10">
+        {/* El remanente del choque está a la derecha: el texto va a la izquierda */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
-          className="text-center flex flex-col items-center"
+          className="lg:w-[60%] sobre-espacio"
         >
-          {/* Foto de perfil con marco de acento */}
-          <div className="relative mb-7">
-            <div className="absolute -inset-2 rounded-full bg-gradient-to-tr from-violet-400 via-violet-500/0 to-blue-400 opacity-70 blur-md" aria-hidden="true" />
+          <div className="flex items-center gap-4 mb-8">
             <img
               src="/img/leonardo.jpeg"
               alt="Leonardo Hernández"
-              width="128"
-              height="128"
-              className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-2 border-neutral-950 ring-2 ring-violet-400/80"
+              width="64"
+              height="64"
+              className="w-16 h-16 rounded-full object-cover ring-1 ring-white/20"
             />
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-violet-300">{t.hero.badge}</p>
           </div>
 
-          {/* Top pill badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-950/90 border border-violet-500/40 text-[11px] sm:text-xs font-mono text-violet-300 mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(166,107,255,0.2)]">
-            <Sparkles className="w-3.5 h-3.5 text-violet-400 animate-spin" style={{ animationDuration: '9s' }} />
-            <span>{t.hero.badge}</span>
-          </div>
-
-          {/* Main Title */}
-          <h1 className="text-3xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-3">
-            <span className="block text-neutral-200 text-2xl sm:text-4xl md:text-5xl font-light mb-1">
-              {t.hero.greeting}
-            </span>
-            <span className="bg-gradient-to-r from-violet-400 via-fuchsia-300 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(166,107,255,0.4)]">
-              {t.hero.name}
-            </span>
+          <h1 className="font-display tracking-tight mb-6">
+            <span className="block text-2xl sm:text-3xl font-medium text-neutral-200 mb-2">{t.hero.greeting}</span>
+            <span className="block text-5xl sm:text-6xl md:text-7xl font-semibold text-white">{t.hero.name}</span>
           </h1>
 
-          {/* Role + Education Subtitle */}
-          <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm font-mono text-violet-300 mb-6 max-w-full px-2">
-            <span className="px-2.5 py-1 rounded-md bg-violet-500/10 border border-violet-500/30 text-violet-300 font-semibold whitespace-nowrap">
-              {t.hero.role}
-            </span>
-            <span className="flex items-center gap-1.5 text-neutral-300 text-center">
-              <GraduationCap className="w-3.5 h-3.5 text-violet-400 shrink-0" />
-              <span>{t.hero.education}</span>
-            </span>
-          </div>
+          <p className="font-mono text-sm text-neutral-300 mb-3">
+            <span className="text-white">{t.hero.role}</span>
+            <span className="mx-2 text-neutral-500">·</span>
+            {t.hero.education}
+          </p>
 
-          {/* Typewriter role */}
-          <div className="h-10 sm:h-12 flex items-center justify-center font-mono text-base sm:text-xl md:text-2xl text-violet-300/90 mb-8 max-w-full px-2 text-center">
-            <span className="text-blue-500 mr-2">&gt;</span>
+          {/* Rol que se escribe solo */}
+          <p className="h-8 font-mono text-lg sm:text-xl text-violet-300 mb-8 flex items-center">
+            <span className="text-neutral-500 mr-2">&gt;</span>
             <span className="truncate">{displayText}</span>
-            <span className="w-2.5 h-5 sm:h-6 bg-violet-500 ml-1 inline-block animate-pulse"></span>
-          </div>
+            <span className="w-2 h-5 bg-violet-300 ml-1 inline-block animate-pulse"></span>
+          </p>
 
-          {/* Description */}
-          <p className="max-w-2xl text-neutral-300/85 text-sm sm:text-base leading-relaxed mb-9 font-sans px-2">
+          <p className="max-w-xl text-neutral-200 text-base sm:text-lg leading-relaxed mb-10">
             {t.hero.description}
           </p>
 
-          {/* Action Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-3.5">
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
             <a
               href="#proyectos"
               onClick={(e) => handleScrollTo(e, '#proyectos')}
-              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600 via-violet-600 to-violet-700 hover:from-violet-500 hover:to-violet-500 text-white font-semibold font-mono text-xs sm:text-sm tracking-wide shadow-[0_0_25px_rgba(166,107,255,0.4)] hover:shadow-[0_0_35px_rgba(166,107,255,0.6)] transition-all duration-200 transform hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white text-black font-medium text-sm hover:bg-violet-200 transition-colors"
             >
               <span>{t.hero.btnProjects}</span>
               <ArrowRight className="w-4 h-4" />
             </a>
-
             <a
               href="#metodologia"
               onClick={(e) => handleScrollTo(e, '#metodologia')}
-              className="flex items-center gap-2 px-5 py-3 rounded-xl bg-neutral-950/80 hover:bg-neutral-900 border border-neutral-800 hover:border-violet-500/50 text-neutral-200 font-mono text-xs sm:text-sm tracking-wide backdrop-blur-md transition-colors duration-200 active:scale-[0.98] shadow-[0_0_15px_rgba(166,107,255,0.1)] hover:shadow-[0_0_20px_rgba(166,107,255,0.25)] cursor-pointer"
+              className="font-mono text-sm text-neutral-200 hover:text-white underline underline-offset-4 decoration-white/30 hover:decoration-white transition-colors"
             >
-              <Workflow className="w-4 h-4 text-violet-400" />
-              <span>{t.hero.btnWorkflow}</span>
+              {t.hero.btnWorkflow}
             </a>
           </div>
 
-          {/* Micro stats banner */}
-          <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full max-w-3xl px-2">
-            <div className="bg-neutral-950/70 backdrop-blur-md border border-neutral-800/80 hover:border-violet-500/30 rounded-xl p-3 sm:p-4 text-center transition-colors">
-              <Code2 className="w-4 h-4 sm:w-5 sm:h-5 text-violet-400 mx-auto mb-1.5" />
-              <div className="text-base sm:text-lg font-bold font-mono text-white">{t.hero.stats[0].value}</div>
-              <div className="text-[10px] sm:text-xs font-mono text-neutral-400">{t.hero.stats[0].label}</div>
-            </div>
-            <div className="bg-neutral-950/70 backdrop-blur-md border border-neutral-800/80 hover:border-violet-500/30 rounded-xl p-3 sm:p-4 text-center transition-colors">
-              <Database className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 mx-auto mb-1.5" />
-              <div className="text-base sm:text-lg font-bold font-mono text-white">{t.hero.stats[1].value}</div>
-              <div className="text-[10px] sm:text-xs font-mono text-neutral-400">{t.hero.stats[1].label}</div>
-            </div>
-            <div className="bg-neutral-950/70 backdrop-blur-md border border-neutral-800/80 hover:border-violet-500/30 rounded-xl p-3 sm:p-4 text-center transition-colors">
-              <Cpu className="w-4 h-4 sm:w-5 sm:h-5 text-violet-400 mx-auto mb-1.5" />
-              <div className="text-base sm:text-lg font-bold font-mono text-white">{t.hero.stats[2].value}</div>
-              <div className="text-[10px] sm:text-xs font-mono text-neutral-400">{t.hero.stats[2].label}</div>
-            </div>
-            <div className="bg-neutral-950/70 backdrop-blur-md border border-neutral-800/80 hover:border-violet-500/30 rounded-xl p-3 sm:p-4 text-center transition-colors">
-              <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 mx-auto mb-1.5" />
-              <div className="text-base sm:text-lg font-bold font-mono text-white">{t.hero.stats[3].value}</div>
-              <div className="text-[10px] sm:text-xs font-mono text-neutral-400">{t.hero.stats[3].label}</div>
-            </div>
-          </div>
-
-          {/* Interactive Scroll Cue */}
-          <div 
-            onClick={(e) => handleScrollTo(e, '#sobre-mi')}
-            className="mt-12 flex flex-col items-center gap-2 opacity-50 hover:opacity-100 transition-opacity cursor-pointer group"
-          >
-            <span className="text-[10px] font-mono tracking-widest uppercase text-neutral-400 group-hover:text-violet-400 transition-colors">
-              {t.hero.scrollCue || 'Explorar'}
-            </span>
-            <div className="w-5 h-8 rounded-full border border-neutral-700 group-hover:border-violet-500/60 p-1 flex justify-center transition-colors">
-              <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-                className="w-1.5 h-1.5 rounded-full bg-violet-500 shadow-[0_0_8px_rgba(166,107,255,0.8)]"
-              />
-            </div>
-          </div>
+          {/* Cifras rápidas */}
+          <dl className="mt-14 grid grid-cols-2 sm:grid-cols-4 border-t border-white/10">
+            {t.hero.stats.map((stat) => (
+              <div key={stat.label} className="pt-5 pr-4">
+                <dt className="font-display text-xl font-semibold text-white">{stat.value}</dt>
+                <dd className="font-mono text-xs text-neutral-400 mt-1">{stat.label}</dd>
+              </div>
+            ))}
+          </dl>
         </motion.div>
       </div>
+
+      {/* Indicador para bajar */}
+      <button
+        onClick={(e) => handleScrollTo(e, '#sobre-mi')}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-neutral-400 hover:text-white transition-colors cursor-pointer"
+      >
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em]">{t.hero.scrollCue || 'Explorar'}</span>
+        <motion.span
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+          className="block w-px h-6 bg-current"
+        />
+      </button>
     </section>
   )
 }

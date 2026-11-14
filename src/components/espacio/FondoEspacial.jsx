@@ -21,6 +21,17 @@ const ESPACIO = 40 // distancia en z entre estaciones
 const FOV = 55
 
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v))
+
+// Nivel "bajo" para móviles, equipos con pocos núcleos o memoria, y GPU integrada.
+// En ese caso el fondo se dibuja con menos partículas, sin bloom y a 30 cuadros por segundo
+function esEquipoBajo(renderer) {
+  if (window.innerWidth < 768) return true
+  if ((navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4) return true
+  const gl = renderer.getContext()
+  const ext = gl.getExtension('WEBGL_debug_renderer_info')
+  const gpu = ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : ''
+  return /Intel|Mali|Adreno|Apple GPU|Radeon (\d{3}M|Graphics|Vega)/i.test(gpu)
+}
 const rnd = (a, b) => a + Math.random() * (b - a)
 const zEstacion = (i) => -i * ESPACIO
 
@@ -142,7 +153,6 @@ export default function FondoEspacial({ activo = true }) {
 
   useEffect(() => {
     const montaje = montajeRef.current
-    const movil = window.innerWidth < 768
     const reducirMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     let renderer
@@ -153,7 +163,10 @@ export default function FondoEspacial({ activo = true }) {
     } catch {
       return // sin WebGL queda el fondo negro
     }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, movil ? 1 : 1.5))
+    // Equipos con menos recursos: se usan menos píxeles y menos partículas
+    const bajo = esEquipoBajo(renderer)
+    const factorPart = bajo ? 0.5 : 1
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, bajo ? 1 : 1.5))
     renderer.setClearColor(0x000000, 1)
     montaje.appendChild(renderer.domElement)
 
@@ -203,7 +216,7 @@ export default function FondoEspacial({ activo = true }) {
       capa.renderOrder = -2
       return capa
     }
-    escena.add(crearCapaEstrellas(movil ? 5000 : 11000, 0.35, 0.85), crearCapaEstrellas(500, 0.5, 1))
+    escena.add(crearCapaEstrellas(Math.round(11000 * factorPart), 0.35, 0.85), crearCapaEstrellas(500, 0.5, 1))
     liberar.push(() => texEstrella.dispose())
 
     // Nebulosas de fondo, alternando lados.
@@ -218,7 +231,7 @@ export default function FondoEspacial({ activo = true }) {
     const escenaHorneado = new THREE.Scene()
     const quadHorneado = new THREE.Mesh(geoNebulosa)
     escenaHorneado.add(quadHorneado)
-    const TEX_ANCHO = movil ? 1024 : 1536
+    const TEX_ANCHO = bajo ? 1024 : 1536
     const TEX_ALTO = Math.round(TEX_ANCHO * 0.5625)
     const nebulosas = [
       { x: -40, y: 10, z: -90, ancho: 150, c1: '#3b1d6e', c2: '#a66bff', semilla: [0.0, 0.0] },
@@ -321,7 +334,7 @@ export default function FondoEspacial({ activo = true }) {
       disco.rotation.set(1.15, 0, 0.35)
       disco.add(
         agregarPuntos(
-          crearPuntos(movil ? 4000 : 9000, (i, v, c) => {
+          crearPuntos(Math.round(9000 * factorPart), (i, v, c) => {
             const brazo = i % 2
             const r = 1.2 + Math.pow(Math.random(), 1.4) * 9
             const ang = brazo * Math.PI + r * 0.55 + rnd(-0.35, 0.35)
@@ -354,7 +367,7 @@ export default function FondoEspacial({ activo = true }) {
       const grupo = new THREE.Group()
       grupo.position.set(9, 1, zEstacion(2) - 22)
       const anillo = agregarPuntos(
-        crearPuntos(movil ? 2500 : 5000, (i, v, c) => {
+        crearPuntos(Math.round(5000 * factorPart), (i, v, c) => {
           const r = rnd(3.3, 5.6)
           const ang = Math.random() * Math.PI * 2
           v.set(Math.cos(ang) * r, rnd(-0.05, 0.05), Math.sin(ang) * r)
@@ -378,7 +391,7 @@ export default function FondoEspacial({ activo = true }) {
     // 3) Galaxia espiral
     {
       const galaxia = agregarPuntos(
-        crearPuntos(movil ? 7000 : 15000, (i, v, c) => {
+        crearPuntos(Math.round(15000 * factorPart), (i, v, c) => {
           const brazos = 3
           const brazo = i % brazos
           const r = Math.pow(Math.random(), 1.8) * 13 + 0.2
@@ -390,7 +403,7 @@ export default function FondoEspacial({ activo = true }) {
         }, uPixel)
       )
       const grupo = new THREE.Group()
-      grupo.position.set(-10, 0, zEstacion(3) - 26)
+      grupo.position.set(-12, 0, zEstacion(3) - 26)
       grupo.rotation.set(1.0, 0, -0.4)
       grupo.add(galaxia, crearResplandor('#ffe9d6', 6, 0.9))
       estaciones[3].add(grupo)
@@ -416,24 +429,33 @@ export default function FondoEspacial({ activo = true }) {
       })
     }
 
-    // 5) Horizonte de un planeta gigante, al llegar a contacto
+    // 5) Horizonte de un planeta gigante, al llegar a contacto.
+    // Sube a medida que se baja por la última sección, para quedar siempre por
+    // debajo del formulario (subida: 0 al entrar en contacto, 1 al final de la página)
+    const horizonte = { subida: 0 }
     {
       const p = crearPlanetaMagma({ radio: 30, paleta: 'azul', semilla: [9, 3, 5], luz: new THREE.Vector3(0, 1, 0.3).normalize(), renderer, fuerzaAtmos: 2.2, calor: 0.7 })
-      p.grupo.position.set(0, -38, zEstacion(5) - 30)
+      p.grupo.position.set(0, -40, zEstacion(5) - 30)
       estaciones[5].add(p.grupo)
       liberar.push(p.liberar)
       actualizar.push((t) => {
         p.uniforms.uTiempo.value = t
         p.cuerpo.rotation.y = t * 0.02
+        p.grupo.position.y = -40 - 7 * (1 - horizonte.subida)
       })
     }
 
-    estaciones.forEach((g) => g.children.forEach((hijo) => (hijo.userData.escala = hijo.scale.x)))
+    estaciones.forEach((g) =>
+      g.children.forEach((hijo) => {
+        hijo.userData.escala = hijo.scale.x
+        hijo.userData.x = hijo.position.x
+      })
+    )
 
     // Posprocesado (sin bloom en móvil para ahorrar batería)
     const composer = new EffectComposer(renderer)
     composer.addPass(new RenderPass(escena, camara))
-    if (!movil) composer.addPass(new UnrealBloomPass(new THREE.Vector2(1, 1), 0.75, 0.45, 0.55))
+    if (!bajo) composer.addPass(new UnrealBloomPass(new THREE.Vector2(1, 1), 0.75, 0.45, 0.55))
     composer.addPass(new OutputPass())
 
     // Los shaders de las estaciones se compilan ya, no la primera vez que aparecen
@@ -442,8 +464,9 @@ export default function FondoEspacial({ activo = true }) {
 
     // Progreso del scroll medido en secciones (0 = inicio, 5 = contacto)
     let anclas = []
+    let maxScroll = 1
     const medirAnclas = () => {
-      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
+      maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
       anclas = SECCIONES.map((id) => {
         const el = document.getElementById(id)
         if (!el) return null
@@ -456,8 +479,11 @@ export default function FondoEspacial({ activo = true }) {
       for (let i = anclas.length - 1; i >= 0; i--) {
         if (y >= anclas[i]) {
           if (i === anclas.length - 1) return i
+          // Mientras se lee la sección la cámara se queda en su objeto; viaja al
+          // siguiente solo en el último tramo, cuando ya entra la sección nueva
           const tramo = anclas[i + 1] - anclas[i]
-          return i + (tramo > 0 ? clamp((y - anclas[i]) / tramo) : 1)
+          const viaje = Math.min(tramo, window.innerHeight * 0.9)
+          return i + (viaje > 0 ? clamp((y - (anclas[i + 1] - viaje)) / viaje) : 1)
         }
       }
       return 0
@@ -501,9 +527,13 @@ export default function FondoEspacial({ activo = true }) {
     let saltar = false
     const objetivo = new THREE.Vector3()
 
+    const intervalo = bajo ? 1000 / 30 : 0
+    let ultimoCuadro = 0
     const frame = (ahora) => {
       raf = requestAnimationFrame(frame)
       if (!activoRef.current) return
+      if (ahora - ultimoCuadro < intervalo) return
+      ultimoCuadro = ahora
       const destino = progresoScroll()
       // Solo baja a medio ritmo cuando la cámara ya terminó de deslizarse
       if (ahora - ultimaActividad > 1500 && Math.abs(destino - s) < 0.002) {
@@ -516,6 +546,9 @@ export default function FondoEspacial({ activo = true }) {
 
       // La cámara sigue al scroll con suavizado
       s += (destino - s) * (1 - Math.exp(-dt * 3.5))
+      const ultima = anclas[anclas.length - 1] ?? maxScroll
+      const subida = clamp((window.scrollY - ultima) / Math.max(1, maxScroll - ultima))
+      horizonte.subida += (subida - horizonte.subida) * (1 - Math.exp(-dt * 3.5))
       cam.x += (mouse.x * 1.2 - cam.x) * (1 - Math.exp(-dt * 2))
       cam.y += (-mouse.y * 0.7 - cam.y) * (1 - Math.exp(-dt * 2))
       camara.position.set(cam.x, cam.y, -s * ESPACIO)
@@ -525,10 +558,19 @@ export default function FondoEspacial({ activo = true }) {
       // Cada estación crece al acercarse y se encoge cuando ya quedó atrás
       estaciones.forEach((g, i) => {
         const d = s - i
-        const f = THREE.MathUtils.smoothstep(d, -1.25, -0.6) * (1 - THREE.MathUtils.smoothstep(d, 0.9, 1.6))
+        // El planeta gigante de contacto sube desde abajo al centro: aparece más tarde
+        // para no quedar detrás del texto de metodología
+        const [desde, hasta] = i === SECCIONES.length - 1 ? [-0.55, -0.15] : [-1.25, -0.6]
+        const f = THREE.MathUtils.smoothstep(d, desde, hasta) * (1 - THREE.MathUtils.smoothstep(d, 0.9, 1.6))
         g.visible = f > 0.002
         // Cada grupo escala alrededor de su propio centro
-        g.children.forEach((hijo) => hijo.scale.setScalar((hijo.userData.escala ?? 1) * Math.max(f, 0.002)))
+        // Mientras está lejos, el objeto se corre hacia el borde de su lado: así entra
+        // desde afuera y no pasa por el centro, detrás del texto de la sección actual
+        const lejos = Math.max(0, -d)
+        g.children.forEach((hijo) => {
+          hijo.scale.setScalar((hijo.userData.escala ?? 1) * Math.max(f, 0.002))
+          hijo.position.x = hijo.userData.x * (1 + 5 * lejos)
+        })
       })
 
       actualizar.forEach((fn) => fn(t))

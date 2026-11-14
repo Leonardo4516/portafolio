@@ -5,16 +5,16 @@ export const translations = {
       skip: "Saltar intro",
     },
     nav: {
-      home: "01. // inicio",
-      about: "02. // trayectoria",
-      skills: "03. // habilidades",
-      projects: "04. // proyectos",
-      workflow: "05. // metodología",
-      contact: "06. // contacto",
+      home: "Inicio",
+      about: "Trayectoria",
+      skills: "Habilidades",
+      projects: "Proyectos",
+      workflow: "Metodología",
+      contact: "Contacto",
       status: "Disponible para trabajar",
     },
     hero: {
-      badge: "INGENIERÍA DE SOFTWARE // BACKEND & DATOS",
+      badge: "Ingeniería de software · Backend y datos",
       greeting: "Hola, soy",
       name: "Leonardo Hernández",
       role: "Desarrollador de Software Junior",
@@ -38,7 +38,7 @@ export const translations = {
       ]
     },
     about: {
-      tag: "02. // ENFOQUE Y TRAYECTORIA",
+      tag: "Enfoque y trayectoria",
       title: "Desarrollo con Bases Sólidas y",
       titleHighlight: "Criterio Práctico",
       desc: "Mi formación técnica me enseñó a valorar los fundamentos: arquitectura desacoplada, diseño relacional y buenas prácticas de codificación. Integro la IA con sensatez para mejorar mi productividad diaria.",
@@ -127,7 +127,7 @@ export const translations = {
       ]
     },
     skills: {
-      tag: "03. // COMPETENCIAS TÉCNICAS",
+      tag: "Competencias técnicas",
       title: "Matriz de",
       titleHighlight: "Habilidades",
       desc: "Clasificación honesta y transparente de mis conocimientos según mi nivel de práctica y aplicación en proyectos reales.",
@@ -144,7 +144,7 @@ export const translations = {
       levelLabel: "Nivel declarado:"
     },
     projects: {
-      tag: "04. // CASOS DE ESTUDIO",
+      tag: "Casos de estudio",
       title: "Proyectos y",
       titleHighlight: "Desarrollos Destacados",
       desc: "Selección curada de aplicaciones donde aplico arquitectura de software, bases de datos relacionales y automatizaciones.",
@@ -161,7 +161,7 @@ export const translations = {
       btnShowMore: "+ Explorar otros proyectos ({count} más)",
       btnShowLess: "Mostrar solo proyectos insignia",
       videoModal: {
-        badge: "DEMOSTRACIÓN DE INTERFAZ // CASO DE ESTUDIO",
+        badge: "Demostración de interfaz · Caso de estudio",
         businessValue: "Impacto & Solución de Negocio",
         technologies: "Tecnologías Clave",
         viewCode: "Ver Código en GitHub",
@@ -171,7 +171,7 @@ export const translations = {
       }
     },
     workflow: {
-      tag: "05. // METODOLOGÍA & FLUJO DE TRABAJO",
+      tag: "Metodología y flujo de trabajo",
       title: "Cómo Construyo",
       titleHighlight: "Software de Principio a Fin",
       desc: "Un enfoque estructurado que combina fundamentos de ingeniería, modelado riguroso de bases de datos y automatización pragmática.",
@@ -219,7 +219,7 @@ export const translations = {
       ]
     },
     contact: {
-      tag: "06. // CONTACTO Y CONEXIÓN",
+      tag: "Contacto",
       title: "¿Iniciamos una",
       titleHighlight: "conversación?",
       desc: "Estoy activamente en búsqueda de oportunidades profesionales como Desarrollador de Software Junior para sumarme a equipos donde pueda aportar en backend, SQL y desarrollo ágil.",
@@ -260,16 +260,16 @@ export const translations = {
       skip: "Skip intro",
     },
     nav: {
-      home: "01. // home",
-      about: "02. // background",
-      skills: "03. // skills",
-      projects: "04. // projects",
-      workflow: "05. // methodology",
-      contact: "06. // contact",
+      home: "Home",
+      about: "Background",
+      skills: "Skills",
+      projects: "Projects",
+      workflow: "Methodology",
+      contact: "Contact",
       status: "Available for opportunities",
     },
     hero: {
-      badge: "SOFTWARE ENGINEERING // BACKEND & DATA",
+      badge: "Software engineering · Backend & data",
       greeting: "Hello, I am",
       name: "Leonardo Hernández",
       role: "Junior Software Developer",
@@ -293,7 +293,7 @@ export const translations = {
       ]
     },
     about: {
-      tag: "02. // BACKGROUND & APPROACH",
+      tag: "Background & approach",
       title: "Building Software with",
       titleHighlight: "Practical Rigor",
       desc: "My technical education taught me the value of fundamentals: decoupled architecture, relational design, and clean coding practices. I use AI sensibly as an accelerator for daily development.",
@@ -382,7 +382,7 @@ export const translations = {
       ]
     },
     skills: {
-      tag: "03. // TECHNICAL SKILLS",
+      tag: "Technical skills",
       title: "Competency",
       titleHighlight: "Matrix",
       desc: "An honest and transparent breakdown of my technical competencies based on hands-on practical application in real projects.",
@@ -399,7 +399,7 @@ export const translations = {
       levelLabel: "Declared Level:"
     },
     projects: {
-      tag: "04. // CASE STUDIES",
+      tag: "Case studies",
       title: "Featured",
       titleHighlight: "Projects & Code",
       desc: "A curated selection of applications showcasing software architecture, relational databases, and automated workflows.",
@@ -416,7 +416,7 @@ export const translations = {
       btnShowMore: "+ Explore more projects ({count} more)",
       btnShowLess: "Show featured projects only",
       videoModal: {
-        badge: "INTERFACE DEMO // CASE STUDY",
+        badge: "Interface demo · Case study",
         businessValue: "Business Value & Key Impact",
         technologies: "Key Technologies",
         viewCode: "View Code on GitHub",
@@ -426,7 +426,7 @@ export const translations = {
       }
     },
     workflow: {
-      tag: "05. // METHODOLOGY & WORKFLOW",
+      tag: "Methodology & workflow",
       title: "How I Build",
       titleHighlight: "Software End-to-End",
       desc: "A structured engineering approach combining foundational principles, relational database design, and pragmatic automation.",
@@ -474,7 +474,7 @@ export const translations = {
       ]
     },
     contact: {
-      tag: "06. // CONTACT & CONNECT",
+      tag: "Contact",
       title: "Let's start a",
       titleHighlight: "conversation",
       desc: "I am actively seeking junior software developer opportunities to join engineering teams where I can contribute to backend systems, databases, and agile software development.",

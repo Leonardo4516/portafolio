@@ -1,19 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  ExternalLink, 
-  ShieldCheck, 
-  Database, 
-  Server, 
-  Cpu, 
-  Bot, 
-  Globe, 
-  Activity, 
-  Wrench, 
-  Play, 
-  ChevronDown, 
-  ChevronUp 
-} from 'lucide-react'
+import { ExternalLink, Play, ChevronDown, ChevronUp } from 'lucide-react'
 import { GithubIcon } from './Icons'
 import { useLanguage } from '../context/LanguageContext'
 import VideoModal from './VideoModal'
@@ -63,7 +50,6 @@ export default function Projects() {
       id: 'telemedicina-security',
       category: 'java',
       featured: true,
-      icon: Activity,
       title: language === 'es' ? 'Telemedicina & Triaje Clínico IA' : 'Telemedicine & AI Clinical Triage',
       subtitle: language === 'es' ? 'Java 21, Spring Boot 3, DDD Multi-Módulo, Spring Security 6 & Flyway' : 'Java 21, Spring Boot 3, Multi-Module DDD, Spring Security 6 & Flyway',
       desc: language === 'es'
@@ -87,8 +73,7 @@ export default function Projects() {
       id: 'Proyecto_RentaHerramientas',
       category: 'java',
       featured: true,
-      icon: Wrench,
-      title: language === 'es' ? 'RentaTools // Marketplace de Maquinaria' : 'RentaTools // Machinery Marketplace',
+      title: language === 'es' ? 'RentaTools — Marketplace de Maquinaria' : 'RentaTools — Machinery Marketplace',
       subtitle: language === 'es' ? 'Java 21, Spring Boot 3.4, DDD Hexagonal, PostgreSQL (4FN) & WebSockets' : 'Java 21, Spring Boot 3.4, Hexagonal DDD, 4NF PostgreSQL & WebSockets',
       desc: language === 'es'
         ? 'Marketplace B2B/B2C para alquiler, inspección y facturación de maquinaria pesada. Implementa arquitectura hexagonal DDD desacoplada, control de acceso por roles (RBAC: Admin, Proveedor, Cliente), base de datos en 4FN con Docker Compose, geolocalización interactiva con mapas y eventos en tiempo real con Spring WebSocket + STOMP.'
@@ -111,8 +96,7 @@ export default function Projects() {
       id: 'sica-project',
       category: 'java',
       featured: true,
-      icon: ShieldCheck,
-      title: language === 'es' ? 'SICA // Sistema de Control de Acceso' : 'SICA // Access Control System',
+      title: language === 'es' ? 'SICA — Sistema de Control de Acceso' : 'SICA — Access Control System',
       subtitle: language === 'es' ? 'Java 17, PostgreSQL, Docker Compose, RBAC y Patrones de Diseño' : 'Java 17, PostgreSQL, Docker Compose, RBAC & Design Patterns',
       desc: language === 'es'
         ? 'Sistema integral de seguridad y control de acceso vehicular y peatonal. Implementa arquitectura en capas, control de acceso basado en roles (RBAC), encriptación BCrypt, patrones de diseño (State, Factory, Strategy) y suites de pruebas automatizadas con JUnit.'
@@ -135,7 +119,6 @@ export default function Projects() {
       id: 'volcado-datos-postgresql',
       category: 'data',
       featured: true,
-      icon: Database,
       title: language === 'es' ? 'ETL, Normalización & Calidad de Datos' : 'ETL, Normalization & Data Quality',
       subtitle: language === 'es' ? 'Pipeline contenerizado en PostgreSQL 16 con Docker' : 'Containerized Pipeline in PostgreSQL 16 with Docker',
       desc: language === 'es'
@@ -159,7 +142,6 @@ export default function Projects() {
       id: 'f1-project',
       category: 'java',
       featured: false,
-      icon: Cpu,
       title: language === 'es' ? 'Simulador F1 & Motor de Telemetría' : 'F1 Simulator & Telemetry Engine',
       subtitle: language === 'es' ? 'Java 17 bajo Arquitectura Hexagonal y APIs de Clima' : 'Java 17 with Hexagonal Architecture and Live Weather API',
       desc: language === 'es'
@@ -183,7 +165,6 @@ export default function Projects() {
       id: 'task-admin',
       category: 'java',
       featured: false,
-      icon: Server,
       title: language === 'es' ? 'Gestor de Tareas Kanban (SDD)' : 'Kanban Task Manager (SDD)',
       subtitle: language === 'es' ? 'Java 17, JDBC/MySQL y Arquitectura Hexagonal' : 'Java 17, JDBC/MySQL and Hexagonal Architecture',
       desc: language === 'es'
@@ -207,8 +188,7 @@ export default function Projects() {
       id: 'chatbot-gestor-pedidos',
       category: 'automation',
       featured: false,
-      icon: Bot,
-      title: language === 'es' ? 'CafExpress // Bot & Automatización n8n' : 'CafExpress // Bot & n8n Automation',
+      title: language === 'es' ? 'CafExpress — Bot & Automatización n8n' : 'CafExpress — Bot & n8n Automation',
       subtitle: language === 'es' ? 'Telegram Bot con sincronización en Google Sheets' : 'Telegram Bot with Google Sheets Synchronization',
       desc: language === 'es'
         ? 'Automatización sin servidor en n8n para digitalizar el ciclo completo de pedidos institucionales. Manejo de estados de sesión, nodos de código en JavaScript y persistencia en Google Sheets API con cálculo de puntos de fidelización.'
@@ -231,8 +211,7 @@ export default function Projects() {
       id: 'acme-bank',
       category: 'fullstack',
       featured: false,
-      icon: Globe,
-      title: language === 'es' ? 'Acme Bank // Portal Transaccional' : 'Acme Bank // Transactional Portal',
+      title: language === 'es' ? 'Acme Bank — Portal Transaccional' : 'Acme Bank — Transactional Portal',
       subtitle: language === 'es' ? 'JavaScript Vanilla (ES6+) con Web Components' : 'Vanilla JavaScript (ES6+) with Web Components',
       desc: language === 'es'
         ? 'Plataforma web de autogestión bancaria desarrollada con 0 dependencias externas. Módulos de autenticación, control de sesiones, validaciones instantáneas para retiros/consignaciones y persistencia con Web Storage API.'
@@ -270,156 +249,137 @@ export default function Projects() {
     : categoryProjects
 
   return (
-    <section id="proyectos" className="py-24 px-4 sm:px-6 relative z-10 scroll-mt-24">
+    <section id="proyectos" className="py-28 px-5 sm:px-8 relative z-10 scroll-mt-24">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <span className="text-xs font-mono uppercase tracking-widest text-violet-400 bg-violet-950/40 border border-violet-500/30 px-4 py-1.5 rounded-full inline-block">
+        {/* La galaxia de esta sección está a la izquierda: el texto va a la derecha */}
+        <div className="lg:ml-auto lg:w-[56%] sobre-espacio">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-violet-300">
             {t.projects.tag}
-          </span>
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-neutral-100 mt-4 mb-4">
-            {t.projects.title} <span className="bg-gradient-to-r from-violet-500 via-violet-400 to-violet-600 bg-clip-text text-transparent">{t.projects.titleHighlight}</span>
+          </p>
+          <h2 className="font-display text-4xl sm:text-5xl font-semibold tracking-tight text-white mt-4 mb-5">
+            {t.projects.title} <span className="text-violet-300">{t.projects.titleHighlight}</span>
           </h2>
-          <p className="max-w-2xl mx-auto text-neutral-400 text-xs sm:text-sm md:text-base font-sans leading-relaxed">
+          <p className="text-neutral-200 text-base leading-relaxed max-w-xl">
             {t.projects.desc}
           </p>
-        </div>
 
-        {/* Filter Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-10">
-          {categoryFilters.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => {
-                setFilter(cat.id)
-                if (cat.id !== 'all') setShowAllProjects(true)
-              }}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-colors duration-200 active:scale-[0.98] ${
-                filter === cat.id
-                  ? 'bg-violet-600 text-white font-bold shadow-[0_0_20px_rgba(166,107,255,0.4)]'
-                  : 'bg-neutral-950/60 hover:bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-neutral-200'
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
+          {/* Filtros como texto: el activo queda subrayado */}
+          <div className="flex flex-wrap gap-x-6 gap-y-2 mt-10 mb-4 border-b border-white/10">
+            {categoryFilters.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => {
+                  setFilter(cat.id)
+                  if (cat.id !== 'all') setShowAllProjects(true)
+                }}
+                className={`relative pb-3 font-mono text-sm transition-colors cursor-pointer ${
+                  filter === cat.id ? 'text-white' : 'text-neutral-400 hover:text-neutral-200'
+                }`}
+              >
+                {cat.label}
+                {filter === cat.id && (
+                  <motion.span layoutId="filtroProyectos" className="absolute left-0 right-0 -bottom-px h-px bg-violet-400" />
+                )}
+              </button>
+            ))}
+          </div>
 
-        {/* Projects Grid */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <AnimatePresence>
-            {displayedProjects.map((item) => {
-              const Icon = item.icon
-              const isHighlighted = highlightedId === item.id
-              return (
-                <motion.div
-                  layout
-                  key={item.id}
-                  id={`project-${item.id}`}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.25 }}
-                  className={`bg-neutral-950/60 backdrop-blur-xl rounded-2xl p-6 sm:p-7 flex flex-col justify-between group transition-colors duration-200 scroll-mt-28 ${
-                    isHighlighted
-                      ? 'border-2 border-violet-500 shadow-[0_0_50px_rgba(166,107,255,0.5)] ring-4 ring-violet-500/20 -translate-y-1'
-                      : 'border border-neutral-800/90 hover:border-violet-500/50 hover:shadow-[0_10px_40px_rgba(166,107,255,0.12)] hover:-translate-y-1.5'
-                  }`}
-                >
-                  <div>
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-neutral-900/90 border border-neutral-800 flex items-center justify-center group-hover:border-violet-500/50 group-hover:scale-105 transition-transform duration-200">
-                        <Icon className="w-6 h-6 text-violet-400" />
-                      </div>
-                      {item.featured && (
-                        <span className="px-3 py-1 rounded-full text-[10px] font-mono tracking-wider bg-violet-500/20 text-violet-300 border border-violet-500/30">
-                          {t.projects.badgeFeatured}
-                        </span>
-                      )}
+          {/* Lista de proyectos */}
+          <motion.ol layout>
+            <AnimatePresence initial={false}>
+              {displayedProjects.map((item, idx) => {
+                const isHighlighted = highlightedId === item.id
+                return (
+                  <motion.li
+                    layout
+                    key={item.id}
+                    id={`project-${item.id}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className={`group py-9 border-b border-white/10 scroll-mt-28 transition-colors ${
+                      isHighlighted ? 'border-l-2 border-l-violet-400 pl-5' : ''
+                    }`}
+                  >
+                    <div className="flex items-baseline gap-4 font-mono text-xs text-neutral-400">
+                      <span className="text-violet-300">{String(idx + 1).padStart(2, '0')}</span>
+                      <span>{item.subtitle}</span>
                     </div>
 
-                    <h3 className="font-mono font-bold text-lg sm:text-xl text-neutral-100 mb-1 group-hover:text-violet-400 transition-colors">
+                    <h3
+                      className={`font-display text-2xl sm:text-3xl font-semibold tracking-tight mt-3 mb-3 transition-colors ${
+                        isHighlighted ? 'text-violet-300' : 'text-white group-hover:text-violet-200'
+                      }`}
+                    >
                       {item.title}
                     </h3>
-                    <p className="text-xs font-mono text-violet-400/90 mb-3">{item.subtitle}</p>
-                    <p className="text-neutral-300/80 text-xs sm:text-sm leading-relaxed mb-6 font-sans">
+
+                    <p className="text-neutral-200 text-[15px] leading-relaxed mb-4">
                       {item.desc}
                     </p>
-                  </div>
 
-                  <div>
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {item.tags.map((tag, idx) => (
-                        <span
-                          key={idx}
-                          className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-neutral-300"
-                        >
-                          {tag}
+                    <p className="font-mono text-xs leading-6 text-neutral-400 mb-5">
+                      {item.tags.join('  ·  ')}
+                    </p>
+
+                    <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-sm">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedVideoProject(item)}
+                        className="inline-flex items-center gap-2 text-violet-300 hover:text-white transition-colors cursor-pointer"
+                      >
+                        <Play className="w-3.5 h-3.5 fill-current" />
+                        <span className="underline underline-offset-4 decoration-violet-400/40 hover:decoration-white">
+                          {t.projects.btnDemoVideo || 'Ver Demo'}
                         </span>
-                      ))}
-                    </div>
-
-                    {/* Twin Action Buttons: Ver Código & Ver Demo */}
-                    <div className="flex flex-wrap items-center gap-2.5 pt-4 border-t border-neutral-800/80">
+                      </button>
                       <a
                         href={item.github}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center gap-2 text-xs font-mono px-3.5 py-2.5 rounded-xl bg-neutral-900/90 hover:bg-neutral-800 border border-neutral-800 hover:border-neutral-700 text-neutral-200 hover:text-white transition-colors duration-200 active:scale-[0.98] font-semibold"
+                        className="inline-flex items-center gap-2 text-neutral-300 hover:text-white transition-colors"
                       >
-                        <GithubIcon className="w-4 h-4 text-violet-400" />
-                        <span>{t.projects.btnCode}</span>
+                        <GithubIcon className="w-4 h-4" />
+                        <span className="underline underline-offset-4 decoration-white/20 hover:decoration-white">
+                          {t.projects.btnCode}
+                        </span>
                       </a>
-
-                      <button
-                        type="button"
-                        onClick={() => setSelectedVideoProject(item)}
-                        className="flex items-center gap-2 text-xs font-mono px-4 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-semibold transition-colors duration-200 active:scale-[0.98] shadow-[0_0_20px_rgba(166,107,255,0.3)] hover:shadow-[0_0_25px_rgba(166,107,255,0.5)] cursor-pointer"
-                      >
-                        <Play className="w-3.5 h-3.5 fill-current text-white" />
-                        <span>{t.projects.btnDemoVideo || "Ver Demo"}</span>
-                      </button>
-
                       {item.demo && (
                         <a
                           href={item.demo}
                           target="_blank"
                           rel="noreferrer"
-                          className="flex items-center gap-1.5 text-xs font-mono px-3 py-2.5 rounded-xl text-neutral-400 hover:text-violet-300 hover:bg-neutral-900/60 border border-neutral-800/80 transition-colors ml-auto"
-                          title={t.projects.btnDemo}
+                          className="inline-flex items-center gap-2 text-neutral-300 hover:text-white transition-colors"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
-                          <span className="hidden sm:inline">{t.projects.btnDemo}</span>
+                          <span className="underline underline-offset-4 decoration-white/20 hover:decoration-white">
+                            {t.projects.btnDemo}
+                          </span>
                         </a>
                       )}
                     </div>
-                  </div>
-                </motion.div>
-              )
-            })}
-          </AnimatePresence>
-        </motion.div>
+                  </motion.li>
+                )
+              })}
+            </AnimatePresence>
+          </motion.ol>
 
-        {/* Progressive Expansion Toggle (Top 4 -> All 8) */}
-        {filter === 'all' && projectsData.length > 4 && (
-          <div className="mt-12 flex justify-center">
+          {/* Mostrar todos / menos */}
+          {filter === 'all' && projectsData.length > 4 && (
             <button
               onClick={() => setShowAllProjects(!showAllProjects)}
-              className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-neutral-950/80 hover:bg-neutral-900 border border-neutral-800 hover:border-violet-500/50 text-neutral-200 hover:text-white font-mono text-xs sm:text-sm tracking-wide backdrop-blur-md transition-colors duration-200 active:scale-[0.98] shadow-[0_0_20px_rgba(166,107,255,0.1)] hover:shadow-[0_0_25px_rgba(166,107,255,0.25)] cursor-pointer group"
+              className="mt-8 inline-flex items-center gap-2 font-mono text-sm text-neutral-300 hover:text-white transition-colors cursor-pointer group"
             >
-              {showAllProjects ? (
-                <>
-                  <span>{t.projects.btnShowLess}</span>
-                  <ChevronUp className="w-4 h-4 text-violet-400 group-hover:-translate-y-0.5 transition-transform" />
-                </>
-              ) : (
-                <>
-                  <span>{t.projects.btnShowMore.replace('{count}', projectsData.length - 4)}</span>
-                  <ChevronDown className="w-4 h-4 text-violet-400 group-hover:translate-y-0.5 transition-transform" />
-                </>
-              )}
+              <span className="underline underline-offset-4 decoration-white/20 group-hover:decoration-white">
+                {showAllProjects
+                  ? t.projects.btnShowLess
+                  : t.projects.btnShowMore.replace('{count}', projectsData.length - 4)}
+              </span>
+              {showAllProjects ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
             </button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* Video Demo Modal */}

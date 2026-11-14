@@ -170,107 +170,66 @@ export default function TechStack() {
     : skillsData.filter(s => s.level === activeLevel)
 
   return (
-    <section id="stack" className="py-24 px-4 sm:px-6 relative z-10 scroll-mt-24">
+    <section id="stack" className="py-28 px-5 sm:px-8 relative z-10 scroll-mt-24">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <span className="text-xs font-mono uppercase tracking-widest text-violet-400 bg-violet-950/40 border border-violet-500/30 px-4 py-1.5 rounded-full inline-block">
-            {t.skills.tag}
-          </span>
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-neutral-100 mt-4 mb-4">
-            {t.skills.title} <span className="bg-gradient-to-r from-violet-500 via-blue-400 to-violet-600 bg-clip-text text-transparent">{t.skills.titleHighlight}</span>
+        {/* El planeta azul con anillo de esta sección está a la derecha: el texto va a la izquierda */}
+        <div className="lg:w-[56%] sobre-espacio">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-violet-300">{t.skills.tag}</p>
+          <h2 className="font-display text-4xl sm:text-5xl font-semibold tracking-tight text-white mt-4 mb-5">
+            {t.skills.title} <span className="text-violet-300">{t.skills.titleHighlight}</span>
           </h2>
-          <p className="max-w-2xl mx-auto text-neutral-400 text-xs sm:text-sm md:text-base font-sans leading-relaxed">
-            {t.skills.desc}
-          </p>
-        </div>
+          <p className="text-neutral-200 text-base leading-relaxed max-w-xl">{t.skills.desc}</p>
 
-        {/* Level Filter Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
-          {levelFilters.map((tab) => {
-            const isActive = activeLevel === tab.id
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveLevel(tab.id)}
-                className={`px-4 py-2 rounded-xl font-mono text-xs sm:text-sm transition-all duration-300 cursor-pointer ${
-                  isActive
-                    ? 'bg-neutral-900 border border-violet-500 text-violet-300 shadow-[0_0_20px_rgba(166,107,255,0.3)] font-bold'
-                    : 'bg-neutral-950/60 hover:bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-neutral-200'
-                }`}
-              >
-                {tab.label}
-              </button>
-            )
-          })}
-        </div>
-
-        {/* Skills Cards Grid */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <AnimatePresence>
-            {filteredSkills.map((skill) => {
-              const badgeStyle = 
-                skill.level === 'advanced'
-                  ? 'bg-violet-500/20 text-violet-300 border-violet-500/40'
-                  : skill.level === 'intermediate'
-                  ? 'bg-blue-500/15 text-blue-300 border-blue-500/30'
-                  : 'bg-neutral-900 text-neutral-300 border-neutral-800'
-
-              const levelCount = skill.level === 'advanced' ? 3 : skill.level === 'intermediate' ? 2 : 1
-
+          {/* Filtro por nivel como texto */}
+          <div className="flex flex-wrap gap-x-6 gap-y-2 mt-10 border-b border-white/10">
+            {levelFilters.map((tab) => {
+              const isActive = activeLevel === tab.id
               return (
-                <motion.div
-                  layout
-                  key={skill.name}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.25 }}
-                  className="bg-neutral-950/60 backdrop-blur-xl border border-neutral-800/80 hover:border-violet-500/50 p-5 sm:p-6 rounded-2xl transition-all duration-300 hover:shadow-[0_0_25px_rgba(166,107,255,0.15)] group hover:-translate-y-1 flex flex-col justify-between"
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveLevel(tab.id)}
+                  className={`relative pb-3 font-mono text-sm transition-colors cursor-pointer ${
+                    isActive ? 'text-white' : 'text-neutral-400 hover:text-neutral-200'
+                  }`}
                 >
-                  <div>
-                    <div className="flex items-start justify-between gap-2 mb-3">
-                      <h3 className="font-mono font-bold text-base sm:text-lg text-neutral-100 group-hover:text-violet-400 transition-colors">
-                        {skill.name}
-                      </h3>
-                      <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-neutral-400 shrink-0">
-                        {skill.tag}
-                      </span>
-                    </div>
-                    <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed mb-4 font-sans">
-                      {skill.desc}
-                    </p>
-                  </div>
-
-                  <div className="pt-3 border-t border-neutral-800/80 flex items-center justify-between text-xs font-mono">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-neutral-500 mr-1">{t.skills.levelLabel}</span>
-                      <div className="flex items-center gap-1">
-                        {[1, 2, 3].map((step) => (
-                          <div
-                            key={step}
-                            className={`w-2.5 h-1.5 rounded-sm transition-all ${
-                              step <= levelCount
-                                ? skill.level === 'advanced'
-                                  ? 'bg-violet-500 shadow-[0_0_6px_rgba(166,107,255,0.8)]'
-                                  : skill.level === 'intermediate'
-                                  ? 'bg-blue-500'
-                                  : 'bg-neutral-400'
-                                : 'bg-neutral-800'
-                            }`}
-                          />
-                        ))}
-                      </div>
-                    </div>
-
-                    <span className={`px-2.5 py-0.5 rounded-full border text-[11px] font-semibold ${badgeStyle}`}>
-                      {skill.levelLabel}
-                    </span>
-                  </div>
-                </motion.div>
+                  {tab.label}
+                  {isActive && (
+                    <motion.span layoutId="filtroNivel" className="absolute left-0 right-0 -bottom-px h-px bg-violet-400" />
+                  )}
+                </button>
               )
             })}
-          </AnimatePresence>
-        </motion.div>
+          </div>
+
+          {/* Lista de habilidades */}
+          <motion.ul layout>
+            <AnimatePresence initial={false}>
+              {filteredSkills.map((skill) => (
+                <motion.li
+                  layout
+                  key={skill.name}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="py-5 border-b border-white/10"
+                >
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                    <h3 className="font-display text-lg sm:text-xl font-semibold text-white">{skill.name}</h3>
+                    <p className="font-mono text-xs text-neutral-400">
+                      {skill.tag}
+                      <span className="mx-2">·</span>
+                      <span className={skill.level === 'advanced' ? 'text-violet-300' : skill.level === 'intermediate' ? 'text-blue-300' : 'text-neutral-300'}>
+                        {skill.levelLabel}
+                      </span>
+                    </p>
+                  </div>
+                  <p className="text-neutral-300 text-[15px] leading-relaxed mt-2">{skill.desc}</p>
+                </motion.li>
+              ))}
+            </AnimatePresence>
+          </motion.ul>
+        </div>
       </div>
     </section>
   )

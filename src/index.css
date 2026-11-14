@@ -12,6 +12,14 @@
   }
 }
 
+/* Texto que va directamente sobre el espacio (sin tarjeta): una sombra oscura
+   difusa lo separa de estrellas y nebulosas sin que se note como recuadro */
+@layer utilities {
+  .sobre-espacio {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85), 0 0 24px rgba(0, 0, 0, 0.75);
+  }
+}
+
 /* Custom Red Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

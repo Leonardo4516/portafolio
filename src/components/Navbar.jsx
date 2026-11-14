@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Globe } from 'lucide-react'
-import { BrandLogo, GithubIcon } from './Icons'
+import { Menu, X } from 'lucide-react'
+import { GithubIcon } from './Icons'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('#inicio')
-  const [scrollProgress, setScrollProgress] = useState(0)
   const { language, toggleLanguage, t } = useLanguage()
 
   useEffect(() => {
@@ -19,11 +18,6 @@ export default function Navbar() {
         window.requestAnimationFrame(() => {
           const currentY = window.scrollY
           setScrolled(currentY > 30)
-
-          const totalScroll = document.documentElement.scrollHeight - window.innerHeight
-          if (totalScroll > 0) {
-            setScrollProgress((currentY / totalScroll) * 100)
-          }
 
           // Accurate ScrollSpy using bounding client rect relative to viewport
           const sections = ['#inicio', '#sobre-mi', '#stack', '#proyectos', '#metodologia', '#contacto']
@@ -93,102 +87,89 @@ export default function Navbar() {
   }
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled 
-        ? 'bg-black/95 backdrop-blur-xl border-b border-violet-500/20 py-2.5 shadow-[0_4px_30px_rgba(166,107,255,0.15)]' 
-        : 'bg-transparent py-4'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-        {/* Brand: ONLY the Vitruvian logo in Crimson */}
-        <a 
-          href="#inicio" 
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
+        scrolled ? 'bg-black/85 backdrop-blur-md border-b border-white/10' : 'bg-transparent border-b border-transparent'
+      }`}
+    >
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+        {/* Marca: el nombre */}
+        <a
+          href="#inicio"
           onClick={(e) => handleNavClick(e, '#inicio')}
-          className="flex items-center group focus:outline-none"
-          title="Inicio // Home"
+          className="font-display text-lg font-semibold tracking-tight text-white hover:text-violet-200 transition-colors"
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-violet-600/30 via-black to-blue-900/30 p-[1px] border border-violet-500/40 shadow-[0_0_20px_rgba(166,107,255,0.25)] group-hover:shadow-[0_0_25px_rgba(166,107,255,0.5)] group-hover:border-violet-400 transition-all">
-            <div className="w-full h-full bg-black/95 rounded-[11px] flex items-center justify-center group-hover:bg-neutral-900 transition-colors">
-              <BrandLogo className="w-7 h-7 group-hover:scale-105 transition-transform" />
-            </div>
-          </div>
+          Leonardo Hernández
         </a>
 
-        {/* Desktop Navigation Links with Active ScrollSpy */}
-        <nav className="hidden lg:flex items-center gap-1.5 xl:gap-2 text-xs font-mono">
+        {/* Enlaces de escritorio: el activo queda en blanco y subrayado */}
+        <nav className="hidden lg:flex items-center gap-7 text-sm">
           {navLinks.map((link) => {
             const isActive = activeSection === link.href
             return (
-              <a 
-                key={link.href} 
-                href={link.href} 
+              <a
+                key={link.href}
+                href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className={`px-3 py-1.5 rounded-lg transition-all duration-200 cursor-pointer ${
-                  isActive
-                    ? 'text-violet-400 font-bold bg-violet-950/40 border border-violet-500/35 shadow-[0_0_14px_rgba(166,107,255,0.22)]'
-                    : 'text-neutral-400 hover:text-neutral-100 hover:bg-neutral-900/60'
+                className={`relative py-1 transition-colors cursor-pointer ${
+                  isActive ? 'text-white' : 'text-neutral-400 hover:text-white'
                 }`}
               >
                 {link.label}
+                {isActive && (
+                  <motion.span
+                    layoutId="enlaceActivo"
+                    className="absolute left-0 right-0 -bottom-1 h-px bg-violet-300"
+                    transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                  />
+                )}
               </a>
             )
           })}
         </nav>
 
-        {/* Desktop Right Actions: Language Switch + GitHub */}
-        <div className="hidden md:flex items-center gap-3">
-          {/* Language Switcher */}
+        {/* Idioma y GitHub */}
+        <div className="hidden md:flex items-center gap-5 font-mono text-xs">
           <button
             onClick={toggleLanguage}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-950 border border-neutral-800 hover:border-violet-500/60 text-xs font-mono text-neutral-300 hover:text-violet-300 transition-all shadow-sm"
+            className="text-neutral-400 hover:text-white transition-colors cursor-pointer"
             title="Cambiar idioma / Switch language"
           >
-            <Globe className="w-3.5 h-3.5 text-violet-400" />
-            <span className={language === 'es' ? 'text-violet-400 font-bold' : 'text-neutral-500'}>ES</span>
-            <span className="text-neutral-700">|</span>
-            <span className={language === 'en' ? 'text-violet-400 font-bold' : 'text-neutral-500'}>EN</span>
+            <span className={language === 'es' ? 'text-white' : ''}>ES</span>
+            <span className="mx-1.5 text-neutral-600">/</span>
+            <span className={language === 'en' ? 'text-white' : ''}>EN</span>
           </button>
-
-          {/* GitHub Profile */}
           <a
             href="https://github.com/Leonardo4516"
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-2 text-xs font-mono px-3.5 py-1.5 rounded-lg bg-white/5 border border-violet-500/30 text-violet-300 hover:bg-violet-500/10 hover:border-violet-400 transition-all shadow-[0_0_15px_rgba(166,107,255,0.15)]"
+            className="text-neutral-400 hover:text-white transition-colors"
+            aria-label="GitHub"
           >
-            <GithubIcon className="w-3.5 h-3.5" />
-            <span>@Leonardo4516</span>
+            <GithubIcon className="w-[18px] h-[18px]" />
           </a>
         </div>
 
-        {/* Mobile Hamburger Button + Mobile Lang Button */}
-        <div className="flex md:hidden items-center gap-2">
+        {/* Móvil: idioma y menú */}
+        <div className="flex md:hidden items-center gap-4">
           <button
             onClick={toggleLanguage}
-            className="px-2.5 py-1 rounded-lg bg-neutral-950 border border-neutral-800 text-xs font-mono text-violet-400"
+            className="font-mono text-xs text-neutral-300"
             aria-label="Toggle language"
           >
             {language === 'es' ? 'EN' : 'ES'}
           </button>
-
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg bg-neutral-950 border border-violet-500/30 text-violet-400 hover:text-white transition-colors"
-            aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+            className="p-1 text-neutral-200 hover:text-white transition-colors"
+            aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
 
-      {/* Reading Progress Line */}
-      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-neutral-900/60 overflow-hidden pointer-events-none">
-        <div 
-          className="h-full bg-gradient-to-r from-violet-600 via-violet-500 to-violet-600 transition-all duration-150 shadow-[0_0_8px_rgba(166,107,255,0.8)]"
-          style={{ width: `${scrollProgress}%` }}
-        />
-      </div>
-
-      {/* Mobile Drawer Overlay */}
+      {/* Menú móvil */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -196,9 +177,9 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden bg-black/95 backdrop-blur-2xl border-b border-violet-500/20 px-6 py-6 overflow-hidden shadow-2xl"
+            className="md:hidden bg-black border-b border-white/10 px-5 overflow-hidden"
           >
-            <nav className="flex flex-col gap-3 font-mono text-sm">
+            <nav className="flex flex-col py-4">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.href
                 return (
@@ -206,30 +187,24 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
-                    className={`py-2.5 px-3.5 rounded-xl border-l-2 transition-all cursor-pointer flex items-center justify-between ${
-                      isActive
-                        ? 'bg-violet-950/40 text-violet-400 border-violet-500 font-bold shadow-[0_0_15px_rgba(166,107,255,0.2)]'
-                        : 'text-neutral-300 hover:bg-violet-500/10 hover:text-violet-400 border-transparent'
+                    className={`font-display text-2xl py-2.5 transition-colors ${
+                      isActive ? 'text-white' : 'text-neutral-400 hover:text-white'
                     }`}
                   >
-                    <span>{link.label}</span>
-                    {isActive && <div className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" />}
+                    {link.label}
                   </a>
                 )
               })}
-
-              <div className="pt-4 border-t border-neutral-800">
-                <a
-                  href="https://github.com/Leonardo4516"
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-2 text-xs font-mono w-full py-2.5 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-violet-500/40 text-neutral-200 hover:text-white transition-all shadow-[0_0_15px_rgba(166,107,255,0.1)]"
-                >
-                  <GithubIcon className="w-4 h-4 text-violet-400" />
-                  <span>GitHub @Leonardo4516</span>
-                </a>
-              </div>
+              <a
+                href="https://github.com/Leonardo4516"
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="mt-4 pt-4 border-t border-white/10 inline-flex items-center gap-2 font-mono text-sm text-neutral-300 hover:text-white"
+              >
+                <GithubIcon className="w-4 h-4" />
+                <span>@Leonardo4516</span>
+              </a>
             </nav>
           </motion.div>
         )}
