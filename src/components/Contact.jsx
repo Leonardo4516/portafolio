@@ -58,10 +58,11 @@ export default function Contact() {
   const enlace = 'underline underline-offset-4 decoration-white/20 hover:decoration-white'
 
   return (
-    <section id="contacto" className="pt-28 pb-72 px-5 sm:px-8 relative z-10 scroll-mt-24">
-      {/* El planeta gigante sube desde abajo al centro: el contenido queda arriba de su horizonte */}
+    <section id="contacto" className="min-h-[calc(100svh-5rem)] pt-24 pb-40 px-5 sm:px-8 relative z-10 scroll-mt-16">
+      {/* La sección ocupa la pantalla menos el pie (h-20): al terminar el scroll el título queda
+          bajo la barra y el planeta gigante sube en el espacio libre de abajo */}
       <div className="max-w-5xl mx-auto sobre-espacio">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-violet-300">{t.contact.tag}</p>
           <h2 className="font-display text-4xl sm:text-5xl font-semibold tracking-tight text-white mt-4 mb-5">
             {t.contact.title} <span className="text-violet-300">{t.contact.titleHighlight}</span>
@@ -118,7 +119,7 @@ export default function Contact() {
                 </label>
                 <textarea
                   id="contact-message"
-                  rows="4"
+                  rows="3"
                   required
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}

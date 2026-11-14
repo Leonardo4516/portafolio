@@ -435,13 +435,13 @@ export default function FondoEspacial({ activo = true }) {
     const horizonte = { subida: 0 }
     {
       const p = crearPlanetaMagma({ radio: 30, paleta: 'azul', semilla: [9, 3, 5], luz: new THREE.Vector3(0, 1, 0.3).normalize(), renderer, fuerzaAtmos: 2.2, calor: 0.7 })
-      p.grupo.position.set(0, -40, zEstacion(5) - 30)
+      p.grupo.position.set(0, -43, zEstacion(5) - 30)
       estaciones[5].add(p.grupo)
       liberar.push(p.liberar)
       actualizar.push((t) => {
         p.uniforms.uTiempo.value = t
         p.cuerpo.rotation.y = t * 0.02
-        p.grupo.position.y = -40 - 7 * (1 - horizonte.subida)
+        p.grupo.position.y = -43 - 7 * (1 - horizonte.subida)
       })
     }
 
